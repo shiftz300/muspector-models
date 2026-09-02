@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "rejected-upstream-perceptual",
+  "round": 12,
+  "goal": "Replay the frozen wet-only confidence gate against accepted model11 at its fixed restoration strength.",
+  "model": {
+    "restorer": "runs/clean/model11/clean.pt",
+    "restorer_sha256": "11f3247c25958716cd866cabc81d48e589f02b629dd2e35b68b63334d9f846f6",
+    "strength": 0.875,
+    "gate": "runs/clean/model5/gate.joblib",
+    "gate_sha256": "09ad8161096ed8b26d12b6dadaaaed781a5591206fd55948d544f799f1e0bd95",
+    "threshold": 0.8860600270808169
+  },
+  "eligibility": {
+    "minimum_wet_to_dry_rms_ratio": 0.03,
+    "runtime_input": "wet only"
+  },
+  "data": {
+    "source": "ASRNN ProCo RAT official development",
+    "license": "CC-BY-NC-4.0",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "gates": {
+    "confidence": {
+      "eligible_recall_minimum": 0.80,
+      "ineligible_false_accept_maximum": 0.05,
+      "coverage_minimum": 0.60
+    },
+    "restoration": {
+      "coverage": 0.60,
+      "aligned_esr_improvement": 0.10,
+      "aligned_mae_improvement": 0.05,
+      "sidr_improvement_db": 1.0,
+      "aligned_p95_ratio_max": 1.0,
+      "aligned_peak_ratio_max": 1.0
+    }
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "promotion": "blocked: confidence coverage does not repair model11 perceptual failure"
+}

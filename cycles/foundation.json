@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "id": "foundation",
+  "status": "product2-partial-development-evidence-not-promoted",
+  "goal": "Prove a maintainable multi-family restoration base before more single-device training.",
+  "contract": {
+    "stage": "unique slot plus family, package, optional device and controls",
+    "profile": ["original", "reference", "preset"],
+    "graph": "reverse each request's forward stage instances; repeated families allowed",
+    "target": "the immediate paired predecessor of each stage",
+    "unknown": "abstain when family, controls, order, profile or restoration confidence is insufficient"
+  },
+  "pilots": [
+    {
+      "mechanism": "nonlinear",
+      "families": ["drive", "distortion", "fuzz"],
+      "product_training": ["CC0 clean programs through repository-owned nonlinear DSP"],
+      "isolated_research_benchmarks": ["ASRNN RAT", "ASRNN DFZ", "audited ToneTwisT devices"],
+      "expert": "deterministic body plus uncertainty-aware pick and air reconstruction"
+    },
+    {
+      "mechanism": "dynamics",
+      "families": ["compressor", "gate"],
+      "product_training": ["CC0 clean programs through repository-owned compressor DSP"],
+      "isolated_research_benchmarks": ["ASRNN CS-3"],
+      "expert": "time-varying gain and envelope inversion"
+    },
+    {
+      "mechanism": "temporal",
+      "families": ["delay", "reverb"],
+      "product_training": ["CC0 clean programs through repository-owned delay DSP", "CC-BY-4.0 Aachen RIR with attribution"],
+      "isolated_research_benchmarks": ["Apple AU pairs", "EGFx normalized hardware evaluation"],
+      "expert": "analytic echo only; ambience is a separate unresolved long-tail expert"
+    }
+  ],
+  "sharing": {
+    "candidate": "pitch, onset, envelope and multiband content encoder",
+    "comparison": "shared encoder versus equal-budget independent encoders",
+    "accept": "no pilot may lose more than 0.02 absolute median perceptual improvement and aggregate model memory must improve by at least 25 percent",
+    "fallback": "keep independent encoders behind the same stage contract"
+  },
+  "data": {
+    "download_now": false,
+    "source_read_only": true,
+    "reason": "product Clean now also includes the verified CC-BY EG-IPT raw-DI subset (4.730397 hours), the CC-BY Longitudinal Guitar String Ageing raw-DI corpus (10.746655 hours), and two low-weight CC0 sampled instruments. Real-performance Clean is about 25.25 hours, so the hour minimum is closed, but the longitudinal source repeats one fixed routine over 28 days and only about seven clearly independent real-performance players are represented. Player diversity and multi-effect overlap coverage still block retraining; sampled-note hours do not close either gate",
+    "product_gradient_default": "blocked unless data_sources.json explicitly allows weights",
+    "forbidden": ["ASRNN gradients into product weights", "Apple AU gradients into product weights", "Pedalboard gradients into product weights before review", "DAFx archived Wet restoration gradients", "EGFx archived Wet sample-faithful inverse claims", "rights-unclear ToneTwisT gradients or redistribution"],
+    "isolation": "research-only datasets may report external metrics but may not train, calibrate, select, distill into, or share an encoder with product models",
+    "physical_audio_devices_used": false
+  },
+  "quality": {
+    "universal": ["multiresolution spectrum", "high-band detail", "pick transients", "dynamics", "phase", "pitch and onset", "new clipping", "geometry", "runtime", "human listening"],
+    "specific": ["residual nonlinear distortion", "gain envelope", "echo cancellation", "reverb tail"],
+    "promotion": "each intermediate stage and final chain must pass; averages cannot override hard-tail or human vetoes"
+  },
+  "runtime": {
+    "execution": "background ordinary CPU",
+    "active_graph_realtime_factor_maximum": 0.5,
+    "load": "one content encoder plus active family experts and small device adapters",
+    "audio_callback": false
+  },
+  "latest_verified": {
+    "run": "runs/foundation/product2",
+    "status": "partial-development-evidence-not-promoted",
+    "license_audit": "runs/foundation/license/audit.json",
+    "tests": "357 passed; 1 skipped",
+    "trained_expert": {
+      "mechanism": "nonlinear",
+      "architecture": "analytic-shape-inverse-plus-local-tcn-with-uncertainty",
+      "selected_epoch": 9,
+      "checkpoint_sha256": "feb43c7e611f5051ef5c89f3ea6906f4e922a1f3d80ff70b5fcfbb57554d9e62"
+    },
+    "runtime_realtime_factor": {
+      "nonlinear": 0.095893097333222,
+      "dynamics": 0.3126489863352617,
+      "echo": 0.032659000004059635,
+      "three_effect_graph_sum": 0.44120108367254335
+    },
+    "quality_gate": {
+      "nonlinear": "passed aggregate, tanh/atan/cubic and both held-out product-source development strata; pass fraction 0.6771",
+      "dynamics": "stateful analytic single-effect inverse passed 48 of 48 development examples",
+      "echo": "causal analytic single-effect inverse passed 48 of 48 development examples",
+      "metric_contract": "quality schema 2 preserves one-sided reduction thresholds with bounded reporting and per-stratum gates",
+      "order_contract": "single-effect experts receive no chain order or neighboring-effect context"
+    },
+    "blind_presence": {
+      "run": "runs/foundation/product2/blind2-balanced",
+      "status": "development-rejected",
+      "micro_f1": 0.8077188146106133,
+      "macro_f1": 0.7959046619448066,
+      "clean_false_positive_rate": 0.029850746268656716,
+      "synthetic_chain_macro_f1": 0.7332875457875457,
+      "failed_recall": {
+        "nonlinear": 0.4897959183673469,
+        "echo": 0.7549019607843137,
+        "unknown": 0.6893203883495146
+      },
+      "order_output": false,
+      "controls_output": false
+    },
+    "product_sources_only": true,
+    "research_data_isolated": true,
+    "physical_audio_devices_used": false,
+    "locked_final_audio_opened": false,
+    "coverage_audit": "runs/foundation/product2/audit.json",
+    "next": "Do not promote or open locked-final. Add license-cleared electric-guitar raw-DI domains with at least three more independent performers plus stronger multi-effect overlap coverage, then rerun the frozen Blind v2 contract on MPS; keep point knobs abstained until identifiability is demonstrated."
+  },
+  "deliverables": [
+    "three-tier license matrix for research, product weights and redistributed audio",
+    "product-safe synthetic pair renderer owned by this repository",
+    "family-neutral stage, profile and package schemas",
+    "three equal-budget independent baselines",
+    "one shared-encoder comparison",
+    "per-family automatic reports before any listening demo"
+  ]
+}

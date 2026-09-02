@@ -1,0 +1,689 @@
+{
+  "schema": 1,
+  "policy": {
+    "default_when_rights_unclear": "metadata-only",
+    "license_must_be_verified_per_record": true,
+    "source_audio_mutation": "forbidden",
+    "tiers": {
+      "research": "may be inspected and used only in isolated non-release experiments",
+      "weights": "may contribute gradients to a redistributable default model",
+      "audio": "may be copied only when the source license and attribution terms explicitly allow it"
+    },
+    "product_weight_default": "blocked",
+    "product_training_requires": [
+      "license-allows-derivatives",
+      "commercial-use-is-not-restricted",
+      "model-weight-use-is-approved-by-project-policy",
+      "pairing-and-preprocessing-documented",
+      "required-attribution-is-embedded-in-model-card"
+    ],
+    "isolation": "research-only and rights-unclear samples must never contribute gradients, calibration thresholds, model selection, or shared encoders for product weights"
+  },
+  "sources": [
+    {
+      "id": "muspector-dsp",
+      "title": "Muspector repository-owned effect renderers",
+      "record_url": "https://github.com/shiftz300/muspector-models",
+      "doi": null,
+      "local_paths": ["remix/render.py", "remix/physics.py"],
+      "license": "Apache-2.0",
+      "rights_status": "project-owned",
+      "gradient_scope": "product-restoration",
+      "weight_scope": "redistributable",
+      "audio_scope": "generated-audio-inherits-clean-program-rights; do-not-bundle-by-default",
+      "allowed_uses": ["product-pair-generation", "train-restoration", "validate-restoration", "redistribute-derived-model"],
+      "pairing": "deterministic in-memory rendering; exact clean predecessor retained; no generated corpus stored",
+      "hardware": false,
+      "control_labels": "exact renderer parameters",
+      "audio_quality_caveats": [
+        "software mechanisms validate the base architecture but do not establish named physical-pedal fidelity",
+        "new mechanism renderers require tests and provenance review before admission"
+      ],
+      "admission": "product-restoration-renderer"
+    },
+    {
+      "id": "stone-phaser-cc0",
+      "title": "Stone Phaser four-stage all-pass topology",
+      "record_url": "https://github.com/jpcima/stone-phaser",
+      "doi": null,
+      "local_paths": ["remix/phaser3.py"],
+      "license": "CC0-1.0",
+      "rights_status": "verified-at-pinned-upstream-f057ea5c1e368d6cd937f4e359a9514ac72fe902",
+      "gradient_scope": "product-phaser-restoration-renderer",
+      "weight_scope": "redistributable",
+      "audio_scope": "generated-audio-inherits-clean-program-rights; do-not-bundle-by-default",
+      "allowed_uses": ["product-pair-generation", "train-restoration", "validate-restoration", "redistribute-derived-model"],
+      "pairing": "deterministic in-memory four-stage all-pass rendering with the exact clean predecessor retained; no generated corpus stored",
+      "hardware": false,
+      "control_labels": "exact rate, dry-wet mix, color and zero-feedback safe-subdomain controls; hidden start phase is retained only as a training/evaluation label",
+      "audio_quality_caveats": [
+        "the pinned DSP file offers CC0-1.0 or BSL-1.0 and this project admits the CC0 grant",
+        "the renderer is a generic Stone-style mechanism and does not establish named physical-pedal fidelity",
+        "the current inverse covers zero feedback only and must abstain outside its declared confidence gate"
+      ],
+      "admission": "product-phaser-restoration-renderer"
+    },
+    {
+      "id": "dafx25-guitar-effects-chains",
+      "title": "Guitar improvisations with chains of five effects",
+      "record_url": "https://zenodo.org/records/7871720",
+      "doi": "10.5281/zenodo.7871720",
+      "local_paths": ["data/corpus/guitar-effects-chains"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-record-api",
+      "gradient_scope": "product-family-presence-order-and-clean-source-only; archived Wet is excluded from restoration gradients",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution",
+      "allowed_uses": ["train-family", "validate-family", "train-order", "validate-order", "product-clean-source", "redistribute-derived-model"],
+      "pairing": "400 clean improvisations and presence-labelled effected variants; Dataset 3 publishes realized orders separately in file_effects_order_vary_params.json",
+      "hardware": false,
+      "control_labels": "five binary presence bits in filenames plus author-provided realized order metadata; randomized parameter values are not published",
+      "archive": {
+        "bytes": 32969803616,
+        "md5": "56773ca55a4eb4c3be81f5c3418053a5",
+        "entries": 38817
+      },
+      "audio_quality_caveats": [
+        "effects were rendered with VST plugins or Pedalboard and are not a physical multi-pedal hardware capture",
+        "family models use presence bits only; the separate order package may use author-provided realized-order metadata",
+        "archived Wet is never a restoration target because exact immediate predecessors and effect parameters are not published"
+      ],
+      "admission": "family-presence-order-and-clean-source-only"
+    },
+    {
+      "id": "aachen-chapel-rir",
+      "title": "Room acoustic measurement and simulation data of the St. Nicholas Chapel, Aachen Cathedral",
+      "record_url": "https://zenodo.org/records/20428705",
+      "doi": "10.5281/zenodo.20428705",
+      "local_paths": ["data/corpus/aachen-chapel-rir"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified",
+      "gradient_scope": "product-reverb-restoration",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "do-not-bundle; generate wet pairs ephemerally",
+      "allowed_uses": ["train-reverb", "validate-reverb", "redistribute-derived-model"],
+      "pairing": "measured split-disjoint RIR convolved ephemerally with admitted clean programs; clean predecessor retained",
+      "hardware": true,
+      "control_labels": "measured source/receiver identity plus deterministic wet mix",
+      "audio_quality_caveats": [
+        "B-format channel one is used by the current renderer",
+        "RIR is resampled, onset-trimmed and energy-normalized before deterministic convolution",
+        "no derived wet corpus is stored"
+      ],
+      "admission": "reverb-restoration-training"
+    },
+    {
+      "id": "marshall-jvm410h",
+      "title": "Marshall JVM 410H Dataset",
+      "record_url": "https://zenodo.org/records/7970723",
+      "doi": "10.5281/zenodo.7970723",
+      "local_paths": ["data/corpus/marshall-jvm410h"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-record-api",
+      "gradient_scope": "product-amp-restoration",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "do-not-bundle; retain source attribution and archive integrity metadata",
+      "allowed_uses": ["train-amp", "validate-amp", "redistribute-derived-model"],
+      "pairing": "37 released 44.1 kHz mono input/speaker-output pairs for Marshall JVM410H OD1: 25 fit/calibration settings, two development-only Gain interpolation settings, nine locked-final B/M/T combinations, and one quarantined Gain=6 naming contradiction",
+      "hardware": true,
+      "control_labels": "Bass, Mid, Treble and Gain encoded by setting directory; fit/calibration Gain values are 0, 2, 4, 5 and 10, while Gain 1 and 8 are development-only",
+      "archive": {
+        "bytes": 4369237770,
+        "md5": "4d08dac89b44f618f2d6c2a69739e104"
+      },
+      "audio_quality_caveats": [
+        "single Marshall JVM410H OD1 device and a single repeated source program do not establish generic Amp-family or player diversity",
+        "Gain=6 is excluded because its directory says G6 while every member filename says G4",
+        "the author-released audio has passed source-program zero-lag and bounded Wet group-delay audits; no global delay was removed",
+        "speaker-output target excludes a cabinet and microphone; cab removal remains a separate Amp profile or internal stage"
+      ],
+      "admission": "amp-restoration-training"
+    },
+    {
+      "id": "apple-au-local",
+      "title": "Local Apple system Audio Unit captures",
+      "record_url": null,
+      "doi": null,
+      "local_paths": ["data/corpus/apple-au"],
+      "license": "LicenseRef-Apple-System-Software",
+      "rights_status": "local-experiment-only-needs-weight-review",
+      "gradient_scope": "research-only",
+      "weight_scope": "blocked-until-written-output-and-weight-clearance",
+      "audio_scope": "blocked-from-redistribution",
+      "allowed_uses": ["internal-restoration-research"],
+      "pairing": "manifest links each AUDistortion, AUDelay or AUMatrixReverb Wet capture to its licensed clean source, group and split",
+      "hardware": false,
+      "control_labels": "full Audio Unit parameter map and component version",
+      "audio_quality_caveats": [
+        "no Apple binary, preset, impulse response or rendered audio may be redistributed",
+        "derived-weight release eligibility requires separate review",
+        "absolute source paths in the historical manifest require repository-local resolution verification"
+      ],
+      "admission": "internal-drive-delay-reverb-restoration-pilot"
+    },
+    {
+      "id": "spotify-pedalboard-renderer",
+      "title": "Spotify Pedalboard training renderer",
+      "record_url": "https://github.com/spotify/pedalboard",
+      "doi": null,
+      "local_paths": [],
+      "license": "GPL-3.0",
+      "rights_status": "training-tool-verified-output-review-required",
+      "gradient_scope": "research-only",
+      "weight_scope": "blocked-until-render-output-and-weight-review",
+      "audio_scope": "not-redistributed",
+      "allowed_uses": ["internal-software-effect-pair-generation"],
+      "pairing": "deterministic in-memory rendering from admitted clean programs; exact clean predecessor retained",
+      "hardware": false,
+      "control_labels": "renderer parameters for Drive, Delay, Reverb, Chorus and Phaser",
+      "audio_quality_caveats": [
+        "software effects do not establish physical-pedal fidelity",
+        "renderer and generated audio are not distributed with the client",
+        "derived-weight release eligibility remains a separate gate"
+      ],
+      "admission": "internal-multifamily-restoration-pilot"
+    },
+    {
+      "id": "egfxset",
+      "title": "EGFxSet",
+      "record_url": "https://zenodo.org/records/7044411",
+      "doi": "10.5281/zenodo.7044411",
+      "local_paths": ["data/corpus/egfxset"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified",
+      "gradient_scope": "product-family-parameter-and-clean-source-only; normalized Wet is excluded from restoration gradients",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution",
+      "allowed_uses": ["train-family", "validate-family", "product-clean-source", "redistribute-derived-model"],
+      "pairing": "clean and real-hardware effected tones with parameter annotations",
+      "hardware": true,
+      "control_labels": "annotated discrete settings",
+      "audio_quality_caveats": [
+        "clean and effected files were normalized",
+        "single Stratocaster, one performer, monophonic notes",
+        "not admitted for sample-faithful aligned forward training"
+      ],
+      "admission": "family-and-parameter-recognition-only"
+    },
+    {
+      "id": "idmt-smt-audio-effects",
+      "title": "IDMT-SMT-Audio-Effects",
+      "record_url": "https://www.idmt.fraunhofer.de/en/publications/datasets/audio_effects.html",
+      "doi": null,
+      "local_paths": ["data/corpus/idmt-smt-audio-effects"],
+      "license": "CC-BY-NC-ND-4.0",
+      "rights_status": "verified",
+      "gradient_scope": "blocked-by-no-derivatives",
+      "weight_scope": "blocked",
+      "audio_scope": "evaluation-access-only",
+      "allowed_uses": ["evaluate-family-noncommercial"],
+      "pairing": "separately rendered plugin-effect examples",
+      "hardware": false,
+      "control_labels": "three settings per effect",
+      "audio_quality_caveats": [
+        "44.1 kHz 16-bit mono",
+        "no-derivatives terms prohibit model-training use"
+      ],
+      "admission": "evaluation-only"
+    },
+    {
+      "id": "tonetwist-local-collection",
+      "title": "ToneTwist AFx Dataset local collection",
+      "record_url": "https://github.com/mcomunita/tonetwist-afx-dataset",
+      "doi": null,
+      "local_paths": [
+        "data/corpus/tonetwist-nc",
+        "data/corpus/tonetwist-pedal-identity-bdrive-nc",
+        "data/corpus/tonetwist-pedal-identity-rodent-nc",
+        "data/corpus/tonetwist-drive-open-set-klon-nc",
+        "data/corpus/tonetwist-drive-open-set-fuzzy-logic-nc",
+        "data/corpus/tonetwist-drive-open-set-metal-muff-nc",
+        "data/corpus/tonetwist-drive-open-set-silly-fuzz-nc"
+      ],
+      "license": "LicenseRef-Mixed-Per-Record",
+      "rights_status": "mixed-needs-record-audit",
+      "gradient_scope": "research-only-after-record-audit",
+      "weight_scope": "blocked",
+      "audio_scope": "blocked",
+      "allowed_uses": ["internal-noncommercial-research"],
+      "pairing": "48 kHz float dry/wet recordings with synchronization markers",
+      "hardware": "mixed",
+      "control_labels": "record-dependent settings, commonly 0-10",
+      "audio_quality_caveats": [
+        "repository code license does not license separately deposited audio",
+        "dry sources have mixed provenance",
+        "some dry programs use peak normalization and random gain preprocessing"
+      ],
+      "admission": "internal-research-only"
+    },
+    {
+      "id": "remfx-local",
+      "title": "RemFX local collection",
+      "record_url": null,
+      "doi": null,
+      "local_paths": ["data/corpus/remfx-1-1", "data/corpus/remfx-dynamicsuperb"],
+      "license": "LicenseRef-NonCommercial-Local",
+      "rights_status": "needs-record-audit",
+      "gradient_scope": "research-only-after-record-audit",
+      "weight_scope": "blocked",
+      "audio_scope": "blocked",
+      "allowed_uses": ["internal-noncommercial-research"],
+      "pairing": "effect-recognition corpus",
+      "hardware": "mixed",
+      "control_labels": "not admitted as exact physical controls",
+      "audio_quality_caveats": ["redistribution and derived-weight rights are unresolved"],
+      "admission": "internal-research-only"
+    },
+    {
+      "id": "guitarjam",
+      "title": "GuitarJam: Monophonic Electric Guitar Dataset",
+      "record_url": "https://huggingface.co/datasets/Julian-br/GuitarJam",
+      "doi": null,
+      "local_paths": ["data/corpus/guitarjam"],
+      "license": "CC0-1.0",
+      "rights_status": "verified",
+      "gradient_scope": "product-clean-source",
+      "weight_scope": "redistributable",
+      "audio_scope": "cc0",
+      "allowed_uses": ["replay-program", "train", "validate", "redistribute-derived-model"],
+      "pairing": "clean DI source only",
+      "hardware": false,
+      "control_labels": "none",
+      "audio_quality_caveats": ["44.1 kHz 16-bit; resample analysis/replay copies only"],
+      "admission": "clean-source-only"
+    },
+    {
+      "id": "guitar-techs",
+      "title": "Guitar-TECHS: An Electric Guitar Dataset Covering Techniques, Musical Excerpts, Chords and Scales Using a Diverse Array of Hardware",
+      "record_url": "https://zenodo.org/records/14963133",
+      "doi": "10.5281/zenodo.14963133",
+      "local_paths": ["data/corpus/guitar-techs"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-project-and-zenodo-record-api",
+      "gradient_scope": "product-clean-source",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution; do-not-bundle-by-default",
+      "allowed_uses": ["product-clean-source", "train-family", "redistribute-derived-model"],
+      "pairing": "P1/P2 clean electric-guitar DI source; synchronized Amp-microphone branches are a separate Amp+cab+mic candidate and remain blocked from restoration gradients pending a dedicated corrected-pair implementation",
+      "hardware": true,
+      "control_labels": "none",
+      "audio_quality_caveats": [
+        "P1 and P2 DI performances remain fit-only; their Amp-microphone branches require per-profile delay correction",
+        "P3 was previously reserved for locked-final but was decoded during the 2026-09-02 alignment audit before that local boundary was re-read; it is permanently contaminated, blocked from model fitting and selection, and its local audio was removed",
+        "the Amp-microphone branch includes amplifier, cabinet, microphone and room coloration and must never be labeled speaker-output-only Amp",
+        "required dataset and paper attribution must be embedded in every derived model card"
+      ],
+      "minimal_amp_cab_candidate": {
+        "archives_retained": ["P1_singlenotes.zip", "P2_singlenotes.zip"],
+        "p1_bytes": 108626613,
+        "p1_md5": "ca0c4674dde3805574685a313f7c39eb",
+        "p2_bytes": 116133457,
+        "p2_md5": "40fbf03d8b04bb2cf42df20f36dc2254",
+        "audit": "runs/foundation/product3-amp-guitar-techs/data-audit.json",
+        "restoration_gradient_status": "blocked-pending-corrected-pair-implementation"
+      },
+      "admission": "clean-source-only"
+    },
+    {
+      "id": "eg-ipt",
+      "title": "EG-IPT Dataset (Electric Guitar Instrumental Playing Techniques)",
+      "record_url": "https://zenodo.org/records/15205644",
+      "doi": "10.5281/zenodo.15205644",
+      "local_paths": [
+        "data/corpus/eg-ipt"
+      ],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-record-api",
+      "gradient_scope": "product-clean-source-di-only",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution; do-not-bundle-by-default",
+      "allowed_uses": ["product-clean-source", "train-family", "redistribute-derived-model"],
+      "pairing": "raw DI branch only; repository-owned effects are rendered ephemerally and generated Wet is not stored",
+      "hardware": true,
+      "control_labels": "pickup position and playing technique; never effect controls",
+      "archive": {
+        "bytes": 23757983313,
+        "md5": "48a5135adfd090515ff0af7dc5c3c32f",
+        "official_file": "EG-IPT.zip"
+      },
+      "extracted_audio": {
+        "scope": "EG-IPT/*/DI/*/*.wav only",
+        "files": 8720,
+        "duration_seconds": 17029.430698,
+        "duration_hours": 4.730397416,
+        "sample_rate_hz": 96000,
+        "channels": 1,
+        "subtype": "PCM_24",
+        "nonfinite_files": 0
+      },
+      "audio_quality_caveats": [
+        "all DI audio is one professional player, one 2005 Gibson SG and one BSS AR-133 to Midas XL48 session",
+        "the complete DI domain is fit-only; pickup, note or technique subdivisions must not cross gates",
+        "mostly isolated monophonic techniques rather than independent musical performances",
+        "DI contributes about one sixth of the published 28:22:56 six-source duration",
+        "required dataset and paper attribution must be embedded in every derived model card"
+      ],
+      "admission": "clean-source-di-only-fit-only"
+    },
+    {
+      "id": "longitudinal-guitar-string-ageing",
+      "title": "A Longitudinal Dataset for Guitar String Ageing",
+      "record_url": "https://zenodo.org/records/19823590",
+      "paper_url": "https://www.research.ed.ac.uk/en/publications/a-longitudinal-dataset-for-guitar-string-ageing/",
+      "doi": "10.5281/zenodo.19823590",
+      "local_paths": [
+        "data/corpus/longitudinal-guitar-string-ageing"
+      ],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-record-api-and-cc-by-author-manuscript",
+      "gradient_scope": "product-clean-source-raw-di-fit-only",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution; do-not-bundle-by-default",
+      "allowed_uses": ["product-clean-source", "train-family", "redistribute-derived-model"],
+      "pairing": "raw DI performances only; repository-owned effects are rendered ephemerally and generated Wet is not stored",
+      "hardware": true,
+      "control_labels": "performer, guitar, string age and fixed routine; never effect controls",
+      "archive": {
+        "bytes": 3732144826,
+        "md5": "741e3d9880901e306ffd99d84cc0ff35",
+        "official_file": "LongiGuitarDataset.zip"
+      },
+      "extracted_audio": {
+        "scope": "LongiGuitarDataset/guitarist_*/*/*.wav plus recordings.csv",
+        "files": 56,
+        "duration_seconds": 38687.95641666667,
+        "duration_hours": 10.746654560185185,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "subtypes": {
+          "PCM_24": 28,
+          "PCM_16": 28
+        },
+        "performers": 2,
+        "guitars": ["Fender Stratocaster", "Epiphone Les Paul"],
+        "recording_interfaces": ["Focusrite Scarlett 2i2", "Roland UA-25EX"],
+        "nonfinite_files": 0
+      },
+      "audio_quality_caveats": [
+        "the author manuscript explicitly states direct injection with no amplifier, effects processing or microphone in the signal chain",
+        "each performer repeats the same approximately 11.5-minute routine on 28 days, so nominal hours overstate musical-content diversity",
+        "the complete two-performer domain is fit-only and down-weighted; random crop or day-level gate splits are forbidden",
+        "the paper says segment boundaries are included, but the released CSV files contain only day, date, time and file names",
+        "performer 2 has a documented intermittent high-frequency recording artefact above 10 kHz",
+        "required dataset and paper attribution must be embedded in every derived model card"
+      ],
+      "admission": "clean-source-raw-di-fit-only-downweighted"
+    },
+    {
+      "id": "freepats-electric-guitar-direct",
+      "title": "FreePats FSBS Electric Guitar Direct",
+      "record_url": "https://freepats.zenvoid.org/ElectricGuitar/clean-electric-guitar.html",
+      "doi": null,
+      "local_paths": ["data/corpus/freepats-electric-guitar-direct"],
+      "license": "CC0-1.0",
+      "rights_status": "verified-via-official-project-page-and-bundled-license",
+      "gradient_scope": "product-clean-source-low-weight",
+      "weight_scope": "redistributable",
+      "audio_scope": "cc0; do-not-bundle-by-default",
+      "allowed_uses": ["product-clean-source", "train-family", "redistribute-derived-model"],
+      "pairing": "raw directly sampled Fender electric guitar; repository-owned effects are rendered ephemerally",
+      "hardware": true,
+      "control_labels": "sampled pitch, string, velocity and bridge-pickup metadata",
+      "archive": {
+        "bytes": 77076723,
+        "sha256": "7ab2a4551bb8847342d6fd10cc56e0642fcaf43f3be8d665269c4dc9bfbbd599",
+        "official_file": "EGuitarFSBS-direct-SFZ+FLAC-20220911.7z"
+      },
+      "audio_quality_caveats": [
+        "122 isolated sampled notes total 0.636 hours and do not count as independent-player performance hours",
+        "one Fender guitar, bridge pickup and recording chain only",
+        "fit-only and capped to one quarter of a regular clean-source cycle"
+      ],
+      "admission": "clean-source-fit-only-low-weight"
+    },
+    {
+      "id": "karoryfer-emilyguitar",
+      "title": "Karoryfer Samples Emilyguitar",
+      "record_url": "https://github.com/sfzinstruments/karoryfer.emilyguitar",
+      "doi": null,
+      "local_paths": ["data/corpus/karoryfer-emilyguitar"],
+      "license": "CC0-1.0",
+      "rights_status": "verified-via-official-github-repository-and-bundled-license",
+      "gradient_scope": "product-clean-source-low-weight-notes-only",
+      "weight_scope": "redistributable",
+      "audio_scope": "cc0; do-not-bundle-by-default",
+      "allowed_uses": ["product-clean-source", "train-family", "redistribute-derived-model"],
+      "pairing": "directly sampled Epiphone electric guitar notes; repository-owned effects are rendered ephemerally",
+      "hardware": true,
+      "control_labels": "pitch, velocity, round-robin and dual-pickup sampling metadata",
+      "archive": {
+        "git_commit": "b4920dc662fd9cad6dcaccdeecffdd91c8725d8c",
+        "download_sha256": "39b64282bbb23de6088427f560d42bbded66e1e5fb803a83f91c6c05aab09525",
+        "official_file": "GitHub zipball for pinned commit"
+      },
+      "audio_quality_caveats": [
+        "216 admitted note attacks total 0.253 hours and do not count as independent-player performance hours",
+        "one Epiphone guitar, one player and one recording chain only",
+        "release and handling-noise samples are excluded from Clean discovery",
+        "44.1 kHz mono PCM24 requires in-memory resampling",
+        "fit-only and capped to one quarter of a regular clean-source cycle"
+      ],
+      "admission": "clean-source-notes-only-fit-only-low-weight"
+    },
+    {
+      "id": "guitarset-mono-pickup",
+      "title": "GuitarSet v1.1.0 mono pickup mix",
+      "record_url": "https://zenodo.org/records/3371780",
+      "doi": "10.5281/zenodo.3371780",
+      "local_paths": [
+        "data/downloads/guitarset-audio-mono-pickup-mix.zip"
+      ],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-record-api",
+      "gradient_scope": "blocked-by-current-project-policy; OOD evaluation only",
+      "weight_scope": "not-applicable",
+      "audio_scope": "do-not-bundle",
+      "license_reference": "https://zenodo.org/api/records/3371780 (metadata.license.id=cc-by-4.0)",
+      "allowed_uses": [
+        "ood-runtime-evaluation",
+        "redistribute-derived-metrics"
+      ],
+      "pairing": "clean acoustic-guitar mono pickup only; no CS-3 Wet target",
+      "hardware": false,
+      "control_labels": "none",
+      "audio_quality_caveats": [
+        "44.1 kHz mono pickup WAV requires analysis-copy resampling to 48 kHz",
+        "94 of 360 source members hit full scale at one sample; absolute analog input calibration is unknown",
+        "unpaired Dry audio cannot measure CS-3 clone fidelity",
+        "must not be presented as a locked-final Dry/Wet evaluation"
+      ],
+      "admission": "clean-source-ood-runtime-evaluation-only"
+    },
+    {
+      "id": "asrnn-physical-effects",
+      "title": "Datasets for Asymptotically Stable Recurrent Neural Networks",
+      "record_url": "https://zenodo.org/records/20406285",
+      "doi": "10.5281/zenodo.20406285",
+      "local_paths": ["data/corpus/asrnn-physical-effects"],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-via-zenodo-api",
+      "gradient_scope": "internal-noncommercial-research-only",
+      "weight_scope": "blocked-from-product-by-cc-by-nc-4.0",
+      "audio_scope": "noncommercial-license-only",
+      "allowed_uses": ["internal-noncommercial-research"],
+      "pairing": "48 kHz stereo WAV; RAT one-second and CS-3 three-second clips; channel 1 dry and channel 2 wet",
+      "hardware": true,
+      "control_labels": "RAT distortion/filter/volume 0-100; DFZ fuzz blend/filter; CS-3 attack",
+      "audio_quality_caveats": [
+        "official train/eval split has no independent calibrate or locked-final set",
+        "RAT filter direction must be inverted for Muspector Tone semantics",
+        "public pilot cannot replace a session-disjoint Capture Pack"
+      ],
+      "admission": "internal-real-hardware-pilot"
+    },
+    {
+      "id": "pod-set",
+      "title": "Parametric Overdrive pedal dataset (pOD-set)",
+      "record_url": "https://zenodo.org/records/15389653",
+      "doi": "10.5281/zenodo.15389653",
+      "local_paths": [],
+      "license": "NOASSERTION",
+      "rights_status": "rights-field-empty-on-record-page",
+      "gradient_scope": "blocked",
+      "weight_scope": "blocked",
+      "audio_scope": "blocked",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "one shared input through 27 analog overdrive pedals at 36 gain/tone settings",
+      "hardware": true,
+      "control_labels": "6 x 6 Gain/Tone grid; device Level fixed per pedal",
+      "audio_quality_caveats": [
+        "45.1 GB download",
+        "per-pedal peak normalization averages 0.33 +/- 0.87 dB",
+        "polarity was standardized for phase-inverting circuits",
+        "one shared approximately six-minute source program",
+        "rights are unresolved, so audio download and training are blocked"
+      ],
+      "admission": "metadata-only"
+    },
+    {
+      "id": "goat-guitar-di",
+      "title": "GOAT: A Large Dataset of Paired Guitar Audio Recordings and Tablatures",
+      "record_url": "https://zenodo.org/records/15690894",
+      "doi": "10.5281/zenodo.15690894",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-research-only",
+      "gradient_scope": "internal-noncommercial-research-only",
+      "weight_scope": "blocked-from-product-by-license-and-explicit-record-description",
+      "audio_scope": "restricted-access; noncommercial research only",
+      "allowed_uses": ["metadata-review", "internal-noncommercial-research-after-access-grant"],
+      "pairing": "5.9 hours of real electric-guitar DI with tablature and aligned MIDI",
+      "hardware": true,
+      "control_labels": "tablature and MIDI; no effect controls",
+      "audio_quality_caveats": [
+        "official record requires access request",
+        "official description explicitly says not intended for any commercial product",
+        "the open CC BY paper license is not the restricted dataset license"
+      ],
+      "admission": "metadata-only-product-blocked"
+    },
+    {
+      "id": "gada-guitar-audio",
+      "title": "Guitar Audio Dataset for AI (GADA)",
+      "record_url": "https://gingerpianist.github.io/GADA_demo_page/",
+      "doi": null,
+      "local_paths": [],
+      "license": "NOASSERTION",
+      "rights_status": "audio-license-not-found-on-project-repository-or-dataset-page",
+      "gradient_scope": "blocked",
+      "weight_scope": "blocked",
+      "audio_scope": "blocked",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "more than 4000 guitar note/chord samples; electric and bass recordings use DI",
+      "hardware": true,
+      "control_labels": "guitar model, chord, voicing, pickup, tone, volume and player ID",
+      "audio_quality_caveats": [
+        "project page calls the dataset open-source but does not state an audio license",
+        "GitHub repository has no detected LICENSE file and the audio is hosted separately on Google Drive",
+        "the 1,380,776,731-byte public ZIP has 4,011 central-directory entries and none is named LICENSE, LICENCE, COPYING, RIGHTS, TERMS, README or CITATION",
+        "source-code visibility cannot authorize product gradients from audio"
+      ],
+      "admission": "metadata-only-rights-unresolved"
+    },
+    {
+      "id": "five-guitar-dataset",
+      "title": "Five guitar dataset",
+      "record_url": "https://zenodo.org/records/4988354",
+      "doi": "10.5281/zenodo.4988354",
+      "local_paths": [],
+      "license": "CC-BY-4.0",
+      "rights_status": "dataset-license-verified-composition-rights-unresolved",
+      "gradient_scope": "blocked-pending-composition-and-signal-chain-review",
+      "weight_scope": "blocked",
+      "audio_scope": "do-not-download-for-product-training",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "thirty performances of six named songs across five guitars and three recording setups",
+      "hardware": true,
+      "control_labels": "guitar, song, tempo and recording setup",
+      "audio_quality_caveats": [
+        "the six performances are named cover songs and underlying composition permission is not documented",
+        "electric-guitar DI is taken from a DV Mark Little Jazz amplifier output, not a raw pickup split",
+        "only one apparent recording session and no documented player diversity"
+      ],
+      "admission": "metadata-only-rights-and-domain-unresolved"
+    },
+    {
+      "id": "does-it-chug",
+      "title": "Does it Chug? Towards a Data-Driven Understanding of Guitar Tone Description",
+      "record_url": "https://huggingface.co/datasets/pratikstar/doesitchug",
+      "paper_url": "https://aclanthology.org/2024.nlp4musa-1.15/",
+      "doi": null,
+      "local_paths": [],
+      "license": "NOASSERTION",
+      "rights_status": "dataset-license-not-stated-on-hugging-face-card-project-page-or-github-repository",
+      "gradient_scope": "blocked",
+      "weight_scope": "blocked",
+      "audio_scope": "blocked",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "960 processed electric-guitar clips derived from DI performances by three players, duplicated into pairwise annotation rows",
+      "hardware": true,
+      "control_labels": "110 timbre adjectives and pairwise expert annotations; no reliable raw-DI/effect-control pairing",
+      "audio_quality_caveats": [
+        "the paper confirms unprocessed DI source performances from three players, but the released dataset primarily exposes processed comparison clips",
+        "the Hugging Face page has no license tag and its README contains only generated schema metadata with no license",
+        "the GitHub repository contains no LICENSE file",
+        "the project thanks third-party guitarists for permission to use DI tracks, but does not publish terms allowing commercial model-weight training",
+        "the CC-BY license on the paper does not license the audio dataset"
+      ],
+      "admission": "metadata-only-rights-unresolved"
+    },
+    {
+      "id": "multimodal-electric-guitar-data",
+      "title": "Multimodal Electric Guitar Data",
+      "record_url": "https://zenodo.org/records/6470236",
+      "doi": "10.5281/zenodo.6470236",
+      "local_paths": ["data/corpus/multimodal-electric-guitar"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-record-api",
+      "gradient_scope": "product-family-presence-positive-only-fit-low-weight; blocked from restoration and all-zero Clean supervision",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution; do-not-bundle-by-default",
+      "allowed_uses": ["train-family-positive-only", "ood-runtime-evaluation", "redistribute-derived-model", "redistribute-derived-metrics"],
+      "pairing": "line-input recordings from a fixed Roland guitar amplifier; repository-owned effects are rendered ephemerally and only labels for added effects receive gradients",
+      "hardware": true,
+      "control_labels": "participant, playing task, dynamics and free improvisation; no effect controls",
+      "archive": {
+        "part1_bytes": 28929917947,
+        "part1_md5": "015b6ce53b4363a1414ecc6e706467dc",
+        "part2_bytes": 3605614261,
+        "part2_md5": "59235595955ba4a2d4ed1d28a156cf44",
+        "readme_md5": "bfcc03dff31fa4ae00accae754773e7a"
+      },
+      "local_audio_audit": {
+        "report": "runs/foundation/product2/multimodal-audio-audit.json",
+        "wav_files": 332,
+        "hours": 17.588686296296302,
+        "format": "48-kHz mono PCM-16",
+        "nonfinite_samples": 0,
+        "excluded_from_sampling": [
+          "guit_raw_dir/p13/free_70/free_70.wav",
+          "guit_raw_dir/p13/bending_soft_70/bending_soft_70.wav",
+          "guit_raw_dir/p24/free_encore_120/free_encore_120.wav",
+          "guit_raw_dir/p24/free_70/free_70.wav",
+          "guit_raw_dir/p26/sustained_soft_70/sustained_soft_70.wav"
+        ]
+      },
+      "audio_quality_caveats": [
+        "the archive has p01-p32 folders while the paper identifies 31 complete participants; player diversity claims remain capped at 31",
+        "31 trained guitarists are valuable for player diversity, but all used the study instrument and one controlled laboratory chain",
+        "the official paper states that audio was recorded as line input from a Roland guitar amplifier through a Universal Audio Apollo Twin",
+        "amplifier model, controls and built-in effect settings are not documented; three Range-audited samples showed no obvious delay repeats or modulation tracks, which is not proof that the amplifier was effect-free",
+        "amplifier coloration is embedded, so this is never a raw pickup DI or a restoration target",
+        "positive-only target masks prevent undocumented baseline coloration from becoming false negative effect labels",
+        "five files with clipping or near-silent level are retained as evidence but excluded from sampling",
+        "the related paper is CC-BY-NC-4.0, while the dataset itself is independently CC-BY-4.0 on the official Zenodo API"
+      ],
+      "admission": "family-presence-positive-only-fit-low-weight"
+    }
+  ]
+}

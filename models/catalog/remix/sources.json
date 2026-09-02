@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "id": "remix",
+  "description": "Locally owned, capability-separated Remixer packages with sealed evidence.",
+  "packages": [
+    {
+      "package": {
+        "schema": 1,
+        "id": "knobs",
+        "version": "1.0.0",
+        "display_name": "Drive Delay Reverb knob recovery",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "chain",
+        "runtime": {
+          "backend": "pytorch",
+          "entrypoint": "python.remix.knobs.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 44100,
+        "channels": 1,
+        "controls": [
+          {"id": "drive.gain_db", "label": "Drive Gain", "unit": "dB", "minimum": 0.0, "maximum": 30.0, "default": 12.0},
+          {"id": "drive.tone", "label": "Drive Tone", "unit": "%", "minimum": 0.0, "maximum": 100.0, "default": 50.0},
+          {"id": "drive.level_db", "label": "Drive Level", "unit": "dB", "minimum": -18.0, "maximum": 12.0, "default": 0.0},
+          {"id": "delay.time_ms", "label": "Delay Time", "unit": "ms", "minimum": 40.0, "maximum": 1000.0, "default": 350.0},
+          {"id": "delay.feedback", "label": "Delay Feedback", "unit": "%", "minimum": 0.0, "maximum": 90.0, "default": 35.0},
+          {"id": "delay.mix", "label": "Delay Mix", "unit": "%", "minimum": 0.0, "maximum": 70.0, "default": 30.0},
+          {"id": "reverb.decay_s", "label": "Reverb Decay", "unit": "s", "minimum": 0.2, "maximum": 8.0, "default": 1.5},
+          {"id": "reverb.damping", "label": "Reverb Damping", "unit": "%", "minimum": 0.0, "maximum": 100.0, "default": 50.0},
+          {"id": "reverb.mix", "label": "Reverb Mix", "unit": "%", "minimum": 0.0, "maximum": 70.0, "default": 25.0}
+        ],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {"path": "artifacts/remixer.pt", "role": "weights", "bytes": 5603321, "sha256": "92304558f013ac49c6e6197622b335bef5e465d99c93d84bb2391ed280e5cf54"},
+          {"path": "evidence/seal.json", "role": "sealed_evidence", "bytes": 9417, "sha256": "29a16de0d8a21d3fa65c882625e5ec9cafe04acc587bbe3f1122e0c268ea5360"}
+        ],
+        "license": {
+          "id": "research-internal",
+          "commercial_use": false,
+          "redistribution": false,
+          "notice": null
+        },
+        "evidence": ["evidence/seal.json"],
+        "limitations": [
+          "Requires an aligned five-second mono 44.1 kHz Clean/Wet pair and known active effect families.",
+          "Telecaster sealed evaluation accepted knob recovery only; the associated order overlay failed strict audio non-regression and is not packaged.",
+          "Development evidence does not establish arbitrary physical pedal fidelity."
+        ]
+      },
+      "sources": {
+        "artifacts/remixer.pt": "remix/runs/order-control-paired-public/remixer-bundle.pt",
+        "evidence/seal.json": "runs/remix/seal.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "order",
+        "version": "2.0.0",
+        "display_name": "Drive Delay Reverb order recovery",
+        "kind": "order",
+        "quality": "development",
+        "device": null,
+        "runtime": {
+          "backend": "pytorch-sklearn",
+          "entrypoint": "python.remix.order_package.v2",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 44100,
+        "channels": 1,
+        "controls": [],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {"path": "artifacts/remixer.pt", "role": "base", "bytes": 5603321, "sha256": "92304558f013ac49c6e6197622b335bef5e465d99c93d84bb2391ed280e5cf54"},
+          {"path": "artifacts/order-heads.joblib", "role": "heads", "bytes": 30054948, "sha256": "280a841a6cff5f93f65be79afee3b903d22b4176260b29bb7924c70aa90d42fc"},
+          {"path": "artifacts/blend-calibration.json", "role": "calibration", "bytes": 6301, "sha256": "9e0168872737825e04f08d5b4b36df459707df2d07a87b84c69cad1b091a31e5"},
+          {"path": "artifacts/blend-development.json", "role": "development", "bytes": 5076, "sha256": "734dac7f07d7dab515a26ff2d7b38d3092ca3805e72badb49480d896dd29840e"},
+          {"path": "artifacts/runtime-replay.json", "role": "replay", "bytes": 83350, "sha256": "9b445b700c763a543a8a15e82e8bcb229aec1376ae4a758e8edc81ae00ddbe9d"},
+          {"path": "artifacts/model-card.json", "role": "card", "bytes": 6580, "sha256": "0e9d5e5cf6b2af9026cf764db8a33964bac1fbc9e0094c07a489c74157bb6916"},
+          {"path": "artifacts/bank-calibrate-real.manifest.json", "role": "calibrate_real", "bytes": 2767, "sha256": "7e8ed71e8bd4c79098a510ba59e52d586139b2a6afa1137aced2d0866ae0bda4"},
+          {"path": "artifacts/bank-calibrate-reference.manifest.json", "role": "calibrate_reference", "bytes": 2777, "sha256": "28286a770a458f11dc2290347dc15989e077962d0b917c0268de27cf80df19c5"},
+          {"path": "artifacts/bank-calibrate-alternate.manifest.json", "role": "calibrate_alternate", "bytes": 2777, "sha256": "6a5c2312dab6a003c3a1546a2b6be183870c3768623755b46a243490bd2973df"},
+          {"path": "artifacts/bank-calibrate-stress.manifest.json", "role": "calibrate_stress", "bytes": 2771, "sha256": "853537e69b35ebc22f1b6e5ff1b2f39f1b7f862c7293cf97c3345c9e6d811e13"},
+          {"path": "artifacts/bank-calibrate-pedalboard.manifest.json", "role": "calibrate_pedalboard", "bytes": 2779, "sha256": "ddc135ab69783cf9bdb3af3a00f9d7ed93d69d907b5492d67665bc34eec05464"},
+          {"path": "artifacts/bank-valid-real.manifest.json", "role": "valid_real", "bytes": 2759, "sha256": "92b7fd776613feb8c92e4c0e3df730ab0bb063e33f369dc24ff067a1f980eca1"},
+          {"path": "artifacts/bank-valid-reference.manifest.json", "role": "valid_reference", "bytes": 2769, "sha256": "908c3171c2c837e528ca47425424a0757e9ebf7acec684134256e0d3ad391259"},
+          {"path": "artifacts/bank-valid-alternate.manifest.json", "role": "valid_alternate", "bytes": 2769, "sha256": "9849046f3d664831c72df297aab5881e77088903335a575f062affa75b6fe7a8"},
+          {"path": "artifacts/bank-valid-stress.manifest.json", "role": "valid_stress", "bytes": 2763, "sha256": "1f10be33f95a793ef1a2bfd72dd9c242df1d0d734ad8cea91efc595f8503da19"},
+          {"path": "artifacts/bank-valid-pedalboard.manifest.json", "role": "valid_pedalboard", "bytes": 2771, "sha256": "38df0373249e15a4825311f5d5414ecd71b6df14b78b18bd639d713f123b6760"},
+          {"path": "contract/order_package.py", "role": "loader", "bytes": 977, "sha256": "5a181069af28e2c5f2c0090fff395fbfa3d9243d3803a41bd0b4884806036cf6"},
+          {"path": "evidence/seal.json", "role": "sealed", "bytes": 4185, "sha256": "05044c65b9f81b96c154827cd31b6e13d7c78e1343b76991111842a68e687967"},
+          {"path": "evidence/cycle.json", "role": "cycle", "bytes": 3864, "sha256": "2f87ffa758971866f31630f8f85d0e6b2f898aacdd42d935ab9059f2bafb67d2"}
+        ],
+        "license": {
+          "id": "research-internal",
+          "commercial_use": false,
+          "redistribution": false,
+          "notice": null
+        },
+        "evidence": ["evidence/seal.json", "evidence/cycle.json"],
+        "limitations": [
+          "Requires an aligned five-second mono 44.1 kHz Clean/Wet pair and known active Drive, Delay, or Reverb families.",
+          "The audio guard may retain the input order when a proposed reorder increases diagnostic reconstruction error.",
+          "The sealed GuitarJam evaluation uses unseen clean DI performances with generated effects; it does not establish arbitrary physical pedal fidelity.",
+          "This analysis-only package never rewrites source audio and does not normalize, limit, dither, or lossy-encode it."
+        ]
+      },
+      "sources": {
+        "artifacts/remixer.pt": "remix/runs/order-control-paired-public/remixer-bundle.pt",
+        "artifacts/order-heads.joblib": "remix/runs/order-bankfit-bound-phase11/order-heads.joblib",
+        "artifacts/blend-calibration.json": "remix/runs/order-bankfit-bound-phase11/blend-calibration.json",
+        "artifacts/blend-development.json": "remix/runs/order-bankfit-bound-phase11/blend-development.json",
+        "artifacts/runtime-replay.json": "remix/runs/order-bankfit-bound-phase11/runtime-replay.json",
+        "artifacts/model-card.json": "remix/runs/order-bankfit-bound-phase11/model-card.json",
+        "artifacts/bank-calibrate-real.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-calibrate-real.manifest.json",
+        "artifacts/bank-calibrate-reference.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-calibrate-reference.manifest.json",
+        "artifacts/bank-calibrate-alternate.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-calibrate-alternate.manifest.json",
+        "artifacts/bank-calibrate-stress.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-calibrate-stress.manifest.json",
+        "artifacts/bank-calibrate-pedalboard.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-calibrate-pedalboard.manifest.json",
+        "artifacts/bank-valid-real.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-valid-real.manifest.json",
+        "artifacts/bank-valid-reference.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-valid-reference.manifest.json",
+        "artifacts/bank-valid-alternate.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-valid-alternate.manifest.json",
+        "artifacts/bank-valid-stress.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-valid-stress.manifest.json",
+        "artifacts/bank-valid-pedalboard.manifest.json": "remix/runs/order-bankfit-bound-phase11/bank-valid-pedalboard.manifest.json",
+        "contract/order_package.py": "remix/order_package.py",
+        "evidence/seal.json": "runs/order2/seal.json",
+        "evidence/cycle.json": "cycles/order2.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "chain",
+        "version": "1.1.0",
+        "display_name": "Abstention-first remix device chain",
+        "kind": "classifier",
+        "quality": "development",
+        "device": null,
+        "runtime": {
+          "backend": "onnx-pytorch-sklearn",
+          "entrypoint": "python.remix.adapter.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 44100,
+        "channels": 1,
+        "controls": [],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {"path": "artifacts/gate.joblib", "role": "gate", "bytes": 1034738, "sha256": "3b9527c3f905fb7f0491b67421d7fbbcdf2249bf850fbe1d60fac320da4cf4cb"},
+          {"path": "contract/chain.py", "role": "runtime", "bytes": 3333, "sha256": "12396780ae2ff6c09d2206db985404db305a7a2dc39bc7c24d742b55d733ba56"},
+          {"path": "contract/gate.py", "role": "gate_contract", "bytes": 4537, "sha256": "724cda5808517703e8cc6e21b87cae84081988a13fc4fa3e86edd7ab6eba9843"},
+          {"path": "contract/adapter.py", "role": "adapter_runtime", "bytes": 7082, "sha256": "a9d710f8ef2db1a5349f9badf442a9fbc2cca9fa0e3235c741ef4429b097eeda"},
+          {"path": "evidence/fit.json", "role": "fit", "bytes": 4960, "sha256": "578f80619b64d912e4f581d1b92237a040c4f5631e69943711a4cde22fce600b"},
+          {"path": "evidence/valid.json", "role": "development", "bytes": 147088, "sha256": "d59b147e292c9ec2cc2b558b9d4d4402f6a6671dff167f744ba7061f79617461"},
+          {"path": "evidence/rat.json", "role": "adapter_replay", "bytes": 17189, "sha256": "7615dccd60b0b5dc80086ec036ce3146347b0537caf230e6b24924ffbe50b700"},
+          {"path": "evidence/cycle.json", "role": "cycle", "bytes": 3888, "sha256": "127a7148d7a54974ed0f4f18a5e275225b06e2390585aba65cf0aeea4c96b5c5"},
+          {"path": "evidence/adapter.json", "role": "adapter_cycle", "bytes": 2869, "sha256": "62139d00c06f820d68b6bba278c0eeffbf40892f64c49f15bd363217f793762b"}
+        ],
+        "license": {
+          "id": "research-internal",
+          "commercial_use": false,
+          "redistribution": false,
+          "notice": null
+        },
+        "evidence": ["evidence/valid.json", "evidence/rat.json", "evidence/cycle.json", "evidence/adapter.json"],
+        "limitations": [
+          "Requires family/1.0.0, order/2.0.0, and knobs/1.0.0; explicit RAT routing additionally requires ratknobs/1.0.0.",
+          "The canonical chain uses an aligned five-second mono 44.1 kHz analysis copy; the RAT adapter uses a separate one-second mono 48 kHz analysis copy.",
+          "Named devices must be selected explicitly; automatic identity-to-device routing is not admitted.",
+          "The accepted ASRNN RAT adapter replay reuses ratknobs development data and is not new sealed evidence.",
+          "RAT-specific controls do not establish fidelity for arbitrary pedals or device families.",
+          "The runtime is analysis-only and never rewrites, normalizes, limits, dithers, or lossy-encodes source audio."
+        ]
+      },
+      "sources": {
+        "artifacts/gate.joblib": "runs/chain/gate/model4/gate.joblib",
+        "contract/chain.py": "remix/chain.py",
+        "contract/gate.py": "remix/gate.py",
+        "contract/adapter.py": "remix/adapter.py",
+        "evidence/fit.json": "runs/chain/gate/model4/fit.json",
+        "evidence/valid.json": "runs/chain/valid4.json",
+        "evidence/rat.json": "runs/adapter/rat.json",
+        "evidence/cycle.json": "cycles/chain.json",
+        "evidence/adapter.json": "cycles/adapter.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "route",
+        "version": "1.0.0",
+        "display_name": "RAT shadow device route",
+        "kind": "classifier",
+        "quality": "development",
+        "device": null,
+        "runtime": {
+          "backend": "onnx-sklearn",
+          "entrypoint": "python.remix.route.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {"path": "artifacts/route.joblib", "role": "head", "bytes": 559526, "sha256": "5afbce08869f689c7ff8c08bc417bcbe624dcf1d35b037c78fdeff19bb8504f2"},
+          {"path": "contract/route.py", "role": "runtime", "bytes": 4414, "sha256": "e115ca7016618fce923894464e00854ab158a9997b53d7fdffb7bc58be87bd9d"},
+          {"path": "evidence/fit.json", "role": "fit", "bytes": 32338, "sha256": "3566a810e52048214351a826b32bfec730aafedd914bca6ec04636da75f4c72b"},
+          {"path": "evidence/valid.json", "role": "development", "bytes": 998, "sha256": "17318705f563a0dd6d622a4fbf854900feb08e66ba672b323100c9060b33afaa"},
+          {"path": "evidence/cycle.json", "role": "cycle", "bytes": 3821, "sha256": "d9c67ad530044c8a27998ee5b3b9b7920e2db185544ec3c54784194d946ed5ed"}
+        ],
+        "license": {
+          "id": "CC-BY-NC-4.0-and-cc-nc",
+          "commercial_use": false,
+          "redistribution": true,
+          "notice": "ASRNN Zenodo 20406285 attribution and identity/1.0.0 terms are recorded in evidence/cycle.json."
+        },
+        "evidence": ["evidence/valid.json", "evidence/cycle.json"],
+        "limitations": [
+          "Requires identity/1.0.0 and an aligned mono 48 kHz Clean/Wet pair.",
+          "Distinguishes only RAT from the observed DFZ confusion class after canonical Drive acceptance.",
+          "ASRNN eval is development validation, not untouched sealed or release evidence.",
+          "The route is shadow-only and cannot authorize automatic adapter or control delivery.",
+          "The runtime is analysis-only and never rewrites, normalizes, limits, dithers, or lossy-encodes source audio."
+        ]
+      },
+      "sources": {
+        "artifacts/route.joblib": "runs/route/model2/route.joblib",
+        "contract/route.py": "remix/route.py",
+        "evidence/fit.json": "runs/route/model2/fit.json",
+        "evidence/valid.json": "runs/route/model2/valid.json",
+        "evidence/cycle.json": "cycles/route.json"
+      }
+    }
+  ]
+}

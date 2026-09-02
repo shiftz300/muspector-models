@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 14,
+  "goal": "Train and seal a reverse-order Reverb-before-Drive wet-to-clean chain with immediate-predecessor targets, order sensitivity, external transfer evidence and ordinary-computer runtime gates.",
+  "model": {
+    "architecture": "compact Drive spectral stage plus long-context dilated Reverb spectral stage",
+    "initialization": "model11 feature body with zeroed stage-specific residual heads",
+    "initialization_sha256": "11f3247c25958716cd866cabc81d48e589f02b629dd2e35b68b63334d9f846f6",
+    "forward_order": ["reverb", "drive"],
+    "restore_order": ["drive", "reverb"],
+    "parameters_total_maximum": 250000,
+    "artifacts_total_bytes_maximum": 8388608
+  },
+  "data": {
+    "controlled_forward_domain": "final_challenge",
+    "external": "DAFx Guitar Effects Chains Dataset 3",
+    "external_license": "CC-BY-4.0",
+    "splits": "Les Paul and PRS fit; Strat 13-25 calibrate; Strat 1-12 develop; Tele seal",
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "gates": {
+    "each_stage_aligned_esr_improvement_minimum": 0.01,
+    "each_stage_sidr_improvement_db_minimum": 0.10,
+    "chain_aligned_esr_improvement_minimum": 0.01,
+    "chain_sidr_improvement_db_minimum": 0.10,
+    "chain_p95_nonregression": true,
+    "chain_peak_p95_nonregression": true,
+    "order_safe_or_ambiguous_fraction_minimum": 0.75,
+    "order_abstention_margin": 0.01,
+    "cpu_threads_maximum": 2,
+    "realtime_factor_maximum": 0.5,
+    "process_rss_mb_maximum": 512
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

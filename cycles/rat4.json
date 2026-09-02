@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "rat",
+  "round": 4,
+  "status": "rejected-perceptual-model-family",
+  "goal": "Test whether direct pick-attack envelope supervision closes the remaining RAT blur gap.",
+  "baseline": {
+    "run": "runs/rat/model3",
+    "status": "rejected-perceptual",
+    "development_transient_improvement": 0.01955222070553231,
+    "development_pass_fraction": 0.18811881188118812
+  },
+  "architecture": {
+    "model": "normalized-control-conditioned-time-residual",
+    "initialization": "runs/rat/model3/model.pt",
+    "change": "direct differentiable 5 ms log-RMS positive-attack envelope loss with threefold normalized weight",
+    "parameters_maximum": 250000
+  },
+  "data": {
+    "source": "ASRNN eligible real ProCo RAT pairs",
+    "license": "CC-BY-NC-4.0",
+    "minimum_wet_to_clean_rms_ratio": 0.03,
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "gates": {
+    "median_spectral_improvement": 0.15,
+    "median_high_band_improvement": 0.10,
+    "median_transient_improvement": 0.10,
+    "median_dynamics_improvement": 0.0,
+    "per_example_pass_fraction": 0.50,
+    "added_clipping_fraction_maximum": 0.01,
+    "human_listening_approval": true
+  },
+  "stop_rule": "if direct attack supervision still misses transient and pass-fraction gates, stop weight tuning and change model family",
+  "decision": {"report_sha256": "11d32836d3c57dd94af9fb87c1949056dda84c92dc5785934f9c0fc9434a8d14", "model_sha256": "2a22913a2e934340f510da0ad9a72b842556a5bb5938b2b37e4faaf50e6c078e", "reason": "direct attack supervision raised transient improvement to 5.40 percent and pass fraction to 26.73 percent, still below 10 and 50 percent gates; stop rule triggered"}
+}

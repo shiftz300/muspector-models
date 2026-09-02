@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "rejected-upstream-perceptual",
+  "round": 13,
+  "goal": "Export the accepted model11 learned spectral core to ONNX and freeze a native-DSP contract with end-to-end parity and ordinary-CPU gates.",
+  "model": {
+    "checkpoint": "runs/clean/model11/clean.pt",
+    "checkpoint_sha256": "11f3247c25958716cd866cabc81d48e589f02b629dd2e35b68b63334d9f846f6",
+    "strength": 0.875,
+    "portable_boundary": "native STFT, scale, chunking and iSTFT; ONNX learned core only"
+  },
+  "data": {
+    "source": "deterministic synthetic runtime probes",
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "gates": {
+    "artifact_bytes_maximum": 8388608,
+    "parameters_maximum": 250000,
+    "maximum_absolute_error": 0.000002,
+    "cpu_threads_maximum": 2,
+    "realtime_factor_maximum": 0.5,
+    "process_rss_mb_maximum": 512,
+    "bypass_bit_exact": true
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

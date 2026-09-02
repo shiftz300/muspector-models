@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "id": "adapter",
+  "round": 1,
+  "status": "complete-development",
+  "goal": "Keep canonical effect recognition separate from physical device controls, then admit the first explicit named-device adapter without touching source audio or hardware.",
+  "architecture": {
+    "flow": ["family", "gate", "order", "knobs", "device"],
+    "canonical": "The chain analyzes an immutable mono 44.1 kHz five-second copy and returns only canonical families, order, and normalized controls.",
+    "device": "An explicitly selected RAT adapter analyzes a separate immutable mono 48 kHz one-second copy and owns distortion, filter, and volume semantics.",
+    "routing": "Only an accepted single Drive family may enter the RAT adapter; bypass, abstention, or a family mismatch delivers no physical settings.",
+    "runtime": "remix/adapter.py",
+    "runtime_sha256": "a9d710f8ef2db1a5349f9badf442a9fbc2cca9fa0e3235c741ef4429b097eeda",
+    "evaluator": "remix/adapter_eval.py",
+    "evaluator_sha256": "043d9031d80f21dc72e7c6e1306a50e142ad2aaba6acee932e9f92f0e7211719"
+  },
+  "model": {
+    "package": "chain/1.1.0",
+    "dependencies": ["family/1.0.0", "order/2.0.0", "knobs/1.0.0", "ratknobs/1.0.0"],
+    "device": "rat",
+    "controls": ["distortion", "filter", "volume"],
+    "selection": "explicit-only"
+  },
+  "development": {
+    "source": "ASRNN official evaluation split already used by ratknobs development; this replay is not new sealed evidence.",
+    "lock": "runs/chain/asrnn.lock.json",
+    "lock_sha256": "ddb0805ca8f8a6d7bdf091250ab85c168236745c613b3f7d9b7e91986890d5f5",
+    "report": "runs/adapter/rat.json",
+    "report_sha256": "7615dccd60b0b5dc80086ec036ce3146347b0537caf230e6b24924ffbe50b700",
+    "accepted": true,
+    "examples": 32,
+    "chain_routed": 28,
+    "delivered": 21,
+    "coverage": 0.65625,
+    "macro_mae": 0.03807823218050457,
+    "macro_p95": 0.09484206140041351,
+    "distortion_mae": 0.018184382291067214,
+    "filter_mae": 0.07503903763634819,
+    "volume_mae": 0.021011276614098323,
+    "input_mutations": 0,
+    "artifact_mutations": 0,
+    "abstained_unidentifiable": 7
+  },
+  "data": {
+    "physical_audio_devices_used": false,
+    "source_read_only": true,
+    "source_audio_modified": false
+  },
+  "quality": {
+    "analysis_only": true,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "lossy_reencoding": false
+  },
+  "decision": "Admit explicit RAT routing in optional chain 1.1.0 development packaging. Keep generic canonical controls and physical RAT settings distinct, and abstain when either recognition or device identifiability fails.",
+  "next": "Train identity-to-device routing separately, then evaluate on a new untouched RAT session or device split before release or automatic device selection."
+}

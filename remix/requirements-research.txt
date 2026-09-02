@@ -1,0 +1,12 @@
+# Verified Python 3.10 research environment; CPU is sufficient for inference.
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.7.2
+joblib==1.5.3
+# Research-only convex tail-constrained readout fitting; not a runtime dependency.
+osqp==1.0.5
+torch==2.13.0
+onnx==1.17.0
+onnxruntime==1.19.2
+soundfile==0.13.1
+pedalboard==0.9.24

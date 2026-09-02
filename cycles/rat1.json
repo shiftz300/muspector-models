@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "id": "rat",
+  "round": 1,
+  "status": "rejected-perceptual",
+  "goal": "Recover plausible clean guitar from real ProCo RAT audio without blur, residual drive, or new clipping.",
+  "architecture": {
+    "model": "control-conditioned-time-residual",
+    "input": ["wet", "RAT distortion", "RAT filter", "RAT volume"],
+    "output": "wet plus learned residual",
+    "spectral_prior": "frozen model11 output is an input feature only and is never the output baseline",
+    "channels": 24,
+    "dilations": [1, 2, 4, 8, 16, 32, 64, 128, 256],
+    "parameters_maximum": 250000,
+    "runtime": "background CPU, two threads maximum"
+  },
+  "data": {
+    "source": "ASRNN 48 kHz real ProCo RAT Dry/Wet",
+    "license": "CC-BY-NC-4.0",
+    "scope": "internal non-commercial development",
+    "fit": "official train excluding deterministic calibration settings",
+    "calibration": "deterministic settings excluded from fit",
+    "development": "official eval; no independent locked-final split",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "loss": [
+    "waveform L1",
+    "pre-emphasized L1",
+    "sample-derivative L1",
+    "normalized multiresolution log magnitude",
+    "waveform ESR",
+    "peak error"
+  ],
+  "gates": {
+    "median_spectral_improvement": 0.15,
+    "median_high_band_improvement": 0.10,
+    "median_transient_improvement": 0.10,
+    "median_dynamics_improvement": 0.0,
+    "per_example_pass_fraction": 0.50,
+    "added_clipping_fraction_maximum": 0.01,
+    "human_listening_approval": true,
+    "parameters_maximum": 250000,
+    "cpu_threads_maximum": 2,
+    "realtime_factor_maximum": 0.5
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "decision": {"report_sha256": "a672a39dd1df71f6cd2aa94ec81aeb2009bb7a8b5c0ab3b5fa5358433e8646ac", "model_sha256": "d6c712e465158cf1edccbc585f9e0a9b03bbd5911290959703f2211d0b8c9bfb", "reason": "near-bypass result: development transient improvement -6.06 percent and zero per-example passes"},
+  "promotion": "never promote from numerical metrics alone; phrase-level blind listening is mandatory"
+}

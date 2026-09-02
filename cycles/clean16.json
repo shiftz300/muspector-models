@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 16,
+  "goal": "Seal the multi-clean, bidirectional-order chain while treating immediate predecessor stages as guarded intermediates and applying strict perceptual gates to final clean output.",
+  "diagnosis": {
+    "round15_final_chain_passed": true,
+    "round15_seal_opened": false,
+    "change": "intermediate stages require absolute and aligned ESR plus SI-SDR nonregression; final chain retains improvement and tail gates"
+  },
+  "model": {
+    "architecture": "12-channel Drive spectral stage plus 16-channel finite-context Reverb spectral stage",
+    "initialization": "model11 Drive feature body; stage-specific zero residual heads",
+    "initialization_sha256": "11f3247c25958716cd866cabc81d48e589f02b629dd2e35b68b63334d9f846f6",
+    "forward_orders": [["reverb", "drive"], ["drive", "reverb"]],
+    "restore_order": "reverse the selected forward order",
+    "reverb_minimum_halo_frames": 11136,
+    "runtime_halo_frames": 12288,
+    "parameters_total_maximum": 250000,
+    "artifacts_total_bytes_maximum": 8388608
+  },
+  "data": {
+    "controlled_forward_domain": "final_challenge; both two-effect orders balanced equally",
+    "clean_target": "the paired original for each performance, never a canonical clean template",
+    "clean_domains": ["DAFx electric guitars", "EGFx pickups", "GuitarSet players/styles", "GuitarJam", "TECHS"],
+    "external": "DAFx Guitar Effects Chains Dataset 3",
+    "external_license": "CC-BY-4.0",
+    "splits": "Les Paul and PRS plus disjoint source groups fit; Strat 13-25 calibrate; Strat 1-12 develop; Tele seal",
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "gates": {
+    "each_stage_absolute_esr_nonregression": true,
+    "each_stage_aligned_esr_nonregression": true,
+    "each_stage_sidr_nonregression": true,
+    "chain_absolute_esr_nonregression": true,
+    "chain_aligned_esr_improvement_minimum": 0.01,
+    "chain_sidr_improvement_db_minimum": 0.10,
+    "chain_p95_nonregression": true,
+    "chain_peak_p95_nonregression": true,
+    "order_safe_or_ambiguous_fraction_minimum": 0.75,
+    "order_abstention_margin": 0.01,
+    "cpu_threads_maximum": 2,
+    "realtime_factor_maximum": 0.5,
+    "process_rss_mb_maximum": 512
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

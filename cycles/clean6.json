@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 6,
+  "goal": "Measure ASRNN-trained wet-only RAT restoration on EGFx without adapting to EGFx.",
+  "model": {
+    "restorer": "runs/clean/model4/clean.pt",
+    "confidence": "runs/clean/model5/gate.joblib"
+  },
+  "data": {
+    "source": "EGFxSet Clean/RAT matched files",
+    "license": "CC-BY-4.0",
+    "examples": 96,
+    "selection": "SHA-256 rank of relative wet path",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "alignment": {
+    "maximum_lag_frames": 4096,
+    "minimum_absolute_correlation": 0.35,
+    "evaluation_only": true
+  },
+  "gates": {
+    "minimum": {
+      "alignment_coverage": 0.90,
+      "confidence_coverage": 0.60,
+      "aligned_esr_improvement": 0.05,
+      "aligned_mae_improvement": 0.03,
+      "sidr_improvement_db": 0.50,
+      "improved_fraction": 0.70
+    },
+    "maximum": {
+      "p95_ratio": 1.0,
+      "peak_p95_ratio": 1.0
+    }
+  },
+  "quality": {
+    "rendered_audio_retained": false,
+    "source_audio_modified": false,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  },
+  "promotion": "cross-domain development only; untouched device and session seal remains required"
+}

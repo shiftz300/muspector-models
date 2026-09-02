@@ -1,0 +1,778 @@
+{
+  "schema": 1,
+  "title": "Drive product3-safe acceptance demo",
+  "honest_scope": "Licensed development Clean plus repository-owned synthetic nonlinear Drive. v2 and v3 receive exact controls. This is not a physical pedal or blind unknown-control claim.",
+  "sample_rate_hz": 48000,
+  "format": "mono 32-bit float WAV; no loudness normalization",
+  "split": "development",
+  "locked_final_accessed": false,
+  "comparison_orders": {
+    "acceptance": [
+      "wet",
+      "0.5-second silence",
+      "v3",
+      "0.5-second silence",
+      "original-clean"
+    ],
+    "progress": [
+      "wet",
+      "0.4-second silence",
+      "v2",
+      "0.4-second silence",
+      "v3",
+      "0.4-second silence",
+      "original-clean"
+    ]
+  },
+  "checkpoints": {
+    "v2": {
+      "path": "/Users/shiftz/dev/muspector-models/runs/foundation/product2/nonlinear/model.pt",
+      "sha256": "feb43c7e611f5051ef5c89f3ea6906f4e922a1f3d80ff70b5fcfbb57554d9e62",
+      "architecture": {
+        "schema": 3,
+        "architecture": "analytic-shape-inverse-plus-local-tcn-with-uncertainty",
+        "mechanism": "nonlinear",
+        "hidden_size": 24,
+        "layers": 3,
+        "control_width": 5,
+        "parameters": 78698,
+        "state_floats_per_mono_stream": 0,
+        "normalization_across_time": false,
+        "causal": false,
+        "uncertainty_output": true,
+        "local_receptive_field_frames": 3067
+      }
+    },
+    "v3": {
+      "path": "/Users/shiftz/dev/muspector-models/runs/foundation/product3-safe/nonlinear/model.pt",
+      "sha256": "cc0f9a320345e870b0e2ec56ef331419becfa296b642b620b65df3593c4df75b",
+      "architecture": {
+        "schema": 4,
+        "architecture": "regularized-deeq-plus-analytic-shape-inverse-plus-local-tcn",
+        "mechanism": "nonlinear",
+        "hidden_size": 24,
+        "layers": 3,
+        "control_width": 5,
+        "parameters": 52586,
+        "state_floats_per_mono_stream": 0,
+        "normalization_across_time": false,
+        "causal": false,
+        "uncertainty_output": true,
+        "internal_forward_order": [
+          "waveshape",
+          "lowpass",
+          "level"
+        ],
+        "internal_inverse_order": [
+          "level",
+          "regularized-lowpass-inverse",
+          "waveshape-inverse"
+        ],
+        "graph_order_input": false,
+        "neighbouring_effect_input": false,
+        "deequalizer_taps": 257,
+        "deequalizer_maximum_gain_db": 12.0,
+        "clean_peak_contract": 0.95,
+        "output_peak_contract": 0.98,
+        "local_receptive_field_frames": 635
+      }
+    }
+  },
+  "attribution": {
+    "clean_source": {
+      "id": "dafx25-guitar-effects-chains / egfxset as realized per example",
+      "licenses": "CC-BY-4.0; see remix/data_sources.json"
+    },
+    "renderer": {
+      "id": "muspector-dsp",
+      "license": "Apache-2.0"
+    }
+  },
+  "examples": [
+    {
+      "ordinal": 1,
+      "dataset_index": 0,
+      "label": "cubic-reference",
+      "source_id": "dafx25-guitar-effects-chains",
+      "group": "dafx:strat_neck_pick16",
+      "controls": {
+        "shape": "cubic",
+        "drive": 5.425199845480352,
+        "bias": -0.11059823586666959,
+        "cutoff_hz": 4136.077853522229,
+        "level": 0.686203250327214
+      },
+      "input_gain_db": -2.0411885883715835,
+      "duration_seconds_each": 4.936125,
+      "peaks": {
+        "wet": 0.6897853016853333,
+        "v2": 0.2562849223613739,
+        "v3": 0.2560562789440155,
+        "original": 0.2676841914653778
+      },
+      "quality": {
+        "v2": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.1452968192095908,
+              "restored_error": 0.02397747912826803,
+              "eligible": true,
+              "reduction": 0.8349758841335646,
+              "raw_reduction": 0.8349758841335646,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 1.6768227807731737,
+              "restored_error": 0.23281447527559707,
+              "eligible": true,
+              "reduction": 0.8611573757554465,
+              "raw_reduction": 0.8611573757554465,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.8288921234196664,
+              "restored_error": 0.11789626513204875,
+              "eligible": true,
+              "reduction": 0.8577664550054385,
+              "raw_reduction": 0.8577664550054385,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.1309609350329728,
+              "restored_error": 0.02160208744267403,
+              "eligible": true,
+              "reduction": 0.835049379899165,
+              "raw_reduction": 0.835049379899165,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9777144615743579,
+          "restored_peak": 0.2562849223613739,
+          "added_clipping": false
+        },
+        "v3": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.1452968192095908,
+              "restored_error": 0.010549158219393853,
+              "eligible": true,
+              "reduction": 0.9273958075835322,
+              "raw_reduction": 0.9273958075835322,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 1.6768227807731737,
+              "restored_error": 0.04774740539889625,
+              "eligible": true,
+              "reduction": 0.9715250735221523,
+              "raw_reduction": 0.9715250735221523,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.8288921234196664,
+              "restored_error": 0.004078802055493696,
+              "eligible": true,
+              "reduction": 0.9950792124327756,
+              "raw_reduction": 0.9950792124327756,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.1309609350329728,
+              "restored_error": 0.004151193264659912,
+              "eligible": true,
+              "reduction": 0.9683020492819883,
+              "raw_reduction": 0.9683020492819883,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9999033151636266,
+          "restored_peak": 0.2560562789440155,
+          "added_clipping": false
+        }
+      },
+      "uncertainty": {
+        "v2_mean": 0.01773310825228691,
+        "v3_mean": 0.004014627542346716,
+        "v3_p95": 0.004134221468120813
+      },
+      "files": {
+        "wet": "01-cubic-reference-wet.wav",
+        "v2": "01-cubic-reference-v2.wav",
+        "v3": "01-cubic-reference-v3.wav",
+        "original": "01-cubic-reference-original-clean.wav",
+        "acceptance": "01-cubic-reference-acceptance.wav",
+        "progress": "01-cubic-reference-v2-v3-progress.wav"
+      }
+    },
+    {
+      "ordinal": 2,
+      "dataset_index": 2,
+      "label": "atan-reference",
+      "source_id": "dafx25-guitar-effects-chains",
+      "group": "dafx:strat_neck_pick17",
+      "controls": {
+        "shape": "atan",
+        "drive": 6.040033105424218,
+        "bias": 0.004135581621564632,
+        "cutoff_hz": 2901.2844326456316,
+        "level": 0.6337030909674565
+      },
+      "input_gain_db": 2.4857247225570256,
+      "duration_seconds_each": 4.936125,
+      "peaks": {
+        "wet": 0.5526882410049438,
+        "v2": 0.4688034951686859,
+        "v3": 0.5629776120185852,
+        "original": 0.46621042490005493
+      },
+      "quality": {
+        "v2": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.11398591721835734,
+              "restored_error": 0.02997882946351214,
+              "eligible": true,
+              "reduction": 0.7369953219213639,
+              "raw_reduction": 0.7369953219213639,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 0.4562890965228,
+              "restored_error": 0.4380500695899322,
+              "eligible": true,
+              "reduction": 0.03997252415597974,
+              "raw_reduction": 0.03997252415597974,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.2641893881963152,
+              "restored_error": 0.1151523594289654,
+              "eligible": true,
+              "reduction": 0.5641295049163845,
+              "raw_reduction": 0.5641295049163845,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.20952053310562166,
+              "restored_error": 0.020471607061953365,
+              "eligible": true,
+              "reduction": 0.9022930747716579,
+              "raw_reduction": 0.9022930747716579,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": false,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": false,
+          "correction_to_wet_distance": 0.9806771326440031,
+          "restored_peak": 0.4688034951686859,
+          "added_clipping": false
+        },
+        "v3": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.11398591721835734,
+              "restored_error": 0.014936106129134097,
+              "eligible": true,
+              "reduction": 0.8689653380555624,
+              "raw_reduction": 0.8689653380555624,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 0.4562890965228,
+              "restored_error": 0.10662482279091935,
+              "eligible": true,
+              "reduction": 0.7663217823886977,
+              "raw_reduction": 0.7663217823886977,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.2641893881963152,
+              "restored_error": 0.004023626393197061,
+              "eligible": true,
+              "reduction": 0.9847699166848929,
+              "raw_reduction": 0.9847699166848929,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.20952053310562166,
+              "restored_error": 0.009007175474522684,
+              "eligible": true,
+              "reduction": 0.9570105357168881,
+              "raw_reduction": 0.9570105357168881,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9998075034893673,
+          "restored_peak": 0.5629776120185852,
+          "added_clipping": false
+        }
+      },
+      "uncertainty": {
+        "v2_mean": 0.017087269574403763,
+        "v3_mean": 0.0038247816264629364,
+        "v3_p95": 0.0040718973614275455
+      },
+      "files": {
+        "wet": "02-atan-reference-wet.wav",
+        "v2": "02-atan-reference-v2.wav",
+        "v3": "02-atan-reference-v3.wav",
+        "original": "02-atan-reference-original-clean.wav",
+        "acceptance": "02-atan-reference-acceptance.wav",
+        "progress": "02-atan-reference-v2-v3-progress.wav"
+      }
+    },
+    {
+      "ordinal": 3,
+      "dataset_index": 4,
+      "label": "tanh-reference",
+      "source_id": "dafx25-guitar-effects-chains",
+      "group": "dafx:strat_neck_pick18",
+      "controls": {
+        "shape": "tanh",
+        "drive": 6.023632974618947,
+        "bias": -0.0960837663635719,
+        "cutoff_hz": 5807.57854577234,
+        "level": 0.4886249312949843
+      },
+      "input_gain_db": 3.2971615642925527,
+      "duration_seconds_each": 4.936125,
+      "peaks": {
+        "wet": 0.5507488250732422,
+        "v2": 0.5129657983779907,
+        "v3": 0.5130606293678284,
+        "original": 0.5931815505027771
+      },
+      "quality": {
+        "v2": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.10815189218404292,
+              "restored_error": 0.011056180269237471,
+              "eligible": true,
+              "reduction": 0.8977717352330453,
+              "raw_reduction": 0.8977717352330453,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 1.126611150576035,
+              "restored_error": 0.06285476218710336,
+              "eligible": true,
+              "reduction": 0.9442090004568429,
+              "raw_reduction": 0.9442090004568429,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.26214348937392123,
+              "restored_error": 0.05410409315776614,
+              "eligible": true,
+              "reduction": 0.7936088617459727,
+              "raw_reduction": 0.7936088617459727,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.16151787889702868,
+              "restored_error": 0.006702628492902705,
+              "eligible": true,
+              "reduction": 0.9585022504092208,
+              "raw_reduction": 0.9585022504092208,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9901352498075701,
+          "restored_peak": 0.5129657983779907,
+          "added_clipping": false
+        },
+        "v3": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.10815189218404292,
+              "restored_error": 0.004803903583614382,
+              "eligible": true,
+              "reduction": 0.9555818813096719,
+              "raw_reduction": 0.9555818813096719,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 1.126611150576035,
+              "restored_error": 0.011809841737783213,
+              "eligible": true,
+              "reduction": 0.9895173754211958,
+              "raw_reduction": 0.9895173754211958,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.26214348937392123,
+              "restored_error": 0.001761449946795989,
+              "eligible": true,
+              "reduction": 0.9932805886157887,
+              "raw_reduction": 0.9932805886157887,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.16151787889702868,
+              "restored_error": 0.0034456485325516885,
+              "eligible": true,
+              "reduction": 0.9786670766352228,
+              "raw_reduction": 0.9786670766352228,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9997838706186317,
+          "restored_peak": 0.5130606293678284,
+          "added_clipping": false
+        }
+      },
+      "uncertainty": {
+        "v2_mean": 0.016951780766248703,
+        "v3_mean": 0.003291627625003457,
+        "v3_p95": 0.003438507905229926
+      },
+      "files": {
+        "wet": "03-tanh-reference-wet.wav",
+        "v2": "03-tanh-reference-v2.wav",
+        "v3": "03-tanh-reference-v3.wav",
+        "original": "03-tanh-reference-original-clean.wav",
+        "acceptance": "03-tanh-reference-acceptance.wav",
+        "progress": "03-tanh-reference-v2-v3-progress.wav"
+      }
+    },
+    {
+      "ordinal": 4,
+      "dataset_index": 39,
+      "label": "atan-safety",
+      "source_id": "egfxset",
+      "group": "egfx:2-7",
+      "controls": {
+        "shape": "atan",
+        "drive": 7.073220878503882,
+        "bias": 0.04920821166500894,
+        "cutoff_hz": 10031.457709448763,
+        "level": 0.7459864511361489
+      },
+      "input_gain_db": -0.8266456909815139,
+      "duration_seconds_each": 4.936125,
+      "peaks": {
+        "wet": 0.7611017823219299,
+        "v2": 1.3952804803848267,
+        "v3": 0.6945933699607849,
+        "original": 0.679823637008667
+      },
+      "quality": {
+        "v2": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.26814699209881926,
+              "restored_error": 0.018454603058640263,
+              "eligible": true,
+              "reduction": 0.9311772885677597,
+              "raw_reduction": 0.9311772885677597,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 2.9707300574181787,
+              "restored_error": 0.025203155644016546,
+              "eligible": true,
+              "reduction": 0.9915161744228218,
+              "raw_reduction": 0.9915161744228218,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.2256720327699321,
+              "restored_error": 0.11456066811384039,
+              "eligible": true,
+              "reduction": 0.49235770729892536,
+              "raw_reduction": 0.49235770729892536,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.09922951616738201,
+              "restored_error": 0.009165927491276716,
+              "eligible": true,
+              "reduction": 0.9076290216328832,
+              "raw_reduction": 0.9076290216328832,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": false
+          },
+          "passed": false,
+          "correction_to_wet_distance": 0.9956018438944573,
+          "restored_peak": 1.3952804803848267,
+          "added_clipping": false
+        },
+        "v3": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.26814699209881926,
+              "restored_error": 0.011682172787471495,
+              "eligible": true,
+              "reduction": 0.9564336981890652,
+              "raw_reduction": 0.9564336981890652,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 2.9707300574181787,
+              "restored_error": 0.0035012718834888596,
+              "eligible": true,
+              "reduction": 0.9988214102877688,
+              "raw_reduction": 0.9988214102877688,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.2256720327699321,
+              "restored_error": 0.006454830505521434,
+              "eligible": true,
+              "reduction": 0.9713972953303346,
+              "raw_reduction": 0.9713972953303346,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.09922951616738201,
+              "restored_error": 0.0022148240747098427,
+              "eligible": true,
+              "reduction": 0.977679785609618,
+              "raw_reduction": 0.977679785609618,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9997129698033226,
+          "restored_peak": 0.6945933699607849,
+          "added_clipping": false
+        }
+      },
+      "uncertainty": {
+        "v2_mean": 0.016862159594893456,
+        "v3_mean": 0.004536784254014492,
+        "v3_p95": 0.004734951537102461
+      },
+      "files": {
+        "wet": "04-atan-safety-wet.wav",
+        "v2": "04-atan-safety-v2.wav",
+        "v3": "04-atan-safety-v3.wav",
+        "original": "04-atan-safety-original-clean.wav",
+        "acceptance": "04-atan-safety-acceptance.wav",
+        "progress": "04-atan-safety-v2-v3-progress.wav"
+      }
+    },
+    {
+      "ordinal": 5,
+      "dataset_index": 61,
+      "label": "atan-lowcut",
+      "source_id": "egfxset",
+      "group": "egfx:4-22",
+      "controls": {
+        "shape": "atan",
+        "drive": 7.816581029979584,
+        "bias": 0.05778743378152115,
+        "cutoff_hz": 2710.0180626288147,
+        "level": 0.5064374222907841
+      },
+      "input_gain_db": -0.6990504016702316,
+      "duration_seconds_each": 4.936125,
+      "peaks": {
+        "wet": 0.510412871837616,
+        "v2": 0.7836892008781433,
+        "v3": 0.5177468657493591,
+        "original": 0.5168307423591614
+      },
+      "quality": {
+        "v2": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.24147102628467576,
+              "restored_error": 0.17448330179613578,
+              "eligible": true,
+              "reduction": 0.2774151645405549,
+              "raw_reduction": 0.2774151645405549,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 2.4273149228999102,
+              "restored_error": 1.9356936190276146,
+              "eligible": true,
+              "reduction": 0.20253709118426066,
+              "raw_reduction": 0.20253709118426066,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.4756309480835798,
+              "restored_error": 1.3175292850542457,
+              "eligible": true,
+              "reduction": -1.0,
+              "raw_reduction": -1.7700663515754322,
+              "nonregression": false
+            },
+            "dynamics": {
+              "baseline_error": 0.15617000689430122,
+              "restored_error": 0.19742990192164347,
+              "eligible": true,
+              "reduction": -0.2641985861937479,
+              "raw_reduction": -0.2641985861937479,
+              "nonregression": false
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": false,
+            "dynamics": false,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": false,
+          "correction_to_wet_distance": 0.9460900857960666,
+          "restored_peak": 0.7836892008781433,
+          "added_clipping": false
+        },
+        "v3": {
+          "schema": 2,
+          "mechanism": "nonlinear",
+          "metrics": {
+            "spectrum": {
+              "baseline_error": 0.24147102628467576,
+              "restored_error": 0.13428306230041265,
+              "eligible": true,
+              "reduction": 0.4438957569091405,
+              "raw_reduction": 0.4438957569091405,
+              "nonregression": true
+            },
+            "high_band": {
+              "baseline_error": 2.4273149228999102,
+              "restored_error": 0.6889657028462295,
+              "eligible": true,
+              "reduction": 0.7161613862517999,
+              "raw_reduction": 0.7161613862517999,
+              "nonregression": true
+            },
+            "transient": {
+              "baseline_error": 0.4756309480835798,
+              "restored_error": 0.41475480359564326,
+              "eligible": true,
+              "reduction": 0.12799029317419253,
+              "raw_reduction": 0.12799029317419253,
+              "nonregression": true
+            },
+            "dynamics": {
+              "baseline_error": 0.15617000689430122,
+              "restored_error": 0.08314563214074212,
+              "eligible": true,
+              "reduction": 0.4675953866287741,
+              "raw_reduction": 0.4675953866287741,
+              "nonregression": true
+            }
+          },
+          "gates": {
+            "spectrum": true,
+            "high_band": true,
+            "transient": true,
+            "dynamics": true,
+            "meaningful_correction": true,
+            "no_new_clipping": true
+          },
+          "passed": true,
+          "correction_to_wet_distance": 0.9990271992845294,
+          "restored_peak": 0.5177468657493591,
+          "added_clipping": false
+        }
+      },
+      "uncertainty": {
+        "v2_mean": 0.016824845224618912,
+        "v3_mean": 0.003926559817045927,
+        "v3_p95": 0.003993930295109749
+      },
+      "files": {
+        "wet": "05-atan-lowcut-wet.wav",
+        "v2": "05-atan-lowcut-v2.wav",
+        "v3": "05-atan-lowcut-v3.wav",
+        "original": "05-atan-lowcut-original-clean.wav",
+        "acceptance": "05-atan-lowcut-acceptance.wav",
+        "progress": "05-atan-lowcut-v2-v3-progress.wav"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+
+# Local data and generated research output never enter model history.
+data
+runs/
+remix/runs/
+train/runs/
+train/cache/
+
+# Materialized repositories and model artifacts are release outputs.
+dist/
+*.bin
+*.joblib
+*.npz
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.wav
+*.flac
+*.mp3
+*.zip
+

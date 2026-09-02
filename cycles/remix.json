@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "id": "remix",
+  "round": 1,
+  "status": "complete",
+  "goal": "Jointly seal the admitted order and nine-knob runtime on the previously unopened Telecaster performance split before deciding whether retraining is necessary.",
+  "model": {
+    "order": "remix/runs/order-bankfit-bound-phase11",
+    "knob": "remix/runs/order-control-paired-public/remixer-bundle.pt",
+    "heads_sha256": "280a841a6cff5f93f65be79afee3b903d22b4176260b29bb7924c70aa90d42fc",
+    "bundle_sha256": "92304558f013ac49c6e6197622b335bef5e465d99c93d84bb2391ed280e5cf54"
+  },
+  "data": {
+    "corpus": "data/corpus/guitar-effects-chains",
+    "source": "https://doi.org/10.5281/zenodo.7871720",
+    "license": "CC-BY-4.0",
+    "split": "test",
+    "guitar": "telecaster",
+    "real": 320,
+    "synthetic_per_domain": 160,
+    "domains": ["reference", "alternate", "stress", "pedalboard"],
+    "metadata_sha256": "ab1de49adef0257117fb8b24c3767b8e86473b165abfc6e9b776c1d43aa9db39",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "gate": {
+    "order": {
+      "real": {"exact_min": 0.72, "pairwise_min": 0.80},
+      "reference": {"exact_min": 0.70, "pairwise_min": 0.78},
+      "alternate": {"exact_min": 0.70, "pairwise_min": 0.78},
+      "stress": {"exact_min": 0.70, "pairwise_min": 0.78},
+      "pedalboard": {"exact_min": 0.65, "pairwise_min": 0.75},
+      "audio_regression_max": 0.0
+    },
+    "knob": {
+      "macro_mae_max": 0.13,
+      "macro_p95_max": 0.35,
+      "control_mae_max": 0.28,
+      "control_p95_max": 0.65
+    },
+    "inputs_unchanged": true,
+    "artifacts_unchanged": true
+  },
+  "command": [
+    "../muspector/.venv310/bin/python",
+    "-m",
+    "remix.seal",
+    "--corpus",
+    "data/corpus/guitar-effects-chains",
+    "--run",
+    "remix/runs/order-bankfit-bound-phase11",
+    "--output",
+    "runs/remix/seal.json",
+    "--samples",
+    "160"
+  ],
+  "output": "runs/remix/seal.json",
+  "decision": "The knob capability passed and is admitted as the optional knobs package. The order overlay failed strict audio non-regression and is not installable. Tele is consumed and cannot be reused for selection.",
+  "result": {
+    "report": "runs/remix/seal.json",
+    "report_sha256": "29a16de0d8a21d3fa65c882625e5ec9cafe04acc587bbe3f1122e0c268ea5360",
+    "joint": false,
+    "knob": {
+      "accepted": true,
+      "package": "knobs",
+      "version": "1.0.0",
+      "order_used": false,
+      "worst_domain_macro_mae": 0.1044095629826188,
+      "worst_control_mae": 0.23935526555234735,
+      "worst_control_p95": 0.5513723313808441
+    },
+    "order": {
+      "accepted": false,
+      "package": null,
+      "failures": ["real.audio-regression", "pedalboard.audio-regression"],
+      "real_exact": 0.73125,
+      "real_pairwise": 0.8099173553719008,
+      "real_error_delta": 0.0007233114454126898,
+      "pedalboard_exact": 0.7288135593220338,
+      "pedalboard_pairwise": 0.7596153846153846,
+      "pedalboard_error_delta": 0.0006162379734788554
+    },
+    "inputs_unchanged": true,
+    "artifacts_unchanged": true
+  }
+}

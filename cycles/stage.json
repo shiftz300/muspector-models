@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "id": "stage",
+  "round": 1,
+  "status": "planned",
+  "goal": "Replace coupled Drive/Reverb optimization with independent position-agnostic inverse stages and prove both reverse execution orders.",
+  "baseline": {
+    "run": "runs/chain/model7",
+    "drive_sha256": "c481b55501f9c6221e4be782071666062ee0f6add87478995a4adb4680b16bf8",
+    "reverb_sha256": "4199531d316ace705c3466f090a6c6d7e5a39f6f583a3180bfebe02edc693f28"
+  },
+  "training": {
+    "shared_optimizer": false,
+    "chain_gradient": false,
+    "synthetic_target": "immediate predecessor",
+    "real_fit": "single-effect DAFx only",
+    "multi_effect_real": "validation and seal only",
+    "clean_sampling": "uniform by source domain"
+  },
+  "data": {
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "seal": {
+    "dataset": "DAFx Dataset 3 test",
+    "records": "supported two-effect records 128:192",
+    "opened_after_freeze": true
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

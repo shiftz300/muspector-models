@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "id": "stage",
+  "round": 4,
+  "status": "rejected-oracle",
+  "goal": "Train separate control-conditioned Drive and Reverb inverses and recover effective controls by inverse-forward replay.",
+  "decision": {
+    "report_sha256": "15dbe48b3189ec01749053edc5c4d61ed91795f877aed920927a1cf8e6b161d7",
+    "drive": "STFT Drive missed closure, aligned ESR, SI-SDR, correction and audible-fraction gates.",
+    "reverb": "Conditioning improved absolute ESR 22.95 percent and SI-SDR 1.47 dB, but closure 11.27 percent and aligned ESR 10.53 percent remained below 15 percent."
+  },
+  "baseline": {
+    "run": "runs/stage/model2",
+    "drive_sha256": "043fa05c6b6f7d7bf016fa1b516f20e144c7e2b3da48ada8a1cfa95923d580d5",
+    "reverb_sha256": "1e18e70dee307168b2f1d41dc17f4c8f937412a537b3f288260565a4a536fba7"
+  },
+  "architecture": {
+    "drive": "ConditionalNet with three normalized Drive controls",
+    "reverb": "ConditionalNet with three normalized Reverb controls",
+    "shared_weights": false,
+    "runtime_order": "reverse declared or selected forward order",
+    "runtime_control_search": "inverse candidate followed by forward replay against the observed Wet",
+    "unknown_control_policy": "abstain when replay and clean-prior margins are insufficient"
+  },
+  "training": {
+    "synthetic_controls": "authoritative sampled controls",
+    "real_controls": "effective pseudo-labels fitted from paired Clean/Wet during training only",
+    "target": "immediate-predecessor",
+    "loss": "direct waveform plus normalized effect delta",
+    "shared_optimizer": false,
+    "chain_gradient": false
+  },
+  "data": {
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "gates": {
+    "oracle_first": true,
+    "aligned_esr_improvement_minimum": 0.15,
+    "absolute_esr_improvement_minimum": 0.15,
+    "sidr_improvement_db_minimum": 1.0,
+    "closure_minimum": 0.15,
+    "correction_ratio_minimum": 0.25,
+    "correction_direction_minimum": 0.5,
+    "audible_fraction_minimum": 0.5
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

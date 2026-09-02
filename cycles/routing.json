@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "routing",
+  "status": "closed-rejected",
+  "decision": "metadata-first named-device identity; family-only audio inference",
+  "automatic_named_device_delivery": false,
+  "data": {
+    "source": "ASRNN, Guitar-TECHS, GuitarSet, and bounded public NAM capture models",
+    "source_read_only": true,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "experiments": [
+    {"id": "router3", "report": "runs/router/model3/seal.json", "sha256": "8bfa86419ec25e8ee3e0f5b7eaf022105f8f8b8f57fbf977553e515d74219b52", "rat_recall": 0.875, "other_false_route": 0.375, "accepted": false},
+    {"id": "router5", "report": "runs/router/model5/seal.json", "sha256": "3e9d96cd5a4ef55223de08df30c9f0de3227368978f443d2f87c72a583155118", "rat_recall": 1.0, "other_false_route": 0.1875, "accepted": false},
+    {"id": "router7", "report": "runs/router/model7/seal.json", "sha256": "d40e8b20f2cfcd1fe0e6015823f771862852747f431818ff2532dffbbf43bf20", "rat_recall": 0.625, "other_false_route": 0.8125, "accepted": false},
+    {"id": "signature1", "report": "runs/signature/model1/valid.json", "sha256": "df62dc391ba44182c60eb49488796137229a984a70c409dc46e1508d3b29304c", "balanced_accuracy": 0.5675629447181172, "accepted": false},
+    {"id": "probe1", "report": "runs/probe/model1/seal.json", "sha256": "1126c0373896752f2cc94ac7732990a7c0837424ba2932720a5d5fc06cc0ea22", "rat_recall": 0.0, "other_false_route": 0.0, "accepted": false}
+  ],
+  "quality": {"source_audio_modified": false, "physical_audio_devices_used": false, "automatic_delivery": false, "rendered_audio_retained": false, "automatic_normalization": false, "automatic_limiting": false, "lossy_reencoding": false},
+  "reopen_gate": {"same_protocol_raw_probe_pairs": true, "split_by_physical_device": true, "split_by_session": true, "split_by_author": true, "rat_recall": 0.75, "other_false_route": 0.10}
+}

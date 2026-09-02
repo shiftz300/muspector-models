@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "id": "base",
+  "display_name": "Common pedal base",
+  "description": "The default catalog. A catalog entry is not proof that forward or inverse modeling exists; each capability lists its own package and quality tier.",
+  "devices": [
+    {
+      "id": "drive",
+      "manufacturer": "Muspector",
+      "model": "Generic Drive",
+      "family": "drive",
+      "controls": [
+        "gain_db",
+        "tone",
+        "level_db"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "family",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [
+          {
+            "package_id": "drive",
+            "quality": "development",
+            "availability": "optional"
+          }
+        ],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "delay",
+      "manufacturer": "Muspector",
+      "model": "Generic Delay",
+      "family": "delay",
+      "controls": [
+        "time_ms",
+        "feedback",
+        "mix"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "family",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [
+          {
+            "package_id": "delay",
+            "quality": "development",
+            "availability": "optional"
+          }
+        ],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "reverb",
+      "manufacturer": "Muspector",
+      "model": "Generic Reverb",
+      "family": "reverb",
+      "controls": [
+        "decay_s",
+        "damping",
+        "mix"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "family",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [
+          {
+            "package_id": "reverb",
+            "quality": "development",
+            "availability": "optional"
+          }
+        ],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "bd2",
+      "manufacturer": "Boss",
+      "model": "BD-2 Blues Driver",
+      "family": "drive",
+      "identity_label": "BluesDriver",
+      "controls": [
+        "level",
+        "tone",
+        "gain"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "rat",
+      "manufacturer": "Pro Co",
+      "model": "RAT",
+      "family": "drive",
+      "identity_label": "RAT",
+      "controls": [
+        "distortion",
+        "filter",
+        "volume"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [
+          {
+            "package_id": "ratfx",
+            "quality": "development",
+            "availability": "optional_noncommercial"
+          }
+        ],
+        "inverse": [
+          {
+            "package_id": "ratknobs",
+            "quality": "development",
+            "availability": "optional_noncommercial"
+          }
+        ],
+        "order": []
+      }
+    },
+    {
+      "id": "ts9",
+      "manufacturer": "Ibanez",
+      "model": "TS9 Tube Screamer",
+      "family": "drive",
+      "identity_label": "TubeScreamer",
+      "controls": [
+        "drive",
+        "tone",
+        "level"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "bigmuff",
+      "manufacturer": "Electro-Harmonix",
+      "model": "Big Muff Pi",
+      "family": "fuzz",
+      "identity_label": "BigMuff",
+      "controls": [
+        "volume",
+        "tone",
+        "sustain"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "metalmuff",
+      "manufacturer": "Electro-Harmonix",
+      "model": "Metal Muff",
+      "family": "distortion",
+      "identity_label": "MetalMuff",
+      "controls": [
+        "volume",
+        "top_boost",
+        "treble",
+        "mid",
+        "bass",
+        "distortion"
+      ],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "cs3",
+      "manufacturer": "Boss",
+      "model": "CS-3 Compression Sustainer",
+      "family": "compressor",
+      "controls": [
+        "level",
+        "tone",
+        "attack",
+        "sustain"
+      ],
+      "capabilities": {
+        "classifier": [],
+        "forward": [
+          {
+            "package_id": "cs3fx",
+            "quality": "development",
+            "availability": "optional_noncommercial"
+          }
+        ],
+        "inverse": [
+          {
+            "package_id": "cs3knobs",
+            "quality": "development",
+            "availability": "optional_noncommercial"
+          }
+        ],
+        "order": []
+      }
+    },
+    {
+      "id": "dfz",
+      "manufacturer": "Darkglass Electronics",
+      "model": "Duality Fuzz",
+      "family": "fuzz",
+      "controls": [
+        "dual_fuzz",
+        "blend",
+        "level",
+        "filter"
+      ],
+      "capabilities": {
+        "classifier": [],
+        "forward": [],
+        "inverse": [
+          {
+            "package_id": "dfzknobs",
+            "quality": "development",
+            "availability": "optional_noncommercial"
+          }
+        ],
+        "order": []
+      },
+      "notes": [
+        "No forward package is admitted: the retained DFZ forward candidate still misses the frozen transient peak gate."
+      ]
+    },
+    {
+      "id": "fuzzylogic",
+      "manufacturer": "ToneTwisT catalog",
+      "model": "Fuzzy Logic",
+      "family": "fuzz",
+      "identity_label": "FuzzyLogic",
+      "controls": [],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [],
+        "inverse": [],
+        "order": []
+      }
+    },
+    {
+      "id": "sillyfuzz",
+      "manufacturer": "ToneTwisT catalog",
+      "model": "Silly Fuzz",
+      "family": "fuzz",
+      "identity_label": "SillyFuzz",
+      "controls": [],
+      "capabilities": {
+        "classifier": [
+          {
+            "package_id": "identity",
+            "quality": "development",
+            "availability": "base"
+          }
+        ],
+        "forward": [],
+        "inverse": [],
+        "order": []
+      }
+    }
+  ],
+  "chain_capabilities": {
+    "inverse": [
+      {
+        "package_id": "knobs",
+        "quality": "development",
+        "availability": "optional_noncommercial"
+      }
+    ],
+    "order": [
+      {
+        "package_id": "order",
+        "quality": "development",
+        "availability": "optional_noncommercial"
+      }
+    ]
+  }
+}

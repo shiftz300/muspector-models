@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 7,
+  "goal": "Train a license-clean EGFx RAT wet-only restorer with performance-group-disjoint evaluation.",
+  "architecture": {"model": "complex-stft", "initialization": "scratch", "output_level": "unresolved"},
+  "data": {"source": "EGFxSet Clean/RAT", "record": "https://zenodo.org/records/7044411", "license": "CC-BY-4.0", "group": "performance filename across five pickups", "source_read_only": true, "physical_audio_devices_used": false},
+  "alignment": {"maximum_lag_frames": 4096, "minimum_absolute_correlation": 0.35, "evaluation_only": false},
+  "gates": {"coverage": 0.95, "aligned_esr_improvement": 0.10, "aligned_mae_improvement": 0.05, "sidr_improvement_db": 1.0, "aligned_p95_ratio_max": 1.0, "aligned_peak_ratio_max": 1.0},
+  "quality": {"output_gain_applied": false, "preserve_frames": true, "preserve_channels": true, "preserve_sample_rate": true, "automatic_normalization": false, "automatic_limiting": false, "automatic_dither": false, "lossy_reencoding": false, "source_audio_modified": false},
+  "promotion": "device-development only; independent physical-device seal required"
+}

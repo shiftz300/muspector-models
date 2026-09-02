@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "stage",
+  "round": 5,
+  "status": "rejected-oracle",
+  "goal": "Match each inverse family to its signal physics: time-domain nonlinear Drive and spectral long-context Reverb.",
+  "decision": {
+    "report_sha256": "bd2ed9e006d8c8e589e5587b807c1aef193569deb78f37a9889f97754e4d6db8",
+    "drive": "Material recovery passed but aligned ESR and hard-tail gates failed.",
+    "reverb": "Material recovery passed but aligned ESR missed by 1.91 points and audible fraction missed by two of 160 examples."
+  },
+  "baseline": {
+    "reverb_run": "runs/stage/model2",
+    "reverb_sha256": "1e18e70dee307168b2f1d41dc17f4c8f937412a537b3f288260565a4a536fba7"
+  },
+  "architecture": {
+    "drive": "three-control-conditioned finite-history residual TCN",
+    "reverb": "three-control-conditioned complex STFT with long time dilations",
+    "shared_weights": false,
+    "shared_optimizer": false,
+    "chain_gradient": false
+  },
+  "gates": {
+    "absolute_esr_improvement_minimum": 0.15,
+    "aligned_esr_improvement_minimum": 0.15,
+    "sidr_improvement_db_minimum": 1.0,
+    "closure_minimum": 0.15,
+    "correction_ratio_minimum": 0.25,
+    "correction_direction_minimum": 0.5,
+    "audible_fraction_minimum": 0.5
+  },
+  "data": {
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

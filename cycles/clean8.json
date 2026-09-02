@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 8,
+  "goal": "Admit bounded-memory wet-to-clean inference on an ordinary CPU without weakening audio-quality gates.",
+  "runtime": {
+    "backend": "pytorch-cpu-reference",
+    "execution": "background-offline",
+    "audio_thread_safe": false,
+    "core_frames": 32768,
+    "halo_frames": 4096,
+    "threads": 2,
+    "full_clip_model_inference_forbidden": true,
+    "activation_memory_duration_independent": true
+  },
+  "gates": {
+    "artifact_bytes_maximum": 8388608,
+    "parameters_maximum": 250000,
+    "cpu_threads_maximum": 2,
+    "realtime_factor_maximum": 0.5,
+    "process_peak_rss_mb_maximum": 512.0,
+    "parity_max_absolute_error": 0.00002
+  },
+  "data": {
+    "benchmark": "deterministic synthetic finite float32 mono arrays",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false,
+    "rendered_audio_retained": false
+  },
+  "promotion": "reference runtime only; native portable export and real-file fidelity replay remain required"
+}

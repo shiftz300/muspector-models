@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 19,
+  "goal": "Fit the bidirectional chain with synthetic multi-clean controls plus real DAFx train pairs, then seal on an untouched DAFx test subset.",
+  "model": {
+    "architecture": "12-channel Drive spectral stage plus 16-channel finite-context Reverb spectral stage",
+    "initialization": "model11 Drive feature body; stage-specific zero residual heads",
+    "initialization_sha256": "11f3247c25958716cd866cabc81d48e589f02b629dd2e35b68b63334d9f846f6",
+    "forward_orders": [["reverb", "drive"], ["drive", "reverb"]],
+    "restore_order": "reverse the selected forward order",
+    "reverb_runtime_halo_frames": 12288,
+    "parameters_total_maximum": 250000,
+    "artifacts_total_bytes_maximum": 8388608
+  },
+  "data": {
+    "synthetic_fit_examples": 640,
+    "real_fit_examples": 320,
+    "calibration_examples": 120,
+    "development_examples": 120,
+    "new_seal": "DAFx Dataset 3 real rendered test split, records 64:128; effect renderings not previously evaluated",
+    "clean_target": "the paired original for each performance, never a canonical clean template",
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "rendered_audio_retained": false
+  },
+  "gates": {
+    "each_stage_absolute_esr_nonregression": true,
+    "each_stage_aligned_esr_nonregression": true,
+    "chain_absolute_esr_nonregression": true,
+    "chain_aligned_esr_improvement_minimum": 0.01,
+    "chain_sidr_improvement_db_minimum": 0.10,
+    "chain_p95_nonregression": true,
+    "chain_peak_p95_nonregression": true,
+    "order_safe_or_ambiguous_fraction_minimum": 0.75,
+    "external_absolute_esr_nonregression": true,
+    "external_aligned_esr_improvement_minimum": 0.01,
+    "external_sidr_improvement_db_minimum": 0.10,
+    "external_p95_nonregression": true,
+    "external_peak_p95_nonregression": true,
+    "cpu_threads_maximum": 2,
+    "realtime_factor_maximum": 0.5,
+    "process_rss_mb_maximum": 512
+  },
+  "quality": {
+    "source_audio_modified": false,
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false
+  }
+}

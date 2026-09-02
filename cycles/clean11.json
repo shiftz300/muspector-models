@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "rejected-perceptual",
+  "round": 11,
+  "goal": "Seal conservative mixed-domain RAT restoration on a newly excluded performance-group bucket without increasing runtime complexity.",
+  "architecture": {
+    "model": "complex-stft",
+    "channels": 12,
+    "initialization": "runs/clean/model4/clean.pt",
+    "initialization_sha256": "532f8d46a9968538c4b1414de65e879519e7a3e833b8c350089b573afa1765f4",
+    "parameters_maximum": 250000,
+    "artifact_bytes_maximum": 8388608,
+    "output_level": "unresolved"
+  },
+  "inference": {
+    "strength": 0.875,
+    "selection": "frozen before opening bucket 2"
+  },
+  "egfx_split": {
+    "calibration": [0, 1],
+    "development": [2],
+    "fit": [3, 4, 5, 6, 7, 8, 9]
+  },
+  "sampling": {
+    "clips_per_file": 2,
+    "frames_per_clip": 8192,
+    "selection": "two highest-energy clips from eight evenly spaced candidates"
+  },
+  "data": {
+    "asrnn": "ASRNN ProCo RAT eligible fit/calibration/official development",
+    "egfx": "EGFxSet RAT group buckets; bucket 2 excluded from fit and calibration",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "alignment": {
+    "egfx_maximum_lag_frames": 4096,
+    "egfx_minimum_absolute_correlation": 0.35,
+    "asrnn_minimum_wet_to_dry_rms_ratio": 0.03
+  },
+  "gates": {
+    "asrnn": {
+      "coverage": 0.75,
+      "aligned_esr_improvement": 0.10,
+      "aligned_mae_improvement": 0.05,
+      "sidr_improvement_db": 1.0,
+      "aligned_p95_ratio_max": 1.0,
+      "aligned_peak_ratio_max": 1.0
+    },
+    "egfx": {
+      "coverage": 0.95,
+      "aligned_esr_improvement": 0.01,
+      "aligned_mae_improvement": 0.015,
+      "sidr_improvement_db": 0.20,
+      "aligned_p95_ratio_max": 1.0,
+      "aligned_peak_ratio_max": 1.0
+    },
+    "runtime": {
+      "cpu_threads_maximum": 2,
+      "realtime_factor_maximum": 0.5,
+      "process_peak_rss_mb_maximum": 512.0,
+      "parity_max_absolute_error": 0.00002
+    }
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "promotion": "blocked: runs/clean/model11/listen.json found 0.51 percent median transient improvement and 5.94 percent per-example pass rate"
+}

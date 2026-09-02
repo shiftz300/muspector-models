@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "id": "restore",
+  "status": "product2-partial-development-evidence-not-promoted",
+  "usable_model": null,
+  "reason": "Product2 single-effect inverse experts have partial development evidence, but the corrected Wet-only multi-label Blind model failed nonlinear/echo/unknown recall and complex-chain gates; point knob regression is unidentifiable, blind ambience abstains, and locked-final/external/human gates remain unopened.",
+  "development_evidence": {
+    "run": "runs/foundation/product2",
+    "audit": "runs/foundation/product2/audit.json",
+    "trained_checkpoint": "runs/foundation/product2/nonlinear/model.pt",
+    "checkpoint_sha256": "feb43c7e611f5051ef5c89f3ea6906f4e922a1f3d80ff70b5fcfbb57554d9e62",
+    "blind_presence_run": "runs/foundation/product2/blind2-balanced",
+    "blind_presence_status": "development-rejected",
+    "status": "not-promoted",
+    "single_effect_order_independent": true
+  },
+  "data": {
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "invalidated": [
+    {
+      "run": "runs/stage/model20",
+      "status": "rejected-listening-and-domain",
+      "evidence": "runs/stage/model20/listen.json",
+      "reason": "DAFx generic overdrive was mislabeled as RAT, its corpus admission is order-only, and temporal dereverberation failed every aggregate gate."
+    },
+    {
+      "run": "runs/clean/model11",
+      "status": "rejected-perceptual",
+      "evidence": "runs/clean/model11/listen.json",
+      "reason": "Real ProCo RAT transient improvement was 0.51 percent with only 5.94 percent per-example passes."
+    }
+  ],
+  "rounds": [
+    {"run": "runs/rat/model1", "status": "rejected-perceptual", "report_sha256": "a672a39dd1df71f6cd2aa94ec81aeb2009bb7a8b5c0ab3b5fa5358433e8646ac", "transient_improvement": -0.060565152718620285, "pass_fraction": 0.0},
+    {"run": "runs/rat/model2", "status": "rejected-perceptual", "report_sha256": "957160a396fa311c60569c0b5e564bb8477db89fb56962be17e7f95bde8b5a04", "transient_improvement": 0.017369376684264193, "pass_fraction": 0.0891089108910891},
+    {"run": "runs/rat/model3", "status": "rejected-perceptual", "report_sha256": "51e79acc49fde335d1ecd2d2f0b1ebe2c09540b1cc7d0c5c10a9c8b450f21774", "transient_improvement": 0.01955222070553231, "pass_fraction": 0.18811881188118812},
+    {"run": "runs/rat/model4", "status": "rejected-perceptual-model-family", "report_sha256": "11d32836d3c57dd94af9fb87c1949056dda84c92dc5785934f9c0fc9434a8d14", "spectral_improvement": 0.29041448910833934, "high_band_improvement": 0.47922139403857533, "transient_improvement": 0.053971694886358224, "dynamics_improvement": 0.33281144585711886, "pass_fraction": 0.26732673267326734}
+  ],
+  "stop_rule": "Do not tune more loss weights or epochs on the current deterministic temporal-residual family.",
+  "next": {
+    "scope": "independent family experts and device adapters; RAT is one Drive-family physical pilot, not the product boundary; learned sharing requires a later no-negative-transfer comparison",
+    "families": ["drive", "fuzz", "distortion", "compressor", "gate", "eq", "filter", "wah", "chorus", "flanger", "phaser", "tremolo", "vibrato", "delay", "reverb", "pitch", "octave"],
+    "layers": ["family", "device", "profile", "graph"],
+    "conditioning": ["current effect Wet", "current effect controls", "current effect state", "optional explicit device adapter", "explicitly selected Clean profile"],
+    "order_boundary": "No inverse expert receives chain order or neighboring-effect context; the separate graph package invokes order-independent single-effect experts in reverse topology.",
+    "runtime": "load only the active independent family experts; device adapters remain small; ordinary-CPU realtime factor at most 0.5 for background restoration",
+    "first_gate": "prove the shared contract on at least one nonlinear, one dynamics, and one temporal family before building another chain demo"
+  },
+  "audit": {
+    "historical_reports": "retained as evidence, not promotion",
+    "cycle_files": "post-hoc rejection annotations supersede their original frozen hashes",
+    "rejected_demo_audio_removed": true,
+    "physical_audio_devices_used": false,
+    "latest_product_foundation_run": "runs/foundation/product2",
+    "latest_product_foundation_status": "partial-development-evidence-not-promoted",
+    "latest_product_foundation_reason": "order-independent nonlinear/dynamics/echo plus stable known-profile ambience pass partial development checks, but corrected Blind presence and Wet-only knob admission fail, so end-to-end promotion remains blocked",
+    "formal_baseline_authorized": false
+  }
+}

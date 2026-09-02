@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "remix",
+  "display_name": "Remix models",
+  "default_install": false,
+  "packages": [
+    {"package_id": "knobs", "version": "1.0.0", "required": false},
+    {"package_id": "order", "version": "2.0.0", "required": false},
+    {"package_id": "chain", "version": "1.1.0", "required": false}
+  ]
+}

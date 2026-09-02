@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "stage",
+  "round": 13,
+  "status": "accepted-blind-development",
+  "goal": "Replace the learned Reverb inverse with a compact regularized analytic inverse of the frozen linear forward profile.",
+  "decision": {"report_sha256": "6490a88905e8a521572c9d1eb0e3d07b3fd260f75444d3799915d5e1ea0ef0cb", "reason": "all blind and oracle development gates passed; real DAFx domain remains a separate unopened seal"},
+  "baseline": {
+    "drive_sha256": "458a42bb134c6a7e1ecb2927892ebf798e8b7e82d3e5ffcf1639d4a81f23d974",
+    "drive_control_sha256": "ca71d7bcc87b7261caa4b2896cbacb502bb42092bedce64f069b924fffb12bbd",
+    "reverb_control_sha256": "5cabc8b64957f2e1c856903c824b4d9e7432146d02cf64f195f8a0da3b1b3851",
+    "reverb_profile_sha256": "cc2318fd2c61f03d94470215a35c707d53bbb6426173331eedeae39b8b2f8abd"
+  },
+  "calibration": {"regularization": [0.005, 0.01, 0.02, 0.05, 0.1, 0.2], "clean_reference_runtime": false},
+  "training": {"trained": [], "calibrated": ["reverb_regularization"], "frozen": ["drive_inverse", "drive_control", "reverb_control", "reverb_profile"], "shared_optimizer": false, "chain_gradient": false},
+  "gates": {"absolute_esr_improvement_minimum": 0.15, "aligned_esr_improvement_minimum": 0.15, "sidr_improvement_db_minimum": 1.0, "closure_minimum": 0.15, "correction_ratio_minimum": 0.25, "correction_direction_minimum": 0.5, "audible_fraction_minimum": 0.5, "tail_non_regression": true, "peak_non_regression": true, "oracle_non_regression": true},
+  "data": {"source_read_only": true, "physical_audio_devices_used": false, "rendered_audio_retained": false},
+  "quality": {"source_audio_modified": false, "physical_audio_devices_used": false, "preserve_frames": true, "preserve_sample_rate": true, "automatic_normalization": false, "automatic_limiting": false, "automatic_dither": false, "lossy_reencoding": false}
+}

@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "candidate": "runs/foundation/product3-safe/nonlinear/model.pt",
+  "checkpoint_sha256": "cc0f9a320345e870b0e2ec56ef331419becfa296b642b620b65df3593c4df75b",
+  "date": "2026-09-02",
+  "verdict": "accepted-for-current-listening-scope",
+  "user_feedback": "v3 sounds acceptable",
+  "listened_package": "demos/drive-product3-safe-ab-demo-20260902-v1",
+  "listened_files": [
+    "drive-ab.wav",
+    "drive-hard-ab.wav"
+  ],
+  "ab_order": [
+    "Wet",
+    "0.75-second silence",
+    "Restored v3"
+  ],
+  "scope": "licensed development Clean plus repository-owned synthetic nonlinear Drive with exact controls",
+  "does_not_establish": [
+    "blind unknown-control restoration",
+    "named or physical pedal fidelity",
+    "multi-effect physical-chain acceptance",
+    "locked-final acceptance"
+  ],
+  "locked_final_accessed": false
+}

@@ -1,0 +1,661 @@
+{
+  "schema": 1,
+  "id": "development",
+  "description": "Migration inputs for accepted research artifacts. This file is not an installable package; the materializer verifies every source hash and emits one canonical package per capability.",
+  "packages": [
+    {
+      "package": {
+        "schema": 1,
+        "id": "drive",
+        "version": "1.0.0",
+        "display_name": "Generic Drive forward renderer",
+        "kind": "forward",
+        "quality": "development",
+        "device": "drive",
+        "runtime": {
+          "backend": "pytorch",
+          "entrypoint": "python.remix.forward_drive.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "gain_db",
+            "label": "Gain",
+            "unit": "dB",
+            "minimum": 0.0,
+            "maximum": 30.0,
+            "default": 12.0
+          },
+          {
+            "id": "tone",
+            "label": "Tone",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "level_db",
+            "label": "Level",
+            "unit": "dB",
+            "minimum": -18.0,
+            "maximum": 12.0,
+            "default": 0.0
+          }
+        ],
+        "audio_behavior": "loss_preserving_render",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {
+            "path": "artifacts/drive-forward-candidate.pt",
+            "role": "weights",
+            "bytes": 23813,
+            "sha256": "98ea675a187c2b2e958e316fe8a43f8628eec32757310c5abc47845a6f74f608"
+          },
+          {
+            "path": "evidence/runtime-contract.json",
+            "role": "runtime_contract",
+            "bytes": 2374,
+            "sha256": "3bbf38e65b20de8e87e66b0064556b4d1ce7859983ff00c1f1e88c01b8acab39"
+          },
+          {
+            "path": "evidence/acceptance.json",
+            "role": "acceptance",
+            "bytes": 1807,
+            "sha256": "7dfa1086f11b4f97910e15cf326e4c77dc371f4bc587c70328a47c5a59c9fb2d"
+          }
+        ],
+        "license": {
+          "id": "research-internal",
+          "commercial_use": false,
+          "redistribution": false,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/acceptance.json"
+        ],
+        "limitations": [
+          "Synthetic-domain research candidate; not a clone of a named physical pedal."
+        ]
+      },
+      "sources": {
+        "artifacts/drive-forward-candidate.pt": "remix/runs/drive-forward-pilot/drive-forward-candidate.pt",
+        "evidence/runtime-contract.json": "remix/runs/drive-forward-pilot/runtime-contract.json",
+        "evidence/acceptance.json": "remix/runs/drive-forward-pilot/acceptance.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "delay",
+        "version": "1.0.0",
+        "display_name": "Generic Delay forward renderer",
+        "kind": "forward",
+        "quality": "development",
+        "device": "delay",
+        "runtime": {
+          "backend": "native-dsp",
+          "entrypoint": "python.remix.forward_delay.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "time_ms",
+            "label": "Time",
+            "unit": "ms",
+            "minimum": 40.0,
+            "maximum": 1000.0,
+            "default": 350.0
+          },
+          {
+            "id": "feedback",
+            "label": "Feedback",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 0.9,
+            "default": 0.35
+          },
+          {
+            "id": "mix",
+            "label": "Mix",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 0.7,
+            "default": 0.3
+          }
+        ],
+        "audio_behavior": "loss_preserving_render",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {
+            "path": "artifacts/delay-forward-candidate.pt",
+            "role": "parameters",
+            "bytes": 2213,
+            "sha256": "2ca0fd691b1d6107e80671a626638d27aefbac7510e19e0d5a904456e415447b"
+          },
+          {
+            "path": "evidence/runtime-contract.json",
+            "role": "runtime_contract",
+            "bytes": 1652,
+            "sha256": "55318d1a9d82bf7141b96f763487456149e4aeafaa13d547fc7d470ff0a3c45a"
+          },
+          {
+            "path": "evidence/acceptance.json",
+            "role": "acceptance",
+            "bytes": 2948,
+            "sha256": "f3bca290f15ead2d74d0a01224d533ca08f1980d68f1971f00b54cb3f6e5b83e"
+          }
+        ],
+        "license": {
+          "id": "research-internal",
+          "commercial_use": false,
+          "redistribution": false,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/acceptance.json"
+        ],
+        "limitations": [
+          "Generic hybrid Delay; not a clone of a named physical pedal."
+        ]
+      },
+      "sources": {
+        "artifacts/delay-forward-candidate.pt": "remix/runs/delay-forward-pilot/delay-forward-candidate.pt",
+        "evidence/runtime-contract.json": "remix/runs/delay-forward-pilot/runtime-contract.json",
+        "evidence/acceptance.json": "remix/runs/delay-forward-pilot/acceptance.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "reverb",
+        "version": "1.0.0",
+        "display_name": "Generic Reverb forward renderer",
+        "kind": "forward",
+        "quality": "development",
+        "device": "reverb",
+        "runtime": {
+          "backend": "native-dsp",
+          "entrypoint": "python.remix.forward_reverb.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "decay_s",
+            "label": "Decay",
+            "unit": "s",
+            "minimum": 0.2,
+            "maximum": 8.0,
+            "default": 1.5
+          },
+          {
+            "id": "damping",
+            "label": "Damping",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "mix",
+            "label": "Mix",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 0.7,
+            "default": 0.25
+          }
+        ],
+        "audio_behavior": "loss_preserving_render",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {
+            "path": "artifacts/reverb-device-profile.npz",
+            "role": "device_profile",
+            "bytes": 12829038,
+            "sha256": "cc2318fd2c61f03d94470215a35c707d53bbb6426173331eedeae39b8b2f8abd"
+          },
+          {
+            "path": "evidence/runtime-contract.json",
+            "role": "runtime_contract",
+            "bytes": 1701,
+            "sha256": "b7af0ce6d28487f4abadf8038162b926cb9f8e449166c074576b1d836f9f1f02"
+          },
+          {
+            "path": "evidence/acceptance.json",
+            "role": "acceptance",
+            "bytes": 2079,
+            "sha256": "82312641538683c18e476a4df9d119f82c07fc8270ba152caae7e15d3b36d8b8"
+          }
+        ],
+        "license": {
+          "id": "research-internal",
+          "commercial_use": false,
+          "redistribution": false,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/acceptance.json"
+        ],
+        "limitations": [
+          "Capture architecture proof; not fidelity to an uncaptured physical Reverb device."
+        ]
+      },
+      "sources": {
+        "artifacts/reverb-device-profile.npz": "remix/runs/reverb-forward-phase1/reverb-device-profile.npz",
+        "evidence/runtime-contract.json": "remix/runs/reverb-forward-phase1/runtime-contract.json",
+        "evidence/acceptance.json": "remix/runs/reverb-forward-phase1/acceptance.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "ratfx",
+        "version": "1.0.0",
+        "display_name": "Pro Co RAT forward renderer",
+        "kind": "forward",
+        "quality": "development",
+        "device": "rat",
+        "runtime": {
+          "backend": "pytorch",
+          "entrypoint": "python.remix.stable_effect.rat.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "distortion",
+            "label": "Distortion",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "filter",
+            "label": "Filter",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "volume",
+            "label": "Volume",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          }
+        ],
+        "audio_behavior": "loss_preserving_render",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {
+            "path": "artifacts/rat-stable.pt",
+            "role": "weights",
+            "bytes": 16565,
+            "sha256": "4d2feb14464aef8bd8f7dc380f818d65d241bd97d6fe1092f3b262e108c4d102"
+          }
+        ],
+        "license": {
+          "id": "CC-BY-NC-4.0",
+          "commercial_use": false,
+          "redistribution": true,
+          "notice": null
+        },
+        "evidence": [],
+        "limitations": [
+          "Internal non-commercial pilot; not release-qualified universal hardware fidelity."
+        ]
+      },
+      "sources": {
+        "artifacts/rat-stable.pt": "remix/runs/asrnn-rat-stable-pilot/rat-stable.pt"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "ratknobs",
+        "version": "1.0.0",
+        "display_name": "Pro Co RAT knob recovery",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "rat",
+        "runtime": {
+          "backend": "pytorch-joblib",
+          "entrypoint": "python.remix.semantic_rat.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "distortion",
+            "label": "Distortion",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "filter",
+            "label": "Filter",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "volume",
+            "label": "Volume",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          }
+        ],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {
+            "path": "artifacts/initializer.pt",
+            "role": "initializer",
+            "bytes": 2030422,
+            "sha256": "b948442ee8e7f4101ffc840307e51227b160b57faa1ccca108388d341df168d0"
+          },
+          {
+            "path": "artifacts/renderer.pt",
+            "role": "search_renderer",
+            "bytes": 16565,
+            "sha256": "4d2feb14464aef8bd8f7dc380f818d65d241bd97d6fe1092f3b262e108c4d102"
+          },
+          {
+            "path": "artifacts/semantic-heads.joblib",
+            "role": "semantic_heads",
+            "bytes": 10364948,
+            "sha256": "84d35b9a87e53cb87bb217f0a0cfbc0f81b4e185baae6379fe003e5aacc41e96"
+          },
+          {
+            "path": "evidence/model-card.json",
+            "role": "model_card",
+            "bytes": 14025,
+            "sha256": "e9c0efdcebf8213285d434d22143bc6a6f12647a71b6625f1065705e391c652c"
+          }
+        ],
+        "license": {
+          "id": "CC-BY-NC-4.0",
+          "commercial_use": false,
+          "redistribution": true,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/model-card.json"
+        ],
+        "limitations": [
+          "Requires aligned one-second mono 48 kHz Clean/Wet pairs.",
+          "Development evidence only."
+        ]
+      },
+      "sources": {
+        "artifacts/initializer.pt": "remix/runs/asrnn-rat-inverse-pilot/rat-inverse.pt",
+        "artifacts/renderer.pt": "remix/runs/asrnn-rat-stable-pilot/rat-stable.pt",
+        "artifacts/semantic-heads.joblib": "remix/runs/rat-identifiable-phase10/semantic-heads.joblib",
+        "evidence/model-card.json": "remix/runs/rat-identifiable-phase10/model-card.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "cs3fx",
+        "version": "1.0.0",
+        "display_name": "Boss CS-3 Attack-conditioned forward renderer",
+        "kind": "forward",
+        "quality": "development",
+        "device": "cs3",
+        "runtime": {
+          "backend": "pytorch",
+          "entrypoint": "python.remix.stable_effect.cs3.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "attack",
+            "label": "Attack",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          }
+        ],
+        "audio_behavior": "loss_preserving_render",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {
+            "path": "artifacts/cs3-stable.pt",
+            "role": "weights",
+            "bytes": 958029,
+            "sha256": "445dbaa3ec97e53f32c197e8922257baabf70ebba5622656d424cd856b151e4e"
+          },
+          {
+            "path": "evidence/model-card.json",
+            "role": "model_card",
+            "bytes": 13841,
+            "sha256": "02c1d74d4e4ec71de494da6c25cb320980b71f272e017a09ec9e6e35c0c8e33f"
+          }
+        ],
+        "license": {
+          "id": "CC-BY-NC-4.0",
+          "commercial_use": false,
+          "redistribution": true,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/model-card.json"
+        ],
+        "limitations": [
+          "Only Attack varies; Level, Tone, and Sustain remain at dataset-fixed settings.",
+          "No independent locked-final hardware evidence."
+        ]
+      },
+      "sources": {
+        "artifacts/cs3-stable.pt": "remix/runs/asrnn-cs3-ensemble-pilot/cs3-stable.pt",
+        "evidence/model-card.json": "remix/runs/asrnn-cs3-ensemble-pilot/model-card.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "cs3knobs",
+        "version": "1.0.0",
+        "display_name": "Boss CS-3 Attack recovery",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "cs3",
+        "runtime": {
+          "backend": "pytorch-search",
+          "entrypoint": "python.remix.cs3_search.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "attack",
+            "label": "Attack",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          }
+        ],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {
+            "path": "artifacts/search-renderer.pt",
+            "role": "search_renderer",
+            "bytes": 958029,
+            "sha256": "445dbaa3ec97e53f32c197e8922257baabf70ebba5622656d424cd856b151e4e"
+          },
+          {
+            "path": "evidence/model-card.json",
+            "role": "model_card",
+            "bytes": 3490,
+            "sha256": "29f6455526cc746a6a48df2f0f2d201a57fe05da672ba2a40240e5dc1fe21d79"
+          }
+        ],
+        "license": {
+          "id": "CC-BY-NC-4.0",
+          "commercial_use": false,
+          "redistribution": true,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/model-card.json"
+        ],
+        "limitations": [
+          "Requires aligned three-second mono 48 kHz Clean/Wet pairs.",
+          "Recovers Attack only at fixed remaining controls."
+        ]
+      },
+      "sources": {
+        "artifacts/search-renderer.pt": "remix/runs/asrnn-cs3-ensemble-pilot/cs3-stable.pt",
+        "evidence/model-card.json": "remix/runs/cs3-search-gpu-phase10/model-card.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "dfzknobs",
+        "version": "1.0.0",
+        "display_name": "Darkglass Duality Fuzz Blend Filter recovery",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "dfz",
+        "runtime": {
+          "backend": "pytorch-search",
+          "entrypoint": "python.remix.dfz_search.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {
+            "id": "blend",
+            "label": "Blend",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          },
+          {
+            "id": "filter",
+            "label": "Filter",
+            "unit": "normalized",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.5
+          }
+        ],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {
+            "path": "artifacts/search-renderer.pt",
+            "role": "search_renderer",
+            "bytes": 483294,
+            "sha256": "8650df4628773f623fbf75d36d3a5056d1db48ff7c75411877f0fccee85ce95b"
+          },
+          {
+            "path": "evidence/model-card.json",
+            "role": "model_card",
+            "bytes": 3269,
+            "sha256": "c08fe431998b092cceea6f91fd79989eda28c4ad73b83291abc0a3e56374bd5a"
+          }
+        ],
+        "license": {
+          "id": "CC-BY-NC-4.0",
+          "commercial_use": false,
+          "redistribution": true,
+          "notice": null
+        },
+        "evidence": [
+          "evidence/model-card.json"
+        ],
+        "limitations": [
+          "Inverse development admission only.",
+          "The embedded search renderer is not an admitted forward package and still misses the frozen transient peak gate.",
+          "Requires aligned three-second mono 48 kHz Clean/Wet pairs."
+        ]
+      },
+      "sources": {
+        "artifacts/search-renderer.pt": "remix/runs/dfz-capacity-phase9/selected.pt",
+        "evidence/model-card.json": "remix/runs/dfz-search-phase10/model-card.json"
+      }
+    }
+  ]
+}

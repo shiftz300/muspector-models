@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "id": "family",
+  "version": "1.0.0",
+  "display_name": "Inspector Drive Delay Reverb classifier",
+  "kind": "classifier",
+  "quality": "development",
+  "device": null,
+  "runtime": {
+    "backend": "onnx-composite",
+    "entrypoint": "rust.inspector.routed.v1",
+    "minimum_client_version": "0.1.0"
+  },
+  "sample_rate": 44100,
+  "channels": 1,
+  "controls": [],
+  "audio_behavior": "analysis_only",
+  "audio_quality": null,
+  "artifacts": [
+    {"path": "drive-delay-encoder.onnx", "role": "drive_delay_encoder", "bytes": 2807121, "sha256": "cb77d22bf808b52bc85058c3a0bfdf4d51ade29144fd5c57f309bd0c6eeb040d"},
+    {"path": "drive-delay-head.onnx", "role": "drive_delay_head", "bytes": 1397003, "sha256": "77993b65940fa9ecc256aee7f7c924d56974ff5fc10a98becdca1cf904cbc78d"},
+    {"path": "reverb-encoder.onnx", "role": "reverb_encoder", "bytes": 2807121, "sha256": "b58bfbe3b8009cd1606534f89a023a7b3f95ba0cd1535269e590d86853d4bd76"},
+    {"path": "reverb-head.onnx", "role": "reverb_head", "bytes": 1397003, "sha256": "ecff1b524efc8b0c66b23e4ff7e9446a1d374877fbd905fa822b25f3ed3c417f"},
+    {"path": "reverb-verifier.onnx", "role": "reverb_verifier", "bytes": 83397, "sha256": "127a0180f081316fe640502feb7212de6867701e8ee1ee6216e0251fb0df5e80"},
+    {"path": "routed-device-profile.bin", "role": "development_profile", "bytes": 4144, "sha256": "fc753c62c1c939fa63b34728ed442987d2f67e5129c37c06fdb4d4acec5f5ac4"},
+    {"path": "README.md", "role": "model_card", "bytes": 4253, "sha256": "66882a5a7ef01c0936afc041ebe02ff182af2d1e9f515322a219e5f974c3a682"},
+    {"path": "LICENSES.md", "role": "license_notice", "bytes": 3496, "sha256": "9903aef7fbb2e7ff6eb153fcdb1c457179c073d69c4bbdd58bfc27c281debfb1"}
+  ],
+  "license": {
+    "id": "mixed-see-LICENSES.md",
+    "commercial_use": false,
+    "redistribution": false,
+    "notice": "LICENSES.md"
+  },
+  "evidence": ["README.md"],
+  "limitations": [
+    "Classifies Drive, Delay, and Reverb families only.",
+    "Does not recover effect order or knob settings.",
+    "Hardware evidence is development evidence, not device-disjoint release evidence."
+  ]
+}

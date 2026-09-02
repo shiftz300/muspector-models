@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "id": "clean",
+  "status": "rejected-perceptual",
+  "goal": "Restore a plausible clean guitar waveform from wet audio without changing source geometry or silently degrading difficult inputs.",
+  "data": {
+    "sources": ["ASRNN ProCo RAT", "EGFxSet Clean/RAT"],
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "architecture": {
+    "order": "per-chain forward order, never a global genre order",
+    "restore": "remove stages in reverse forward order",
+    "example": {
+      "forward": ["reverb", "drive"],
+      "restore": ["drive", "reverb"],
+      "style": "shoegaze"
+    },
+    "unknown": "rank candidate graphs using order evidence, forward replay, clean prior, and intermediate-state validity; abstain when the margin is insufficient",
+    "context": "each inverse stage targets its immediate predecessor but receives only the current effect Wet, controls and own state; any upstream effects are signal content in the target, never conditioning metadata",
+    "restorer": "complex-stft",
+    "level": "unresolved"
+  },
+  "rounds": [
+    {"round": 1, "status": "rejected", "report_sha256": "96f1e8c306f4d9d22792d94789d6bbfe74bbd72eb1ec126eed3ce56c3d4e6e1d", "reason": "energy shrinkage without sufficient waveform recovery"},
+    {"round": 2, "status": "rejected", "report_sha256": "01debc71394363b8fdbba56e6f983e6b486b26b9f0ddb2130fd4c46654c61e97", "reason": "average and tail regressions"},
+    {"round": 3, "status": "rejected", "report_sha256": "1a35397334761763c2cf3b6ed496d17635492347f4f2947d5b15b69709b97f50", "reason": "scale-aligned residual model regressed"},
+    {"round": 4, "status": "accepted-development", "report_sha256": "0de07c5d1595ebbd201a7dda66b9c40b63626fd832c7d6327c314c0b9aa9c34a", "artifact_sha256": "532f8d46a9968538c4b1414de65e879519e7a3e833b8c350089b573afa1765f4"},
+    {"round": 5, "status": "accepted-development", "report_sha256": "fc558cafeb44e8d9fa3e3802beac7fdb3d10fb9fdcb18d9a3e184342480fd3b7", "artifact_sha256": "09ad8161096ed8b26d12b6dadaaaed781a5591206fd55948d544f799f1e0bd95"},
+    {"round": 6, "status": "rejected", "report_sha256": "4c8adf5aef7c5dbce6718ad1a3cfd39198d1b737a3c8d6d757a666ef70d49201", "reason": "cross-domain average gains were small and tail error regressed"},
+    {"round": 7, "status": "rejected", "report_sha256": "b23b11bf3a0d5bf6132c786316741e96e636e01538707c909bc99380b2da9278", "reason": "license-clean scratch model missed restoration and tail gates"},
+    {"round": 8, "status": "accepted-runtime-development", "benchmark_sha256": "7871b082fad32af3ae1f34c4342b3145fed7b95d6f188ff5005213f109e539f8", "parity_sha256": "ffcd8aefc504e1cc922843f30b9b97241a8c56786c1129e78b77ad32e30b91f9"},
+    {"round": 9, "status": "rejected", "report_sha256": "08e1f78291cb6034b50b067d8c984cfd01b5faa18e93cf5152a7a87cd055d7c7", "reason": "EGFx held-out ESR, SI-SDR, and P95 gates failed"},
+    {"round": 10, "status": "rejected", "report_sha256": "0e9bf58c4a42c671bac8831078a46586710e82e246e210b728c7c974198d5786", "reason": "wider model and two-clip sampling did not improve held-out group generalization"},
+    {"round": 11, "status": "rejected-perceptual", "report_sha256": "3269df54e99e2b072abc5f4211d2b7c0c07269a3661d3d04ca8f805b1ddc3db0", "listen_sha256": "23062534815c33ceb60e469c90d58a4ef2a2390a002af404a1fc12a7d85ab71c", "artifact_sha256": "11f3247c25958716cd866cabc81d48e589f02b629dd2e35b68b63334d9f846f6", "runtime_sha256": "8a7e6acab6be13474d1d6475f0d3adefe02d41af0265bce6f13b9f716a0f8ad6", "parity_sha256": "368f8218238b67fa86807360b9d1a7e9706b719f360ebe19f75e2ff7659c49a2", "reason": "real ProCo RAT audit recovered median spectrum and high-band energy but only 0.51 percent median transient definition; per-example pass fraction was 5.94 percent"},
+    {"round": 12, "status": "rejected-upstream-perceptual", "report_sha256": "ddb39706745acc571c11d910ced8224d2b5c66ccb086201ccdc576f67da1d130", "reason": "confidence selection cannot promote a restorer that fails perceptual quality"},
+    {"round": 13, "status": "rejected-upstream-perceptual", "report_sha256": "22a480756a870d250608b6b7bfbb2e4a4ddda30488cb054acf3fd4526ee1f4cc", "artifact_sha256": "7ad2050586b6acc15cc8900c8a4007249d41af218bb2bb16c5b720c5508377f7", "reason": "portable parity proves reproduction of the rejected model, not restoration quality"},
+    {"round": 14, "status": "rejected", "report_sha256": "ab6e095d705177151ba4b594c547651357e6545e0cd9e9c12a4a71a8e0ff0890", "reason": "quality improved but long-context runtime exceeded speed and memory gates"},
+    {"round": 15, "status": "rejected-development", "report_sha256": "127d8a9090d08a291e4e53486ad615895b2321e0cc1c2516062b8df424508909", "reason": "final chain passed but intermediate-stage consumer gates were misassigned"},
+    {"round": 16, "status": "rejected-development", "report_sha256": "bec1ed6b06e20126083e0c456d91fcbc09538c56ddeada74c2e5df769065ce34", "reason": "reduced fit coverage missed final-chain development gates"},
+    {"round": 17, "status": "rejected-seal", "report_sha256": "5fcd4f6ad74143450fc830b5a532af2d8ff5c2ca5ed64a0d6a0dd12d143f54a2", "reason": "Tele seal aligned ESR improved 0.825 percent, below the frozen 1.0 percent gate; every other final and runtime gate passed"},
+    {"round": 18, "status": "rejected-seal", "report_sha256": "e75442b61c9d63210f1c579770da3e0e96245b9425b70ed93638c3b1f56b876b", "reason": "new DAFx test seal improved absolute ESR 2.86 percent but missed aligned ESR and SI-SDR gates"},
+    {"round": 19, "status": "accepted-chain-development", "report_sha256": "0f9a6c56932b9f9f509d3a641d1ab269581455f0b660255c9d177d85ee6cca4f", "reason": "real DAFx train composite fitting and untouched test records 64:128 passed all quality, order, seal, and runtime gates"},
+    {"round": 20, "status": "rejected-listening", "report_sha256": "8046426847f0fa788095645b958c0b596d0a49b3a413df9b19c2aa741475e797", "reason": "automated gates passed but the phrase closed only 1.27-2.83 percent of the Wet-to-Clean distance and remained perceptually near-identical to Wet"}
+  ],
+  "previously_accepted_numeric_evidence": {
+    "scope": "ASRNN ProCo RAT plus a performance-group-held-out EGFx RAT domain",
+    "automatic_coverage": 0.6484375,
+    "aligned_esr_improvement": 0.14566812173254884,
+    "aligned_mae_improvement": 0.07832688776766339,
+    "sidr_improvement_db": 1.7302572230767548,
+    "calibration_false_accept": 0.0,
+    "egfx": {
+      "held_out_examples": 66,
+      "aligned_esr_improvement": 0.02825396216990539,
+      "aligned_mae_improvement": 0.03782246950169321,
+      "sidr_improvement_db": 0.4540223278571251,
+      "p95_improved": true,
+      "peak_p95_improved": true
+    },
+    "runtime": {
+      "execution": "background-offline",
+      "artifact_bytes": 99359,
+      "parameters": 23078,
+      "cpu_threads": 2,
+      "realtime_factor": 0.07066851666665268,
+      "process_peak_rss_mb": 408.6875,
+      "maximum_model_input_frames": 40960,
+      "activation_memory_duration_independent": true,
+      "parity_files": 128,
+      "parity_max_absolute_error": 2.9802322387695312e-08
+    },
+    "portable": {
+      "backend": "ONNX learned core with native spectral contract",
+      "artifact_bytes": 105522,
+      "cpu_threads": 2,
+      "realtime_factor": 0.051029027083253214,
+      "process_peak_rss_mb": 401.734375,
+      "maximum_model_input_frames": 24576,
+      "parity_max_absolute_error": 3.975583240389824e-08
+    },
+    "stage": {
+      "status": "rejected-listening",
+      "run": "runs/stage/model2",
+      "shared_optimizer": false,
+      "chain_gradient": false,
+      "forward_orders": [["reverb", "drive"], ["drive", "reverb"]],
+      "restore": "reverse runtime forward order",
+      "seal_aligned_esr_improvement": 0.0381173682820698,
+      "seal_sidr_improvement_db": 0.5089098716458079,
+      "realtime_factor": 0.19551717223318216,
+      "process_peak_rss_mb": 477.140625,
+      "parameters": 55784
+    }
+  },
+  "unaccepted": [
+    "general or arbitrary RAT restoration outside ASRNN and EGFx development domains",
+    "absolute original output level",
+    "multi-effect reconstruction promotion beyond the accepted DAFx Dataset 3 development seal",
+    "automatic genre-specific order",
+    "native Rust STFT/iSTFT implementation of the accepted ONNX core contract",
+    "execution inside the realtime audio callback"
+  ],
+  "next": [
+    "freeze a family-independent stage contract, clean-profile contract, and universal anti-degradation gates",
+    "train separate nonlinear, dynamics, modulation, echo, and ambience experts independently; test learned sharing only after frozen equal-scope experts prove no negative transfer",
+    "treat RAT, TS9, BD-2, Big Muff, CS-3 and other named pedals as adapters and physical validation domains rather than standalone architectures",
+    "require effect-specific gates plus phrase-level Wet, candidate, and original predecessor blind listening before any family or chain promotion"
+  ],
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false
+  }
+}

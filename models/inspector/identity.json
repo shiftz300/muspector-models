@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "id": "identity",
+  "version": "1.0.0",
+  "display_name": "Inspector seven-pedal identity classifier",
+  "kind": "classifier",
+  "quality": "development",
+  "device": null,
+  "runtime": {
+    "backend": "onnx",
+    "entrypoint": "rust.inspector.identity.v1",
+    "minimum_client_version": "0.1.0"
+  },
+  "sample_rate": 48000,
+  "channels": 1,
+  "controls": [],
+  "audio_behavior": "analysis_only",
+  "audio_quality": null,
+  "artifacts": [
+    {"path": "afx-pedal-identity.onnx", "role": "identity_model", "bytes": 323817850, "sha256": "977c0e4a2f0ca4a61cf899df0c7a3fd03da41060db78a5aaee20ca7be32d8403"},
+    {"path": "afx-pedal-identity.json", "role": "identity_config", "bytes": 486, "sha256": "4a895c175c1d91534fc4ed7d7b59bc450b8a4edaa5c0fec18e17b555f620d917"},
+    {"path": "AFX_PEDAL_IDENTITY_NOTICE.md", "role": "license_notice", "bytes": 1467, "sha256": "a313f40b04e86db617339bdef294a1de70bb387dbf05313585d3c6047afa8c88"}
+  ],
+  "license": {
+    "id": "CC-BY-NC-4.0-and-cc-nc",
+    "commercial_use": false,
+    "redistribution": true,
+    "notice": "AFX_PEDAL_IDENTITY_NOTICE.md"
+  },
+  "evidence": ["AFX_PEDAL_IDENTITY_NOTICE.md"],
+  "limitations": [
+    "Recognizes only the seven labels declared by the accompanying config.",
+    "Consumes up to three energetic five-second mono 48 kHz analysis windows.",
+    "Identity output is a shadow candidate and cannot authorize device-adapter delivery.",
+    "Does not recover order, controls, or a forward renderer.",
+    "Non-commercial research component."
+  ]
+}

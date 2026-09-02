@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "id": "rat",
+  "round": 2,
+  "status": "rejected-perceptual",
+  "goal": "Correct model1's near-bypass failure by separating RAT output-level inversion from waveform-detail reconstruction.",
+  "baseline": {
+    "run": "runs/rat/model1",
+    "status": "rejected-perceptual",
+    "reason": "development transient improvement -6.06 percent and zero per-example passes"
+  },
+  "architecture": {
+    "model": "normalized-control-conditioned-time-residual",
+    "input": ["wet", "frozen spectral hint", "RAT distortion", "RAT filter", "RAT volume"],
+    "level": "bounded learned gain from physical controls",
+    "detail": "grouped dilated temporal residual on RMS-normalized features",
+    "output": "level-corrected wet plus learned detail residual",
+    "channels": 32,
+    "groups": 4,
+    "parameters_maximum": 250000
+  },
+  "data": {
+    "source": "ASRNN 48 kHz real ProCo RAT Dry/Wet",
+    "license": "CC-BY-NC-4.0",
+    "eligibility": "wet-to-clean RMS ratio at least 0.03; quieter captures are impossible-input diagnostics, not training targets",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "gates": {
+    "median_spectral_improvement": 0.15,
+    "median_high_band_improvement": 0.10,
+    "median_transient_improvement": 0.10,
+    "median_dynamics_improvement": 0.0,
+    "per_example_pass_fraction": 0.50,
+    "added_clipping_fraction_maximum": 0.01,
+    "human_listening_approval": true
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "decision": {"report_sha256": "957160a396fa311c60569c0b5e564bb8477db89fb56962be17e7f95bde8b5a04", "model_sha256": "f34a215d0118beb5ae9f257ae238e1ac28f158379c3b134f07c31c44e294f52d", "reason": "spectrum, high-band, and dynamics improved, but transient improvement was only 1.74 percent and pass fraction 8.91 percent"}
+}

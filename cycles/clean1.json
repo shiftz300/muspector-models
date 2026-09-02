@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "goal": "Restore a plausible clean waveform from wet-only ProCo RAT guitar audio.",
+  "architecture": {
+    "model": "residual-tcn",
+    "input": "wet waveform only",
+    "output": "same-geometry clean waveform",
+    "chain": "remove declared effects in reverse forward order",
+    "context": "later stages train each inverse against its immediate predecessor without passing chain order or neighboring-effect metadata into the expert"
+  },
+  "data": {
+    "source": "ASRNN ProCo RAT 48 kHz stereo Dry/Wet",
+    "license": "CC-BY-NC-4.0",
+    "fit": 918,
+    "calibration": 106,
+    "development": 128,
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "egfx": "alignment research only; excluded from model1"
+  },
+  "gates": {
+    "esr_improvement": 0.25,
+    "mae_improvement": 0.20,
+    "sidr_improvement_db": 3.0,
+    "p95_ratio_max": 1.0,
+    "peak_ratio_max": 1.0
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "promotion": "development only; cross-device locked seal required"
+}

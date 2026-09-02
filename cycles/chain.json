@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "id": "chain",
+  "round": 1,
+  "status": "complete-development",
+  "goal": "Compose family-set recognition, abstention, Order 2, and knob recovery without mutating audio, then test cross-domain physical limits.",
+  "architecture": {
+    "flow": ["family", "gate", "order", "knobs"],
+    "abstention": "uncertain family sets stop before order and control delivery",
+    "accepted_forwards": 2,
+    "abstained_forwards": 1,
+    "runtime": "remix/chain.py",
+    "runtime_sha256": "12396780ae2ff6c09d2206db985404db305a7a2dc39bc7c24d742b55d733ba56",
+    "gate_runtime": "remix/gate.py",
+    "gate_runtime_sha256": "724cda5808517703e8cc6e21b87cae84081988a13fc4fa3e86edd7ab6eba9843",
+    "knob_runtime": "remix/knobs.py",
+    "knob_runtime_sha256": "c0c16a27201863822248905318093a8739bb770d1fc025e6798af3328cab4951"
+  },
+  "model": {
+    "gate": "runs/chain/gate/model4/gate.joblib",
+    "gate_sha256": "3b9527c3f905fb7f0491b67421d7fbbcdf2249bf850fbe1d60fac320da4cf4cb",
+    "fit": "runs/chain/gate/model4/fit.json",
+    "fit_sha256": "578f80619b64d912e4f581d1b92237a040c4f5631e69943711a4cde22fce600b",
+    "threshold_policy": "one zero-observed-error threshold per predicted family set",
+    "dependencies": ["family/1.0.0", "order/2.0.0", "knobs/1.0.0"]
+  },
+  "development": {
+    "data": "DAFx real plus reference, alternate, stress, and pedalboard synthetic domains; IDMT device-6/7 train and device-8 calibration/validation",
+    "report": "runs/chain/valid4.json",
+    "report_sha256": "d59b147e292c9ec2cc2b558b9d4d4402f6a6671dff167f744ba7061f79617461",
+    "accepted": true,
+    "coverage": 0.4739583333333333,
+    "accepted_family_exact": 0.989010989010989,
+    "order_exact": 0.8536585365853658,
+    "order_pairwise": 0.8666666666666667,
+    "knob_mae": 0.08826469361970556,
+    "knob_p95": 0.28847360610961914,
+    "audio_regressions": 0,
+    "input_mutations": 0
+  },
+  "external": {
+    "idmt_round0": {
+      "candidate": "gate2 before IDMT domain training",
+      "lock": "runs/chain/idmt.lock.json",
+      "lock_sha256": "3f5611bba05d5a8086d29fb7011d9d5fc47d64e504d75f3a257a4c3d5f62de02",
+      "report": "runs/chain/seal.json",
+      "report_sha256": "cd7678e3d2270789f5cb2b4647e2f146e0b31805d6de5285b11f4e0d150431a2",
+      "accepted": false,
+      "decision": "Consumed failure evidence; never reused as a gate4 sealed claim."
+    },
+    "asrnn_rat": {
+      "candidate": "gate4",
+      "lock": "runs/chain/asrnn.lock.json",
+      "lock_sha256": "ddb0805ca8f8a6d7bdf091250ab85c168236745c613b3f7d9b7e91986890d5f5",
+      "report": "runs/chain/asrnn.json",
+      "report_sha256": "56adba554856e394e6c4f8d93146a287ce9c606753644c75dc17ec4ba5229eee",
+      "accepted": false,
+      "family_coverage": 0.9375,
+      "accepted_family_exact": 0.9333333333333333,
+      "knob_mae": 0.29828750951925204,
+      "knob_p95": 0.7063324034214018,
+      "evaluator_note": "Two model misclassifications were also labelled runtime errors by the original evaluator; the evaluator was fixed after the immutable rejected report. The recognition and knob failures remain decisive."
+    }
+  },
+  "data": {
+    "physical_audio_devices_used": false,
+    "source_audio_modified": false,
+    "source_read_only": true
+  },
+  "quality": {
+    "analysis_only": true,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "lossy_reencoding": false
+  },
+  "decision": "Admit gate4 only as an optional development chain package. Do not claim physical-pedal knob fidelity or release qualification. Generic canonical controls require a named-device adapter before delivery to a real pedal model.",
+  "next": "Add a device adapter boundary and use the existing RAT-specific inverse package as the first adapter; obtain a new untouched device/session split before any physical release claim."
+}

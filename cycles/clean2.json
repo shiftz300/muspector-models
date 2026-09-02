@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 2,
+  "goal": "Test RAT wet-only restoration only where the capture retains measurable source information.",
+  "architecture": {
+    "model": "residual-tcn",
+    "input": "wet waveform only",
+    "output": "same-geometry clean waveform",
+    "loss": ["waveform L1", "pre-emphasis L1", "multiresolution magnitude", "global ESR", "positive correlation", "level", "peak"],
+    "chain": "reverse declared forward order with clean-prior and intermediate-state checks"
+  },
+  "eligibility": {
+    "minimum_wet_to_dry_rms_ratio": 0.03,
+    "role": "oracle development bound only",
+    "runtime_gate_required_before_packaging": true
+  },
+  "data": {
+    "source": "ASRNN ProCo RAT 48 kHz stereo Dry/Wet",
+    "license": "CC-BY-NC-4.0",
+    "source_read_only": true,
+    "physical_audio_devices_used": false,
+    "egfx": "alignment research only; excluded from model2"
+  },
+  "gates": {
+    "coverage": 0.75,
+    "esr_improvement": 0.25,
+    "mae_improvement": 0.10,
+    "sidr_improvement_db": 1.0,
+    "p95_ratio_max": 1.0,
+    "peak_ratio_max": 1.0
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "promotion": "development only; deployable confidence and cross-device locked seal required"
+}

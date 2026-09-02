@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "base",
+  "display_name": "Muspector common pedal base",
+  "default_install": true,
+  "packages": [
+    {
+      "package_id": "family",
+      "version": "1.0.0",
+      "required": true
+    },
+    {
+      "package_id": "identity",
+      "version": "1.0.0",
+      "required": true
+    }
+  ]
+}

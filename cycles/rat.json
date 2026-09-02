@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "id": "rat",
+  "round": 1,
+  "status": "rejected",
+  "hypothesis": "A fresh bias-free recurrent renderer trained in the split repository can beat the physical dry-signal baseline while preserving streaming and silence invariants.",
+  "model": {
+    "entrypoint": "remix.train_asrnn_rat_direct",
+    "architecture": "lstm",
+    "hidden": 32,
+    "layers": 4
+  },
+  "data": {
+    "corpus": "data/corpus/asrnn-physical-effects",
+    "device": "rat",
+    "license": "CC-BY-NC-4.0",
+    "train_files": 256,
+    "eval_files": 32,
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "budget": {
+    "epochs": 2,
+    "batch": 32,
+    "frames": 2048,
+    "warmup": 1024,
+    "seed": 20260830
+  },
+  "output": "runs/rat/round1",
+  "command": [
+    "../muspector/.venv310/bin/python",
+    "-m",
+    "remix.train_asrnn_rat_direct",
+    "--corpus",
+    "data/corpus/asrnn-physical-effects",
+    "--output",
+    "runs/rat/round1",
+    "--epochs",
+    "2",
+    "--batch-size",
+    "32",
+    "--maximum-train-files",
+    "256",
+    "--maximum-eval-files",
+    "32"
+  ],
+  "admission": {
+    "mean_esr_max": 0.25,
+    "median_esr_max": 0.15,
+    "p95_esr_max": 1.0,
+    "peak_error_p95_max": 0.02,
+    "stream_max_error": 0.000002,
+    "silence_max": 0.0,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "lossy_reencoding": false
+  },
+  "result": {
+    "metrics": "runs/rat/round1/metrics.json",
+    "checkpoint": "runs/rat/round1/rat-direct.pt",
+    "mean_esr": 0.7848726360825822,
+    "median_esr": 0.698463648557663,
+    "p95_esr": 1.4866200566291803,
+    "peak_error_p95": 0.10962073802947998,
+    "peak_ratio_median": 1.5230347514152527,
+    "quiet_peak_max": 0.0012260577641427517,
+    "relative_improvement_over_dry": 0.6035589580784664,
+    "accepted": false,
+    "reason": "The recurrent direct model improved over Dry but missed ESR, peak, and quiet-output gates; calibration worsened on epoch two."
+  },
+  "decision": "Only an accepted run may be converted into a new forward package. A rejected run remains ignored evidence and does not replace ratfx."
+}

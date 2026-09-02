@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "title": "Drive product3-safe compact AB demo",
+  "ab_order": [
+    "A: Wet",
+    "0.75-second silence",
+    "B: Restored v3"
+  ],
+  "sample_rate_hz": 48000,
+  "subtype": "FLOAT",
+  "normalization": false,
+  "locked_final_accessed": false,
+  "full_audit_package": "../drive-product3-safe-demo-20260902-v1",
+  "files": {
+    "drive-ab.wav": {
+      "note": "representative atan, cutoff 2901 Hz",
+      "A": "02-atan-reference-wet.wav",
+      "B": "02-atan-reference-v3.wav",
+      "duration_seconds": 10.62225
+    },
+    "drive-hard-ab.wav": {
+      "note": "hard low-cutoff atan, cutoff 2710 Hz",
+      "A": "05-atan-lowcut-wet.wav",
+      "B": "05-atan-lowcut-v3.wav",
+      "duration_seconds": 10.62225
+    }
+  }
+}

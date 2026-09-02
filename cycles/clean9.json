@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "id": "clean1",
+  "status": "planned",
+  "round": 9,
+  "goal": "Jointly fine-tune the accepted compact RAT wet-to-clean network across ASRNN and EGFx without increasing client inference complexity.",
+  "architecture": {
+    "model": "complex-stft",
+    "initialization": "runs/clean/model4/clean.pt",
+    "initialization_sha256": "532f8d46a9968538c4b1414de65e879519e7a3e833b8c350089b573afa1765f4",
+    "parameters_maximum": 250000,
+    "artifact_bytes_maximum": 8388608,
+    "output_level": "unresolved"
+  },
+  "data": {
+    "asrnn": "ASRNN ProCo RAT eligible fit/calibration/official development",
+    "egfx": "EGFxSet RAT performance-group-disjoint fit/calibration/development",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "alignment": {
+    "egfx_maximum_lag_frames": 4096,
+    "egfx_minimum_absolute_correlation": 0.35,
+    "asrnn_minimum_wet_to_dry_rms_ratio": 0.03
+  },
+  "gates": {
+    "asrnn": {
+      "coverage": 0.75,
+      "aligned_esr_improvement": 0.10,
+      "aligned_mae_improvement": 0.05,
+      "sidr_improvement_db": 1.0,
+      "aligned_p95_ratio_max": 1.0,
+      "aligned_peak_ratio_max": 1.0
+    },
+    "egfx": {
+      "coverage": 0.95,
+      "aligned_esr_improvement": 0.03,
+      "aligned_mae_improvement": 0.03,
+      "sidr_improvement_db": 0.50,
+      "aligned_p95_ratio_max": 1.0,
+      "aligned_peak_ratio_max": 1.0
+    },
+    "runtime": {
+      "cpu_threads_maximum": 2,
+      "realtime_factor_maximum": 0.5,
+      "process_peak_rss_mb_maximum": 512.0,
+      "parity_max_absolute_error": 0.00002
+    }
+  },
+  "quality": {
+    "preserve_frames": true,
+    "preserve_channels": true,
+    "preserve_sample_rate": true,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "promotion": "joint development only; runtime benchmark and independent device seal remain required"
+}

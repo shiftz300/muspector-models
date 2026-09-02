@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "id": "order2",
+  "round": 2,
+  "status": "complete",
+  "goal": "Seal an audio-safe order runtime on an unopened electric-guitar DI split while keeping recognition and delivery gates separate.",
+  "model": {
+    "run": "remix/runs/order-bankfit-bound-phase11",
+    "heads_sha256": "280a841a6cff5f93f65be79afee3b903d22b4176260b29bb7924c70aa90d42fc",
+    "runtime": "remix/order.py",
+    "runtime_sha256": "a25d81943f5a4155d6c89fc508d43f5406e353620394d5dff02214b5ee307a05",
+    "loader": "remix/order_package.py",
+    "loader_sha256": "5a181069af28e2c5f2c0090fff395fbfa3d9243d3803a41bd0b4884806036cf6",
+    "evaluator": "remix/order2.py",
+    "evaluator_sha256": "ac596131ee05c357d5fbf3a186c60922e5fbf6e0ebf61f3b52d54bb589228491"
+  },
+  "development": {
+    "report": "runs/order2/valid-v2.json",
+    "report_sha256": "d955916ba05beb8fd4f25eb02ddede6047117ab41ddaa9732cf413c38be121e5",
+    "accepted": true
+  },
+  "data": {
+    "corpus": "data/corpus/guitarjam",
+    "source": "https://huggingface.co/datasets/Julian-br/GuitarJam",
+    "license": "CC0-1.0",
+    "split": "test",
+    "files": 54,
+    "samples_per_domain": 160,
+    "domains": ["reference", "alternate", "stress", "pedalboard"],
+    "synthetic_seed": 20260921,
+    "pedalboard_seed": 20260922,
+    "manifest_algorithm": "sha256(sorted(sha256 + two spaces + relative path + newline))",
+    "manifest_sha256": "e09aaccbf47d1995e225667556d1c6603918c805fc9ad2741f29b0e1a4520c55",
+    "readme_sha256": "e6df26337b6307b41b58bdb0f5d9d7e185f5784028f5b2dcba13d2f21e7e78f8",
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "gate": {
+    "recognition_source": "proposed",
+    "delivery_source": "selected",
+    "reference": {"exact_min": 0.70, "pairwise_min": 0.78},
+    "alternate": {"exact_min": 0.70, "pairwise_min": 0.78},
+    "stress": {"exact_min": 0.70, "pairwise_min": 0.78},
+    "pedalboard": {"exact_min": 0.65, "pairwise_min": 0.75},
+    "selected_exact_regression_max": 0.01,
+    "selected_pairwise_regression_max": 0.015,
+    "selected_audio_regressions_max": 0,
+    "input_mutations_max": 0
+  },
+  "quality": {
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false
+  },
+  "command": [
+    "../muspector/.venv310/bin/python",
+    "-m",
+    "remix.order2",
+    "--source",
+    "guitarjam",
+    "--corpus",
+    "data/corpus/guitarjam",
+    "--run",
+    "remix/runs/order-bankfit-bound-phase11",
+    "--output",
+    "runs/order2/seal.json",
+    "--samples",
+    "160"
+  ],
+  "output": "runs/order2/seal.json",
+  "decision": "Accepted as the optional order 2 package. The classifier clears every frozen recognition gate; the delivery guard permits zero diagnostic audio regressions. GuitarJam test is consumed and cannot be reused for selection.",
+  "result": {
+    "report": "runs/order2/seal.json",
+    "report_sha256": "05044c65b9f81b96c154827cd31b6e13d7c78e1343b76991111842a68e687967",
+    "accepted": true,
+    "failures": [],
+    "selected_audio_regressions": 0,
+    "domains": {
+      "reference": {"proposed_exact": 0.8153846153846154, "proposed_pairwise": 0.8584905660377359, "selected_exact": 0.7538461538461538, "selected_pairwise": 0.8207547169811321, "guarded": 29},
+      "alternate": {"proposed_exact": 0.8243243243243243, "proposed_pairwise": 0.8650793650793651, "selected_exact": 0.8108108108108109, "selected_pairwise": 0.8333333333333334, "guarded": 26},
+      "stress": {"proposed_exact": 0.7578947368421053, "proposed_pairwise": 0.7916666666666666, "selected_exact": 0.7157894736842105, "selected_pairwise": 0.7738095238095238, "guarded": 24},
+      "pedalboard": {"proposed_exact": 0.6835443037974683, "proposed_pairwise": 0.7642857142857142, "selected_exact": 0.6075949367088608, "selected_pairwise": 0.7214285714285714, "guarded": 35}
+    }
+  }
+}

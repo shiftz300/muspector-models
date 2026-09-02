@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "id": "route",
+  "round": 2,
+  "status": "complete-development",
+  "goal": "Resolve a RAT device candidate after canonical Drive recognition while preserving open-set abstention and preventing automatic control delivery.",
+  "architecture": {
+    "flow": ["family", "gate", "order", "knobs", "identity", "route", "device"],
+    "identity": "Frozen seven-pedal ONNX scores from identity/1.0.0",
+    "pair": "Read-only Clean/Wet spectral transfer, coherence, onset, and envelope features",
+    "head": "Balanced train-only-selected classifier with an independently calibrated RAT threshold",
+    "runtime": "remix/route.py",
+    "runtime_sha256": "e115ca7016618fce923894464e00854ab158a9997b53d7fdffb7bc58be87bd9d",
+    "trainer": "train/route.py",
+    "trainer_sha256": "1ccfd487290ad57fd205e6ed4e7acdd5458a2c7846d4995ddb12d659c91e47c0"
+  },
+  "model": {
+    "package": "route/1.0.0",
+    "dependency": "identity/1.0.0",
+    "artifact": "runs/route/model2/route.joblib",
+    "artifact_sha256": "5afbce08869f689c7ff8c08bc417bcbe624dcf1d35b037c78fdeff19bb8504f2",
+    "threshold": 0.9560000000000001,
+    "device": "rat",
+    "selection": "shadow-only"
+  },
+  "rejections": {
+    "identity": {
+      "report": "runs/identity/shadow.json",
+      "report_sha256": "c299897be658f48a359435924c1d4e34fddeebc912b32832420a7d60d30be641",
+      "reason": "The generic seven-class candidate reached only 40.625 percent total RAT recall. Lowering its threshold could not repair non-RAT argmax errors."
+    },
+    "scores": {
+      "report": "runs/route/model1/valid.json",
+      "report_sha256": "47963042c308d2659f86d9686d8be71536997bcc65a03c9898829e9fd568fd88",
+      "reason": "A head using only frozen identity scores reached 62.5 percent recall and 6.25 percent DFZ false routing."
+    }
+  },
+  "development": {
+    "fit": "runs/route/model2/fit.json",
+    "fit_sha256": "3566a810e52048214351a826b32bfec730aafedd914bca6ec04636da75f4c72b",
+    "report": "runs/route/model2/valid.json",
+    "report_sha256": "17318705f563a0dd6d622a4fbf854900feb08e66ba672b323100c9060b33afaa",
+    "accepted": true,
+    "examples": 256,
+    "rat_recall": 0.9453125,
+    "dfz_false_route": 0.0,
+    "balanced_accuracy": 0.97265625,
+    "scope": "ASRNN official eval is development validation because an earlier identity-only audit exposed a subset before route training."
+  },
+  "integration": {
+    "lock": "runs/identity/shadow.lock.json",
+    "lock_sha256": "f7c7ce0df3ae0527d00b6d417822d21efaf6fc45a3bb35851d75b6cb48222f35",
+    "report": "runs/identity/route.json",
+    "report_sha256": "2681a49e5094efe7703b0fe48f1fcbb89791f24c0558390fa48f5dc068b653c3",
+    "accepted": true,
+    "rat_recall_total": 0.84375,
+    "rat_recall_eligible": 0.9642857142857143,
+    "dfz_false_route_total": 0.0,
+    "dfz_false_route_eligible": 0.0,
+    "automatic_deliveries": 0,
+    "input_mutations": 0
+  },
+  "data": {
+    "source": "ASRNN official RAT and DFZ train/eval splits",
+    "license": "CC-BY-NC-4.0",
+    "new_download_required": false,
+    "source_read_only": true,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false
+  },
+  "quality": {
+    "analysis_only": true,
+    "automatic_delivery": false,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false,
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "lossy_reencoding": false
+  },
+  "decision": "Admit route/1.0.0 as an optional non-commercial development package in shadow mode. It may propose RAT after an accepted Drive family, but an explicit user/device choice remains required before the RAT adapter can deliver controls.",
+  "next": "Acquire or designate a new untouched session/device-disjoint RAT and non-RAT Drive set, then freeze a final route gate before enabling automatic adapter selection."
+}

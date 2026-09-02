@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "id": "rat",
+  "round": 3,
+  "status": "rejected-perceptual",
+  "goal": "Remove the blur failure by giving transient reconstruction equal normalized influence in the objective.",
+  "baseline": {
+    "run": "runs/rat/model2",
+    "status": "rejected-perceptual",
+    "development": {
+      "spectral_improvement": 0.18580435342308832,
+      "high_band_improvement": 0.3629307753993425,
+      "transient_improvement": 0.017369376684264193,
+      "dynamics_improvement": 0.12064242401273872,
+      "pass_fraction": 0.0891089108910891
+    }
+  },
+  "architecture": {
+    "model": "normalized-control-conditioned-time-residual",
+    "initialization": "runs/rat/model2/model.pt",
+    "parameters_maximum": 250000,
+    "change": "each waveform, pre-emphasis, derivative, spectral, ESR, and peak term is normalized by the corresponding Wet-to-Clean error; derivative receives double weight"
+  },
+  "data": {
+    "source": "ASRNN eligible real ProCo RAT pairs",
+    "license": "CC-BY-NC-4.0",
+    "minimum_wet_to_clean_rms_ratio": 0.03,
+    "source_read_only": true,
+    "physical_audio_devices_used": false
+  },
+  "gates": {
+    "median_spectral_improvement": 0.15,
+    "median_high_band_improvement": 0.10,
+    "median_transient_improvement": 0.10,
+    "median_dynamics_improvement": 0.0,
+    "per_example_pass_fraction": 0.50,
+    "added_clipping_fraction_maximum": 0.01,
+    "human_listening_approval": true
+  },
+  "quality": {
+    "automatic_normalization": false,
+    "automatic_limiting": false,
+    "automatic_dither": false,
+    "lossy_reencoding": false,
+    "source_audio_modified": false,
+    "physical_audio_devices_used": false
+  },
+  "decision": {"report_sha256": "51e79acc49fde335d1ecd2d2f0b1ebe2c09540b1cc7d0c5c10a9c8b450f21774", "model_sha256": "cdc95386ca9a4d493251a1d12c4372ff6fe3a5c348c19e7313aa627065bedd24", "reason": "balanced relative errors improved spectrum and dynamics but transient improvement remained 1.96 percent and pass fraction 18.81 percent"}
+}
