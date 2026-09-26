@@ -4,6 +4,7 @@ Development and training are paused at the owner's request. This is a snapshot
 of the last audited evidence (mostly 2026-09-05), not a newly trained or
 re-evaluated model. The historical `HANDOFF.md`, `MODEL_STATUS_20260904.md`,
 `ROUTE_AUDIT_20260904.md` and `cycles/` records remain the detailed audit trail.
+The dataset download/recovery index is `ARCHIVE_SOURCES_20260927.md`.
 
 ## Product verdict
 
