@@ -21,7 +21,7 @@ from scipy.signal import butter, fftconvolve, resample_poly, sosfilt
 
 from .data import dry_sources
 from .foundation_data import RATE
-from .license_gate import load_registry, require_product_weights
+from .license_gate import load_registry, require_product_uses
 
 
 SPLITS = ("fit", "calibration", "development", "locked-final")
@@ -344,8 +344,16 @@ class ProductPairs(torch.utils.data.Dataset):
                 raise ValueError(f"no product RIRs for {split}")
         else:
             self.rirs = []
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json", sorted(sources)
+        requirements = {
+            source: "product-clean-source"
+            for source in sources
+            if source not in {"muspector-dsp", "aachen-chapel-rir"}
+        }
+        requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+        if mechanism == "temporal":
+            requirements["aachen-chapel-rir"] = "train-reverb"
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", requirements
         )
         if sources & RESEARCH_SOURCE_IDS:
             raise PermissionError(f"research sources entered product dataset: {sources & RESEARCH_SOURCE_IDS}")
@@ -385,9 +393,11 @@ def audit(workspace: Path) -> dict:
                 item.split == split and item.source_id == source_id for item in clean
             )
     registry = load_registry(workspace / "remix/data_sources.json")
-    authorization = require_product_weights(
-        workspace / "remix/data_sources.json",
-        (*PRODUCT_CLEAN_SOURCE_IDS, "muspector-dsp", "aachen-chapel-rir"),
+    requirements = {source: "product-clean-source" for source in PRODUCT_CLEAN_SOURCE_IDS}
+    requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+    requirements["aachen-chapel-rir"] = ("train-reverb", "validate-reverb")
+    authorization = require_product_uses(
+        workspace / "remix/data_sources.json", requirements
     )
     return {
         "schema": 1,

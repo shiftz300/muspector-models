@@ -113,6 +113,37 @@
       "admission": "reverb-restoration-training"
     },
     {
+      "id": "but-reverbdb",
+      "title": "BUT Speech@FIT Reverb Database",
+      "record_url": "https://speech.fit.vut.cz/software/but-speech-fit-reverb-database",
+      "doi": "10.1109/JSTSP.2019.2917582",
+      "local_paths": ["data/corpus/but-reverbdb"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-project-page-and-paper",
+      "gradient_scope": "product-reverb-restoration",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "do-not-bundle; generate Wet pairs ephemerally from admitted Clean programs",
+      "allowed_uses": ["train-reverb", "validate-reverb", "redistribute-derived-model"],
+      "pairing": "2,325 measured RIRs are convolved ephemerally with admitted Clean programs; whole rooms are split-disjoint and the exact Clean predecessor is retained",
+      "hardware": true,
+      "control_labels": "room, loudspeaker and microphone identities plus measured coordinate metadata and deterministic Wet mix",
+      "archive": {
+        "url": "https://merlin.fit.vutbr.cz/ReverbDB/BUT_ReverbDB_rel_19_06_RIR-Only.tgz",
+        "bytes": 9308593693,
+        "sha256": "d0d14cdd626b4b05401027c5a774b4f24369f4ea38f57480c6fc6e04e9f3f5b5",
+        "entries": 19279,
+        "rir_wav_files": 2325
+      },
+      "audio_quality_caveats": [
+        "speech-oriented rooms use a Hi-Fi loudspeaker and 31 microphone positions; the RIR remains signal-independent but includes source and microphone coloration",
+        "released RIR WAV files are mono 16-bit 16 kHz and require audited resampling for 48 kHz guitar restoration",
+        "Hotel_SkalskyDvur_ConferenceRoom2 has an official position-metadata caveat; its RIR waveforms are described as valid and it is development-only",
+        "the 8.7 GB archive also contains environmental noise, which is excluded from extraction and all restoration gradients",
+        "D105 and C236 are locked-final rooms and remain unopened during data audit, training, calibration and development"
+      ],
+      "admission": "reverb-restoration-training-room-disjoint"
+    },
+    {
       "id": "marshall-jvm410h",
       "title": "Marshall JVM 410H Dataset",
       "record_url": "https://zenodo.org/records/7970723",
@@ -138,6 +169,138 @@
         "speaker-output target excludes a cabinet and microphone; cab removal remains a separate Amp profile or internal stage"
       ],
       "admission": "amp-restoration-training"
+    },
+    {
+      "id": "ok5-rir",
+      "title": "OK5: Spatial Room Impulse Responses from 25 Spaces in our Work Environment",
+      "record_url": "https://zenodo.org/records/18622201",
+      "doi": "10.5281/zenodo.18622201",
+      "local_paths": ["data/corpus/ok5-rir/measurements"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-record-aalto-catalog-and-per-file-sofa-metadata",
+      "gradient_scope": "external-reverb-validation-only; no training or calibration",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution; excluded-from-current-gradient-and-selection",
+      "audio_scope": "do-not-bundle; generate Wet pairs ephemerally",
+      "allowed_uses": ["validate-reverb"],
+      "pairing": "one physical microphone channel from each admitted measured SRIR is convolved ephemerally with admitted Clean programs; exact Clean predecessor retained",
+      "hardware": true,
+      "control_labels": "25 room identities, 70 measured source-receiver positions, deterministic Wet mix",
+      "archive": {
+        "url": "https://zenodo.org/records/18622201/files/measurements.zip?download=1",
+        "bytes": 541020037,
+        "md5": "659c7b7c2e3ff865ccd263a79269242c",
+        "sofa_files": 25,
+        "measurements": 70
+      },
+      "audio_quality_caveats": [
+        "the dataset uses a Genelec 8030A source and six GRAS 40AI microphones in a 50VI-1 probe, so source and receiver coloration are part of the measured profile",
+        "the single-channel audit uses receiver channel zero only and performs no spatial synthesis",
+        "only the 27 measurements from 12 rooms whose full-response p999 decay is within the frozen 0.10-1.00 second Product4 domain are admitted",
+        "admitted profiles are onset-trimmed, limited to one second and energy-normalized; the source SOFA files remain read-only",
+        "OK5 is external validation only and must never influence parameters, thresholds, calibration, or training"
+      ],
+      "admission": "reverb-external-room-validation-only"
+    },
+    {
+      "id": "openair-rir-external-v1",
+      "title": "OpenAIR measured impulse responses: five independent spaces",
+      "record_url": "https://www.york.ac.uk/physics-engineering-technology/research/communication-technologies/projects/open-acoustic-impulse-response-library/",
+      "doi": null,
+      "local_paths": ["data/corpus/openair-external-v1/measurements"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-on-each-official-openair-space-page-and-official-york-project-page",
+      "gradient_scope": "fresh-external-reverb-validation-only; no training or calibration",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution; excluded-from-current-gradient-and-selection",
+      "audio_scope": "do-not-bundle; generate Wet pairs ephemerally",
+      "allowed_uses": ["validate-reverb"],
+      "pairing": "one physical W or stereo microphone channel from each admitted measured RIR is convolved ephemerally with admitted Clean programs; exact Clean predecessor retained",
+      "hardware": true,
+      "control_labels": "five independent space identities and measured source-receiver positions plus deterministic Wet mix",
+      "license_evidence_urls": [
+        "https://openairlib.net/?page_id=483",
+        "https://www.openair.hosted.york.ac.uk/?page_id=452",
+        "https://www.openair.hosted.york.ac.uk/?page_id=659",
+        "https://www.openair.hosted.york.ac.uk/?page_id=441",
+        "https://www.openair.hosted.york.ac.uk/?page_id=518"
+      ],
+      "archive": {
+        "source_root": "https://webfiles.york.ac.uk/OPENAIR/IRs/",
+        "archives": 5,
+        "bytes": 34342703,
+        "sha256_manifest": "remix/openair_rir_data.py:ARCHIVES",
+        "rir_wav_files": 33
+      },
+      "audio_quality_caveats": [
+        "the official OpenAIR pages state CC BY 4.0 separately for every selected space and identify the measurement teams for attribution",
+        "B-format inputs use their physical omnidirectional W channel; the Spokane stereo input uses its left microphone and no spatial synthesis is performed",
+        "96 kHz and 44.1 kHz source responses are deterministically resampled to 48 kHz, onset-trimmed, limited to one second and energy-normalized",
+        "only responses inside the frozen 0.10-1.00 second Product4 p999 decay domain are admitted",
+        "this source is a one-shot fresh external veto for the profile-bank gray-box candidate and must never influence its parameters, thresholds or checkpoint selection"
+      ],
+      "admission": "fresh-reverb-external-room-validation-only"
+    },
+    {
+      "id": "openslr26-simulated-rir-external-v1",
+      "title": "OpenSLR 26 Simulated Room Impulse Response Database",
+      "record_url": "https://www.openslr.org/26",
+      "doi": null,
+      "local_paths": ["data/corpus/openslr26-simulated-rir/measurements/product-splits"],
+      "license": "Apache-2.0",
+      "rights_status": "verified-via-official-openslr-resource-page-and-info-file",
+      "gradient_scope": "product-reverb-restoration on Room001-180 only; Room191-200 external-v1 excluded from gradients and selection",
+      "weight_scope": "redistributable-with-apache-2.0-notice",
+      "audio_scope": "do-not-bundle; generate Wet pairs ephemerally; retain attribution and license notice",
+      "allowed_uses": ["train-reverb", "validate-reverb", "redistribute-derived-model"],
+      "pairing": "independently simulated 16 kHz RIRs are resampled and convolved ephemerally with admitted Clean programs; whole simulated rooms are split-disjoint and the exact Clean predecessor is retained",
+      "hardware": false,
+      "control_labels": "simulated room configuration and source-receiver geometry encoded by the archive hierarchy plus deterministic Wet mix",
+      "archive": {
+        "url": "https://www.openslr.org/resources/26/sim_rir_16k.zip",
+        "bytes": 178818025,
+        "md5": "d44dbfd252bda8885af67bd288c18015"
+      },
+      "license_evidence_urls": [
+        "https://www.openslr.org/26",
+        "https://www.openslr.org/resources/26/info.txt"
+      ],
+      "audio_quality_caveats": [
+        "the source contains simulated rather than measured rooms and can test algorithmic generalization but cannot establish physical-room fidelity",
+        "the official files are 16 kHz PCM and require audited resampling to the 48 kHz Product4 domain",
+        "Room001-120 are fit, Room121-150 calibration, Room151-180 development, Room181-190 unused, and the already consumed Room191-200 external-v1 subset is permanently excluded from gradients and selection",
+        "only RIR waveforms are admitted; no speech, music or noise is included in this OpenSLR 26 resource"
+      ],
+      "admission": "reverb-restoration-training-room-disjoint-simulated"
+    },
+    {
+      "id": "rochester-rir-fresh-v2",
+      "title": "University of Rochester room impulse response dataset",
+      "record_url": "https://rochester.figshare.com/articles/dataset/University_of_Rochester_room_impulse_response_dataset/26801089/3",
+      "doi": null,
+      "local_paths": [],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-rochester-figshare-v3-record",
+      "gradient_scope": "reserved fresh external Reverb validation only; no training, calibration, threshold tuning or model selection",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution; excluded-from-current-gradient-and-selection",
+      "audio_scope": "do-not-bundle; generate Wet pairs ephemerally after one-shot gate authorization",
+      "allowed_uses": ["validate-reverb"],
+      "pairing": "one measured mono RIR is convolved ephemerally with an admitted Clean program; the exact Clean predecessor is retained only for one-shot external scoring",
+      "hardware": true,
+      "control_labels": "14 physical room identities and their recorded source-receiver configurations plus deterministic Wet mix",
+      "archive": {
+        "record_version": 3,
+        "display_size": "94.65 MB",
+        "checksum_status": "must be frozen from the official Figshare file manifest before download"
+      },
+      "license_evidence_urls": [
+        "https://rochester.figshare.com/articles/dataset/University_of_Rochester_room_impulse_response_dataset/26801089/3"
+      ],
+      "audio_quality_caveats": [
+        "the official record states 14 measured rooms and 48 kHz 32-bit mono WAV files under CC BY 4.0",
+        "the record's usage form is phrased as an appreciated voluntary request, not a license condition",
+        "the source remains unopened and unconsumed; file-level checksums, room inventory, silence checks and the frozen 0.10-1.00 second decay-domain admission must pass before one-shot evaluation",
+        "this source must never influence parameters, thresholds, calibration, candidate design or checkpoint selection"
+      ],
+      "admission": "metadata-only-reserved-unopened-fresh-reverb-v2"
     },
     {
       "id": "apple-au-local",
@@ -275,6 +438,28 @@
       "admission": "internal-research-only"
     },
     {
+      "id": "remfx-pretrained-models",
+      "title": "RemFX: Pretrained Models",
+      "record_url": "https://zenodo.org/records/8218621",
+      "doi": "10.5281/zenodo.8218621",
+      "local_paths": [],
+      "license": "CC-NC",
+      "rights_status": "official-record-noncommercial",
+      "gradient_scope": "blocked-pretrained-weight",
+      "weight_scope": "blocked",
+      "audio_scope": "not-requested-not-downloaded",
+      "allowed_uses": ["metadata-review", "architecture-review-without-weight-loading"],
+      "pairing": "effect-specific RemFX checkpoints including a 1,004,029,606-byte Demucs distortion remover",
+      "hardware": "synthetic training effects over mixed starter audio",
+      "control_labels": "effect-family checkpoints; no product-admitted physical Amp controls",
+      "audio_quality_caveats": [
+        "the GitHub source repository is Apache-2.0, but that code license does not override the separate checkpoint license",
+        "the official Zenodo API reports license id cc-nc for record 8218621",
+        "no checkpoint was downloaded or loaded; architecture evidence cannot contribute pretrained parameters"
+      ],
+      "admission": "metadata-and-architecture-only-noncommercial-weight"
+    },
+    {
       "id": "guitarjam",
       "title": "GuitarJam: Monophonic Electric Guitar Dataset",
       "record_url": "https://huggingface.co/datasets/Julian-br/GuitarJam",
@@ -285,7 +470,7 @@
       "gradient_scope": "product-clean-source",
       "weight_scope": "redistributable",
       "audio_scope": "cc0",
-      "allowed_uses": ["replay-program", "train", "validate", "redistribute-derived-model"],
+      "allowed_uses": ["replay-program", "product-clean-source", "train", "validate", "redistribute-derived-model"],
       "pairing": "clean DI source only",
       "hardware": false,
       "control_labels": "none",
@@ -330,15 +515,16 @@
       "record_url": "https://zenodo.org/records/15205644",
       "doi": "10.5281/zenodo.15205644",
       "local_paths": [
-        "data/corpus/eg-ipt"
+        "data/corpus/eg-ipt",
+        "data/corpus/eg-ipt-sm57"
       ],
       "license": "CC-BY-4.0",
       "rights_status": "verified-via-official-zenodo-record-api",
-      "gradient_scope": "product-clean-source-di-only",
+      "gradient_scope": "product-clean-source-di-and-fixed-physical-amp-cab-sm57-pairs-fit-only",
       "weight_scope": "redistributable-with-cc-by-4.0-attribution",
       "audio_scope": "redistributable-only-under-source-license-and-attribution; do-not-bundle-by-default",
-      "allowed_uses": ["product-clean-source", "train-family", "redistribute-derived-model"],
-      "pairing": "raw DI branch only; repository-owned effects are rendered ephemerally and generated Wet is not stored",
+      "allowed_uses": ["product-clean-source", "train-family", "train-amp", "redistribute-derived-model"],
+      "pairing": "8717 simultaneous raw DI to EVH 5150 III plus Mesa 4x12 V30 plus close SM57 pairs; global acquisition lag 64 frames at 96 kHz; three named HB-neck bottleneck-slow SM57 members are absent upstream and excluded",
       "hardware": true,
       "control_labels": "pickup position and playing technique; never effect controls",
       "archive": {
@@ -356,14 +542,27 @@
         "subtype": "PCM_24",
         "nonfinite_files": 0
       },
+      "amp_cab_sm57_audio": {
+        "scope": "EG-IPT/*/dyn/*/*_dyn.wav paired to retained DI",
+        "files": 8717,
+        "duration_hours": 4.726641510416666,
+        "sample_rate_hz": 96000,
+        "channels": 1,
+        "clipped_samples": 0,
+        "global_acquisition_lag_frames": 64,
+        "extract_manifest_sha256": "cff9494458064d81f93c80eeeaebf07d712ca21f28e5b0f7d1015dc9dd556c4f",
+        "audit": "runs/foundation/product3-amp-eg-ipt-source-audit/pair-audit-v1.json"
+      },
       "audio_quality_caveats": [
         "all DI audio is one professional player, one 2005 Gibson SG and one BSS AR-133 to Midas XL48 session",
-        "the complete DI domain is fit-only; pickup, note or technique subdivisions must not cross gates",
+        "the complete DI and fixed Amp-cab-SM57 domain is fit-only; pickup, note or technique subdivisions must not cross gates",
         "mostly isolated monophonic techniques rather than independent musical performances",
         "DI contributes about one sixth of the published 28:22:56 six-source duration",
+        "one flat-control EVH 5150 III, Mesa 4x12 V30 and SM57 profile cannot establish broad physical Amp generalization",
+        "pitched-technique correlation lag includes the Amp/cab phase response and is not per-file removed",
         "required dataset and paper attribution must be embedded in every derived model card"
       ],
-      "admission": "clean-source-di-only-fit-only"
+      "admission": "clean-source-plus-fixed-physical-amp-cab-sm57-pairs-fit-only-after-v1-audit"
     },
     {
       "id": "longitudinal-guitar-string-ageing",
@@ -527,8 +726,8 @@
       "record_url": "https://zenodo.org/records/15389653",
       "doi": "10.5281/zenodo.15389653",
       "local_paths": [],
-      "license": "NOASSERTION",
-      "rights_status": "rights-field-empty-on-record-page",
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-via-official-zenodo-api-metadata-license-id",
       "gradient_scope": "blocked",
       "weight_scope": "blocked",
       "audio_scope": "blocked",
@@ -541,7 +740,8 @@
         "per-pedal peak normalization averages 0.33 +/- 0.87 dB",
         "polarity was standardized for phase-inverting circuits",
         "one shared approximately six-minute source program",
-        "rights are unresolved, so audio download and training are blocked"
+        "the official Zenodo API reports metadata.license.id as cc-by-nc-4.0",
+        "noncommercial terms block product weights and audio download"
       ],
       "admission": "metadata-only"
     },
@@ -638,6 +838,625 @@
       "admission": "metadata-only-rights-unresolved"
     },
     {
+      "id": "tonetwist-blackstar-ht1-overdrive",
+      "title": "ToneTwist AFx Dataset - External: Blackstar HT1 - Channel: Overdrive",
+      "record_url": "https://zenodo.org/records/10794425",
+      "doi": "10.5281/zenodo.10794425",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical Blackstar HT1 overdrive dry/wet pair at Gain 5 and Volume 10",
+      "hardware": true,
+      "control_labels": "single fixed setting",
+      "archive": {"bytes": 60268284, "md5": "a748ac0fa6608a2dd57444bac6f132b7"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-blackstar-ht5-metal-overdrive",
+      "title": "ToneTwist AFx Dataset - External: Blackstar HT5 Metal - Channel: Overdrive",
+      "record_url": "https://zenodo.org/records/10796501",
+      "doi": "10.5281/zenodo.10796501",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical Blackstar HT5 Metal overdrive dry/wet pair at Gain 5",
+      "hardware": true,
+      "control_labels": "single fixed setting",
+      "archive": {"bytes": 45119567, "md5": "45a68efad615e2dc152d7b3dcf13faea"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-engl-retro-tube-50-drive",
+      "title": "ToneTwist AFx Dataset - External: Engl Retro Tube 50 - Channel: Drive",
+      "record_url": "https://zenodo.org/records/10796525",
+      "doi": "10.5281/zenodo.10796525",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical Engl Retro Tube 50 drive dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 44170268, "md5": "bfcede2984488dcfd63c740bdaef4fa7"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-fender-blues-jr",
+      "title": "ToneTwist AFx Dataset - External: Fender Blues Jr",
+      "record_url": "https://zenodo.org/records/10797977",
+      "doi": "10.5281/zenodo.10797977",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical Fender Blues Jr dry/wet pairs at Volume 5 and 10",
+      "hardware": true,
+      "control_labels": "two fixed volume settings",
+      "archive": {"bytes": 49325683, "md5": "db64e7cf7209cc59d0782125d48b98c8"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-ibanez-tsa15-crunch",
+      "title": "ToneTwist AFx Dataset - External: Ibanez TSA15 - Channel: Crunch",
+      "record_url": "https://zenodo.org/records/10796536",
+      "doi": "10.5281/zenodo.10796536",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical Ibanez TSA15 crunch dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 43959399, "md5": "af70fc0231c835abcfed5a04f90250c0"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-mesaboogie-550-clean",
+      "title": "ToneTwist AFx Dataset - External: MesaBoogie 550 - Channel: Clean",
+      "record_url": "https://zenodo.org/records/10796557",
+      "doi": "10.5281/zenodo.10796557",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical MesaBoogie 550 clean-channel dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 44536004, "md5": "71ee4a968c414b1477c1b8600cd0f74e"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-mesaboogie-550-crunch",
+      "title": "ToneTwist AFx Dataset - External: MesaBoogie 550 - Channel: Crunch",
+      "record_url": "https://zenodo.org/records/10796819",
+      "doi": "10.5281/zenodo.10796819",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical MesaBoogie 550 crunch-channel dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 44285317, "md5": "8d931ada377fe7be97001db367bb2fd2"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-mesaboogie-550-burn",
+      "title": "ToneTwist AFx Dataset - External: MesaBoogie 550 - Channel: Burn",
+      "record_url": "https://zenodo.org/records/10796547",
+      "doi": "10.5281/zenodo.10796547",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical MesaBoogie 550 burn-channel dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 44282491, "md5": "8c5467b0d139fe74cf05404d0e185196"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-mesaboogie-mark-v-clean",
+      "title": "ToneTwist AFx Dataset - External: MesaBoogie Mark V - Channel: Clean",
+      "record_url": "https://zenodo.org/records/10796829",
+      "doi": "10.5281/zenodo.10796829",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical MesaBoogie Mark V clean-channel dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 44005247, "md5": "bd8c21f7792a6bd4895ae3b38b36fc7c"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-mesaboogie-mark-v-crunch",
+      "title": "ToneTwist AFx Dataset - External: MesaBoogie Mark V - Channel: Crunch",
+      "record_url": "https://zenodo.org/records/10796841",
+      "doi": "10.5281/zenodo.10796841",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical MesaBoogie Mark V crunch-channel dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 43939760, "md5": "904941ed6c711da6e7ceb189ea626819"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-mesaboogie-mark-v-extreme",
+      "title": "ToneTwist AFx Dataset - External: MesaBoogie Mark V - Channel: Extreme",
+      "record_url": "https://zenodo.org/records/10796864",
+      "doi": "10.5281/zenodo.10796864",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical MesaBoogie Mark V extreme-channel dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 45098210, "md5": "91ffa6419274830aaf4a090658b5982b"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-ua-6176-610b-preamp",
+      "title": "ToneTwist AFx Dataset - External: Universal Audio 6176 - 610B Mic Preamp",
+      "record_url": "https://zenodo.org/records/10798111",
+      "doi": "10.5281/zenodo.10798111",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical UA 6176 610B microphone-preamp dry/wet pair",
+      "hardware": true,
+      "control_labels": "fixed-setting external pair",
+      "archive": {"bytes": 263649456, "md5": "2e71ed98de809f3afbd8588fb262bc9d"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "single-device evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-harley-benton-rodent",
+      "title": "ToneTwist AFx Dataset: Harley Benton Rodent",
+      "record_url": "https://zenodo.org/records/10796378",
+      "doi": "10.5281/zenodo.10796378",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "physical RAT-like Rodent distortion dry/wet pairs over seven published control combinations",
+      "hardware": true,
+      "control_labels": "Volume, Filter, Distortion and Normal/Solo/Turbo mode",
+      "archive": {"bytes": 2913794564, "md5": "7ab43d078cc195f7595c8b1e1fd09723"},
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "the dry pool mixes IDMT, NAM, private and YouTube-derived sources and most rows receive time-varying gain preprocessing",
+        "single-pedal evidence cannot close the real multi-effect physical-chain veto"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "tonetwist-multidrive-808-scream",
+      "title": "ToneTwist AFx Dataset: Multidrive Pedal Pro 808-Scream",
+      "record_url": "https://zenodo.org/records/10901401",
+      "doi": "10.5281/zenodo.10901401",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "verified-restricted-noncommercial-via-official-zenodo-api",
+      "gradient_scope": "blocked-for-product-weights",
+      "weight_scope": "blocked-for-commercial-product",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "software 808-Scream emulation dry/wet pairs over 21 published Overdrive/Tone settings",
+      "hardware": false,
+      "control_labels": "Overdrive, Level and Tone",
+      "archive": {
+        "bytes": 9665700905,
+        "parts_md5": [
+          "f94a3e94d0846b9cfb076e0d2ef94ce7",
+          "eb1442b7a2eadc03caef920220a0c374",
+          "904e9690020fa937c4c1bcc40eb74b86"
+        ]
+      },
+      "audio_quality_caveats": [
+        "the official deposit is noncommercial and cannot influence product weights",
+        "this is a software emulation rather than independent physical Drive evidence",
+        "the dry pool mixes upstream rights and most rows receive time-varying gain preprocessing"
+      ],
+      "admission": "metadata-only-product-blocked-nc"
+    },
+    {
+      "id": "rockingface-amp-space",
+      "title": "RockingFace distribution of Amp-Space",
+      "record_url": "https://huggingface.co/datasets/narad/rockingface",
+      "doi": null,
+      "local_paths": [],
+      "license": "NOASSERTION",
+      "rights_status": "rights-field-empty-on-record-page",
+      "gradient_scope": "blocked",
+      "weight_scope": "blocked",
+      "audio_scope": "gated-not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "dataset card describes direct_input/output pairs and effect metadata, but access requires accepting undisclosed conditions",
+      "hardware": true,
+      "control_labels": "device type, model, tone controls and capture-chain metadata",
+      "audio_quality_caveats": [
+        "the current card reports 19027 examples and 54.5 hours but only two amplifiers among 52 devices",
+        "the card's License field is an unfilled template and the repository has no YAML license metadata",
+        "gated access conditions cannot be reviewed without account acceptance"
+      ],
+      "admission": "metadata-only-rights-unresolved"
+    },
+    {
+      "id": "egdb-pg-v2",
+      "title": "EGDB-PG v2 amplifier-rendered electric guitar dataset",
+      "record_url": "https://zenodo.org/records/19789500",
+      "doi": "10.5281/zenodo.19789500",
+      "local_paths": ["data/corpus/egdb-pg-subset-v1"],
+      "license": "CC-BY-4.0",
+      "rights_status": "verified-via-official-zenodo-api-and-original-egdb-author-release",
+      "gradient_scope": "product-amp-cab-restoration-profile-disjoint-subset",
+      "weight_scope": "redistributable-with-cc-by-4.0-attribution",
+      "audio_scope": "redistributable-only-under-source-license-and-attribution; do-not-bundle-by-default",
+      "allowed_uses": ["train-amp-cab", "validate-amp-cab", "redistribute-derived-model", "redistribute-derived-metrics"],
+    "pairing": "240 clean 44.1-kHz mono DI tracks and 256 matched amplifier-plus-cabinet preset renders; the local subset uses 96 fit tracks across 30 fit/calibration profiles, three disjoint development profiles and unopened final profiles/tracks",
+      "hardware": false,
+      "control_labels": "96 low-gain, 64 crunch and 96 high-gain preset UUIDs; exact plugin knob values are not published",
+      "archive": {
+        "official_file": "EGDB_FLAC_bundle.zip",
+        "bytes": 135406622188,
+        "md5": "4c0e0801b966084002178d738c34f208",
+        "subset_contract": "remix/egdb_pg_subset_v1.json"
+      },
+      "local_audio_audit": {
+        "report": "data/corpus/egdb-pg-subset-v1/audio_audit.json",
+      "files": 3540,
+      "bytes": 8059422253,
+      "clean_unique_hours": 1.190855,
+      "wet_render_hours": 25.933206,
+        "format": "44.1-kHz mono; clean WAV and wet FLAC; exact paired frame counts",
+        "crc32_failures": 0,
+        "frame_pair_failures": 0,
+        "fresh_validation_v1_downloaded_and_consumed": true,
+        "fresh_validation_v2_downloaded": false,
+        "locked_final_downloaded": false
+      },
+      "audio_quality_caveats": [
+        "the data are commercial-grade software Amp+cab renders, not new physical-amplifier recordings",
+        "profile UUID and broad gain class are available, but exact amplifier identity and knob settings are not",
+        "the whole Amp+cab chain is one profile-scoped restoration effect and must not be mixed with Marshall speaker-output-only targets",
+        "the 135.4-GB archive supports HTTP byte ranges; only the declared subset may be materialized and locked-final rows must remain unread"
+      ],
+      "admission": "product-amp-cab-subset-after-byte-range-and-audio-audit"
+    },
+    {
+      "id": "egdb-bias-fx2-distortion-recovery",
+      "title": "EGDB rendered with Positive Grid BIAS FX2 for distortion recovery",
+      "record_url": "https://zenodo.org/records/12674910",
+      "doi": "10.5281/zenodo.12674910",
+      "local_paths": [],
+      "license": "CC-BY-4.0",
+      "rights_status": "dataset-license-verified-upstream-egdb-rights-unresolved",
+      "gradient_scope": "blocked-pending-upstream-audio-rights-review",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "record description says the 1.0-GB archive contains segmented EGDB dry/wet test clips and model outputs, not the full 8/1/1 training corpus",
+      "hardware": false,
+      "control_labels": "random BIAS FX2 rendering; preset identities and controls are not published on the record",
+      "archive": {"official_file": "EGDB_BIAS_FX2_random.zip", "bytes": 1000228380, "md5": "ddc25189cddd4b7508f2fd1478528649"},
+      "audio_quality_caveats": [
+        "the Zenodo record is CC-BY-4.0 but the linked original EGDB project publishes no general audio license",
+        "the deposited archive is described as reproducibility test material and does not expose the full training split"
+      ],
+      "admission": "metadata-only-upstream-rights-unresolved"
+    },
+    {
+      "id": "guitar-fx-dist",
+      "title": "GUITAR-FX-DIST processed guitar recordings",
+      "record_url": "https://zenodo.org/records/4298017",
+      "doi": "10.5281/zenodo.4298017",
+      "local_paths": [],
+      "license": "CC-BY-4.0",
+      "rights_status": "deposit-license-verified-upstream-license-conflict-unresolved",
+      "gradient_scope": "blocked-pending-upstream-idmt-derivative-clearance",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "processed and unprocessed two-second note/chord clips across 14 overdrive, distortion and fuzz effects",
+      "hardware": false,
+      "control_labels": "discrete and continuous settings across four separately deposited subsets",
+      "audio_quality_caveats": [
+        "the deposit is CC-BY-4.0 but explicitly identifies IDMT-SMT-Audio-Effects as its unprocessed source",
+        "the current official IDMT release is CC-BY-NC-ND-4.0, so derivative product rights are contradictory without separate permission",
+        "the full collection is about 305 hours and tens of gigabytes; no files were downloaded"
+      ],
+      "admission": "metadata-only-upstream-rights-conflict"
+    },
+    {
+      "id": "automated-guitar-amp-modelling-example-audio",
+      "title": "Automated-GuitarAmpModelling HT1 and Big Muff example pairs",
+      "record_url": "https://github.com/Alec-Wright/Automated-GuitarAmpModelling",
+      "doi": null,
+      "local_paths": [],
+      "license": "GPL-3.0",
+      "rights_status": "repository-license-present-audio-and-trained-weight-scope-unresolved",
+      "gradient_scope": "blocked-pending-dataset-specific-rights-clarification",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "separate train, validation and test input/target WAV pairs for a Blackstar HT1 amplifier and Big Muff Pi pedal",
+      "hardware": true,
+      "control_labels": "one fixed HT1 profile and one fixed Big Muff profile",
+      "archive": {"repository_audio_bytes": 159134568, "ht1_audio_bytes": 79567284},
+      "audio_quality_caveats": [
+        "the root GPL-3.0 license does not separately identify the provenance of the dry performances",
+        "the repository does not state whether downstream model weights trained from the audio are intended to inherit GPL terms",
+        "a later ToneTwist deposit of the HT1 material is CC-BY-NC-4.0, so product use is fail-closed pending clarification"
+      ],
+      "admission": "metadata-only-rights-unresolved"
+    },
+    {
+      "id": "openamp-proteus-tone-packs",
+      "title": "Open-Amp framework with Proteus Tone Packs",
+      "record_url": "https://github.com/Alec-Wright/OpenAmp",
+      "doi": null,
+      "local_paths": [],
+      "license": "NOASSERTION",
+      "rights_status": "repository-license-and-per-capture-rights-not-found",
+      "gradient_scope": "blocked",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "renders clean guitar through crowd-sourced Proteus forward models during training",
+      "hardware": false,
+      "control_labels": "crowd-sourced fixed amplifier and pedal captures",
+      "audio_quality_caveats": [
+        "the OpenAmp repository has no license file",
+        "the ToneLibrary repository is GPL-3.0 but does not publish per-capture source-audio or trained-weight terms",
+        "the documented clean source is IDMT-SMT-GUITAR V2, whose current registered license is not product-compatible"
+      ],
+      "admission": "metadata-only-rights-unresolved"
+    },
+    {
+      "id": "open-riff-box-stage-renderer",
+      "title": "Open Riff Box Platinum stage-tap source renderer",
+      "record_url": "https://github.com/dlujic/open-riff-box",
+      "doi": null,
+      "local_paths": [],
+      "license": "GPL-3.0",
+      "rights_status": "source-and-output-policy-reviewed-at-c980ae874c87e16835d87b265ea58079fc69e7f5",
+      "gradient_scope": "research-only-architecture-selection",
+      "weight_scope": "blocked-from-product-weights",
+      "audio_scope": "ephemeral-no-cabinet-noise-disabled-renders-only; never-redistribute",
+      "allowed_uses": [
+        "metadata-review",
+        "source-build-evaluation",
+        "internal-stage-supervision"
+      ],
+      "pairing": "offline Platinum renderer exposes deterministic tap 1-9 outputs from admitted Clean DI; each tap is paired with its immediate predecessor; cabinet is excluded and thermal noise is disabled",
+      "hardware": false,
+      "control_labels": "known gain, bass, mid, treble, speaker drive, OV level, master, gain mode, channel and input-jack controls; taps cover five triode stages, cathode follower, tone stack, power amp and output transformer",
+      "artifact_audit": {
+        "source_commit": "c980ae874c87e16835d87b265ea58079fc69e7f5",
+        "source_build": "macOS arm64 Release with ORB_OFFLINE_TOOLS=ON",
+        "tap_probe": "all nine 2-second float32 taps rendered with distinct SHA-256 values",
+        "cabinet_policy": "stage taps bypass cabinet convolution; full-output probes must use cabinet sentinel 200",
+        "output_policy_reference": "https://www.gnu.org/licenses/gpl-faq.html.en#GPLOutput"
+      },
+      "audio_quality_caveats": [
+        "the repository is GPL-3.0 and any distributed renderer or modification must independently comply with that license",
+        "GNU's GPL FAQ says ordinary program output generally inherits the input copyright status, but this engineering review is not legal advice",
+        "the repository roadmap calls the older cabinet set placeholders and the repository does not provide per-IR notices; all cabinet assets are excluded",
+        "software stage supervision may choose an architecture but cannot establish physical-amplifier fidelity or select a product checkpoint",
+        "research-trained parameters must be discarded before product-only reinitialization"
+      ],
+      "admission": "research-only-stage-supervised-architecture-probe"
+    },
+    {
+      "id": "byod-source-renderer",
+      "title": "BYOD open-source analog-modelled distortion renderer",
+      "record_url": "https://github.com/Chowdhury-DSP/BYOD",
+      "doi": null,
+      "local_paths": [],
+      "license": "GPL-3.0",
+      "rights_status": "source-license-verified-binary-integrity-rejected",
+      "gradient_scope": "blocked-until-clean-source-build-and-render-output-review",
+      "weight_scope": "blocked",
+      "audio_scope": "official-binary-deleted-after-failed-signature-verification",
+      "allowed_uses": ["metadata-review", "source-build-evaluation"],
+      "pairing": "candidate deterministic renderer for product-cleared DI; not a physical recording source",
+      "hardware": false,
+      "control_labels": "modular analog-modelled distortion and tone-shaping processors",
+      "artifact_audit": {
+        "version": "1.3.0",
+        "dmg_bytes": 89127908,
+        "dmg_sha256": "997a0508b00a583d8563eb0e330c7e318fe43e7f4f3b06ba3d389221aeb7254a",
+        "package_signature": "invalid",
+        "arm64_vst3_signature": "invalid"
+      },
+      "audio_quality_caveats": [
+        "the downloaded official binary failed package and nested VST3 signature verification and was deleted",
+        "the GPL-3.0 source may be inspected, but product rendering remains blocked pending a clean source build and output-rights review",
+        "software rendering cannot provide independent physical-device validation"
+      ],
+      "admission": "metadata-only-source-build-candidate"
+    },
+    {
+      "id": "swankyamp-source-renderer",
+      "title": "Swanky Amp tube-amplifier simulation source renderer",
+      "record_url": "https://github.com/resonantdsp/SwankyAmp",
+      "doi": null,
+      "local_paths": [],
+      "license": "GPL-3.0",
+      "rights_status": "source-license-verified-no-official-github-binary-release",
+      "gradient_scope": "blocked-until-clean-source-build-and-render-output-review",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review", "source-build-evaluation"],
+      "pairing": "candidate tube-amplifier simulator for rendering product-cleared DI; not a physical recording source",
+      "hardware": false,
+      "control_labels": "gain staging, drive and tube-amplifier dynamics",
+      "audio_quality_caveats": [
+        "the official GitHub repository exposes source under GPL-3.0 but no GitHub release binaries",
+        "generated-output and trained-weight policy must be recorded before any product gradient is admitted"
+      ],
+      "admission": "metadata-only-source-build-candidate"
+    },
+    {
+      "id": "mert-pretrained-audio-encoder",
+      "title": "MERT v1 pretrained music audio encoder",
+      "record_url": "https://huggingface.co/m-a-p/MERT-v1-330M",
+      "doi": null,
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "official-model-card-noncommercial",
+      "gradient_scope": "research-only-not-admitted",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "pretrained music representation; no Wet/Clean pairing",
+      "hardware": false,
+      "control_labels": "none",
+      "audio_quality_caveats": [
+        "the official model card marks the checkpoint CC-BY-NC-4.0",
+        "noncommercial pretrained weights cannot enter product restoration gradients or distillation"
+      ],
+      "admission": "metadata-only-noncommercial"
+    },
+    {
+      "id": "audiomae-pretrained-audio-encoder",
+      "title": "AudioMAE pretrained AudioSet encoder",
+      "record_url": "https://github.com/facebookresearch/AudioMAE",
+      "doi": null,
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "official-repository-license-noncommercial",
+      "gradient_scope": "research-only-not-admitted",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "AudioSet-pretrained representation; no Wet/Clean pairing",
+      "hardware": false,
+      "control_labels": "none",
+      "audio_quality_caveats": [
+        "the official LICENSE is Attribution-NonCommercial 4.0",
+        "the project says AudioSet audio cannot be redistributed because of copyright"
+      ],
+      "admission": "metadata-only-noncommercial"
+    },
+    {
+      "id": "laion-clap-pretrained-audio-encoder",
+      "title": "LAION-CLAP pretrained audio encoder",
+      "record_url": "https://github.com/LAION-AI/CLAP",
+      "doi": null,
+      "local_paths": [],
+      "license": "CC0-1.0",
+      "rights_status": "repository-license-clear-checkpoint-training-rights-unresolved",
+      "gradient_scope": "blocked-pending-checkpoint-specific-product-rights",
+      "weight_scope": "blocked",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": ["metadata-review"],
+      "pairing": "pretrained general/music audio representation; no Wet/Clean pairing",
+      "hardware": false,
+      "control_labels": "none",
+      "audio_quality_caveats": [
+        "the repository license is CC0 but does not separately settle downstream product use of each checkpoint",
+        "the official README says most training audio cannot be released because of copyright restrictions",
+        "source-code licensing cannot be used as a substitute for checkpoint and training-data provenance"
+      ],
+      "admission": "metadata-only-checkpoint-rights-unresolved"
+    },
+    {
       "id": "multimodal-electric-guitar-data",
       "title": "Multimodal Electric Guitar Data",
       "record_url": "https://zenodo.org/records/6470236",
@@ -684,6 +1503,98 @@
         "the related paper is CC-BY-NC-4.0, while the dataset itself is independently CC-BY-4.0 on the official Zenodo API"
       ],
       "admission": "family-presence-positive-only-fit-low-weight"
+    },
+    {
+      "id": "rusty-amp-stage-renderer",
+      "title": "rusty-amp no-cabinet Marshall stage renderer",
+      "record_url": "https://github.com/danylokravchenko/rusty-amp",
+      "doi": null,
+      "local_paths": [],
+      "license": "Apache-2.0",
+      "rights_status": "source-license-and-pinned-build-reviewed-at-831d6bba4ad3a1a8da958c510cbc96a9e55b73f9",
+      "gradient_scope": "product-amp-graybox-pretraining-from-admitted-clean-inputs",
+      "weight_scope": "redistributable-with-apache-2.0-source-attribution",
+      "audio_scope": "ephemeral-no-cabinet-stage-renders; do-not-bundle-by-default",
+      "allowed_uses": [
+        "source-build-evaluation",
+        "train-amp",
+        "redistribute-derived-model",
+        "redistribute-derived-metrics"
+      ],
+      "pairing": "pinned offline renderer exposes eight deterministic Marshall no-cabinet boundaries from admitted Clean DI: front end, preamp, tone stack, voice balance, power amp, output transformer, speaker load and final output",
+      "hardware": false,
+      "control_labels": "known gain, bass, mid, treble, presence and master controls, all normalized 0..1",
+      "artifact_audit": {
+        "source_commit": "831d6bba4ad3a1a8da958c510cbc96a9e55b73f9",
+        "source_tests": "181 library tests passed on macOS arm64 with Rust 1.96.0",
+        "renderer_builder": "remix/prepare_rusty_amp_renderer.py",
+        "renderer_source": "remix/rusty_amp_stage_render.rs",
+        "renderer_probe_sha256": "f409130edcbce0b4c5ee2d5779ba2b1a3dba25e013c5d8be9575d5c719ce19c3",
+        "tap_probe": "all eight 44.1-kHz float32 stage files were finite, frame-aligned and had distinct SHA-256 values",
+        "cabinet_policy": "built-in and external cabinet paths are excluded"
+      },
+      "audio_quality_caveats": [
+        "software renderer supervision cannot establish physical-amplifier fidelity or promote a checkpoint",
+        "only the source-authored no-cabinet Amp algorithm is used; demo audio, cabinet code/assets, Audio Units and third-party plugins are excluded",
+        "the source comments describe tuning against commercial reference rigs, so this source is an architecture/control prior rather than independent physical validation",
+        "selection must return to product-authorized physical Marshall and profile-disjoint EGDB evidence, with human listening still required"
+      ],
+      "admission": "product-graybox-pretraining-only-after-pinned-build-and-stage-audit"
+    },
+    {
+      "id": "goat-guitar-audio-tablatures",
+      "title": "GOAT: A Large Dataset of Paired Guitar Audio Recordings and Tablatures",
+      "record_url": "https://zenodo.org/records/15690894",
+      "doi": "10.5281/zenodo.15690894",
+      "local_paths": [],
+      "license": "CC-BY-NC-4.0",
+      "rights_status": "official-dataset-record-noncommercial-and-restricted-access",
+      "gradient_scope": "research-only-not-admitted",
+      "weight_scope": "blocked",
+      "audio_scope": "not-requested-not-downloaded",
+      "allowed_uses": [
+        "metadata-review"
+      ],
+      "pairing": "5.9 hours of electric-guitar DI with five amp/cab-rendered variants totaling 29.5 hours, according to the official project description",
+      "hardware": false,
+      "control_labels": "render configuration metadata is described by the project but inaccessible without a granted dataset request",
+      "audio_quality_caveats": [
+        "the official Zenodo dataset record is restricted-access and CC-BY-NC-4.0",
+        "the record explicitly says the dataset is for research purposes only and is not intended for use in any commercial product",
+        "the CC-BY-4.0 notice on the paper applies to the paper and does not override the dataset record"
+      ],
+      "admission": "metadata-only-noncommercial"
+    },
+    {
+      "id": "tonetwist-audacity-comp-dist-reverb-chain",
+      "title": "ToneTwist AFx Dataset: Audacity Effect Chain - Compression, Distortion, Reverb",
+      "record_url": "https://zenodo.org/records/20213747",
+      "doi": "10.5281/zenodo.20213747",
+      "local_paths": [],
+      "license": "CC-BY-4.0",
+      "rights_status": "deposit-license-verified-via-official-zenodo-api-upstream-dry-rights-heterogeneous",
+      "gradient_scope": "blocked",
+      "weight_scope": "blocked-pending-upstream-source-clearance",
+      "audio_scope": "not-downloaded",
+      "allowed_uses": [
+        "metadata-review"
+      ],
+      "pairing": "one fixed Audacity Compressor, Distortion and Reverb software chain over marker-aligned dry material",
+      "hardware": false,
+      "control_labels": "fixed published Audacity controls and published effect order",
+      "archive": {
+        "official_file": "audacity-comp-dist-reve.zip",
+        "bytes": 462317189,
+        "md5": "8466c287d6e1bab1652001fb05f286a7"
+      },
+      "audio_quality_caveats": [
+        "the official deposit is CC-BY-4.0, but the listed dry material mixes IDMT, NAM, private and YouTube-derived sources whose product rights are not established as one uniform grant",
+        "the effect chain is Audacity software, not a physical multi-effect hardware chain",
+        "most dry sources were peak-normalized and multiplied by a new random gain every five seconds",
+        "the fixed compressor ratio is outside the currently packaged generic Dynamics domain and the Reverb expert remains unresolved",
+        "do not download for physical veto, restoration gradients, calibration, selection or listening acceptance"
+      ],
+      "admission": "metadata-only-software-chain-and-upstream-rights-blocked"
     }
   ]
 }

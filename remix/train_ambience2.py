@@ -47,7 +47,46 @@ def _device_batch(batch: dict, device: torch.device) -> dict:
     }
 
 
-def _mean_loss(model: AmbienceExpert, dataset: AmbiencePairsV2, batch_size: int, device: torch.device) -> float:
+def _batch_loss(
+    model,
+    batch: dict,
+    uncertainty_weight: float,
+    tail_weight: float,
+    gate_oracle_weight: float,
+) -> tuple[torch.Tensor, dict]:
+    training_loss = getattr(model, "training_loss", None)
+    if training_loss is not None:
+        return training_loss(
+            batch["wet"],
+            batch["controls"],
+            batch["late_base"],
+            batch["clean"],
+            batch["target_start"],
+            uncertainty_weight,
+            tail_weight,
+            gate_oracle_weight,
+        )
+    restored, uncertainty = model(batch["wet"], batch["controls"], batch["late_base"])
+    return ambience_loss(
+        restored,
+        uncertainty,
+        batch["wet"],
+        batch["clean"],
+        batch["target_start"],
+        uncertainty_weight,
+        tail_weight,
+    )
+
+
+def _mean_loss(
+    model: AmbienceExpert,
+    dataset: AmbiencePairsV2,
+    batch_size: int,
+    device: torch.device,
+    uncertainty_weight: float = 0.05,
+    tail_weight: float = 1.0,
+    gate_oracle_weight: float = 0.0,
+) -> float:
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, collate_fn=_collate)
     total = 0.0
     examples = 0
@@ -55,9 +94,12 @@ def _mean_loss(model: AmbienceExpert, dataset: AmbiencePairsV2, batch_size: int,
     with torch.inference_mode():
         for raw in loader:
             batch = _device_batch(raw, device)
-            restored, uncertainty = model(batch["wet"], batch["controls"], batch["late_base"])
-            loss, _ = ambience_loss(
-                restored, uncertainty, batch["wet"], batch["clean"], batch["target_start"]
+            loss, _ = _batch_loss(
+                model,
+                batch,
+                uncertainty_weight,
+                tail_weight,
+                gate_oracle_weight,
             )
             count = len(batch["wet"])
             total += float(loss) * count
@@ -69,23 +111,43 @@ def _decay_stratum(seconds: float) -> str:
     return "short-tail" if seconds < 1.85 else "long-tail"
 
 
-def _summaries(values: tuple[list[np.ndarray], list[np.ndarray], list[np.ndarray]]) -> dict:
+def _summaries(
+    values: tuple[list[np.ndarray], list[np.ndarray], list[np.ndarray]],
+    quality_contract: str | None = None,
+) -> dict:
     universal = summarize_universal("ambience", *values)
     try:
         tail = summarize_tail(*values)
     except ValueError:
         tail = {"accepted": False, "reason": "no eligible temporal tails"}
-    return {
+    result = {
         "universal": universal,
         "tail": tail,
         "accepted": bool(universal["accepted"] and tail["accepted"]),
     }
+    if quality_contract == "tail-removal-with-global-nonregression":
+        nonregression_gates = {
+            name: row["nonregression_fraction"] >= 0.90
+            for name, row in universal["metrics"].items()
+        }
+        nonregression_gates["no_new_clipping"] = universal["gates"]["no_new_clipping"]
+        result["global_nonregression"] = {
+            "gates": nonregression_gates,
+            "accepted": all(nonregression_gates.values()),
+        }
+        result["accepted"] = bool(
+            result["global_nonregression"]["accepted"] and tail["accepted"]
+        )
+    return result
 
 
 def _quality(model: AmbienceExpert, dataset: AmbiencePairsV2) -> dict:
     aggregate = ([], [], [])
     sources = defaultdict(lambda: ([], [], []))
     decays = defaultdict(lambda: ([], [], []))
+    rooms = defaultdict(lambda: ([], [], []))
+    decay_stratum = getattr(dataset, "decay_stratum", _decay_stratum)
+    room_group = getattr(dataset, "room_group", None)
     model.eval()
     with torch.inference_mode():
         for index in range(len(dataset)):
@@ -97,27 +159,48 @@ def _quality(model: AmbienceExpert, dataset: AmbiencePairsV2) -> dict:
             wet = row["wet"][start:].numpy()
             candidate = restored[0, start:].numpy().astype(np.float32)
             clean = row["clean"][start:].numpy()
-            stratum = _decay_stratum(float(row["control_values"]["decay_p999_seconds"]))
-            for collection in (aggregate, sources[row["source_id"]], decays[stratum]):
+            stratum = decay_stratum(float(row["control_values"]["decay_p999_seconds"]))
+            collections = [aggregate, sources[row["source_id"]], decays[stratum]]
+            if room_group is not None:
+                collections.append(rooms[room_group(row)])
+            for collection in collections:
                 collection[0].append(wet)
                 collection[1].append(candidate)
                 collection[2].append(clean)
-    result = _summaries(aggregate)
-    result["sources"] = {name: _summaries(values) for name, values in sorted(sources.items())}
-    result["decay_strata"] = {name: _summaries(values) for name, values in sorted(decays.items())}
+    quality_contract = getattr(dataset, "quality_contract", None)
+    result = _summaries(aggregate, quality_contract)
+    result["quality_contract"] = quality_contract or "universal-improvement-and-tail-removal"
+    result["sources"] = {
+        name: _summaries(values, quality_contract) for name, values in sorted(sources.items())
+    }
+    result["decay_strata"] = {
+        name: _summaries(values, quality_contract) for name, values in sorted(decays.items())
+    }
     result["all_sources_accepted"] = bool(
         result["sources"] and all(row["accepted"] for row in result["sources"].values())
     )
     result["all_decay_strata_accepted"] = bool(
-        result["decay_strata"] and all(row["accepted"] for row in result["decay_strata"].values())
+        result["decay_strata"]
+        and set(result["decay_strata"]) >= set(getattr(dataset, "required_decay_strata", ()))
+        and all(row["accepted"] for row in result["decay_strata"].values())
     )
+    if room_group is not None:
+        result["rooms"] = {
+            name: _summaries(values, quality_contract) for name, values in sorted(rooms.items())
+        }
+        result["all_rooms_accepted"] = bool(
+            result["rooms"] and all(row["accepted"] for row in result["rooms"].values())
+        )
     return result
 
 
 def _runtime(model: AmbienceExpert, frames: int) -> dict:
     wet = torch.zeros(1, frames)
     controls = torch.zeros(1, 3)
-    late_base = wet.clone()
+    if getattr(model, "requires_profile_candidate_bank", False):
+        late_base = wet[:, None].repeat(1, model.candidate_count, 1)
+    else:
+        late_base = wet.clone()
     model.eval()
     with torch.inference_mode():
         model(wet, controls, late_base)
@@ -133,33 +216,94 @@ def _runtime(model: AmbienceExpert, frames: int) -> dict:
         "ordinary_cpu": True,
         "bounded_window": True,
         "audio_callback": False,
+        "profile_candidate_generation_included": False,
     }
 
 
-def train(args: argparse.Namespace) -> dict:
+def _quality_rank(report: dict) -> tuple[float, ...]:
+    """Rank calibration checkpoints by product tail evidence, never development."""
+    tail_reports = [report["tail"]]
+    for axis in ("sources", "rooms", "decay_strata"):
+        tail_reports.extend(row["tail"] for row in report.get(axis, {}).values())
+    measurable = [row for row in tail_reports if "pass_fraction" in row]
+    if not measurable:
+        return (-1.0,) * 9
+    group_gates = (
+        bool(report["accepted"]),
+        bool(report["all_sources_accepted"]),
+        bool(report["all_decay_strata_accepted"]),
+        bool(report.get("all_rooms_accepted", True)),
+    )
+    universal_reports = [report["universal"]]
+    for axis in ("sources", "rooms", "decay_strata"):
+        universal_reports.extend(
+            row["universal"] for row in report.get(axis, {}).values()
+        )
+    universal_metrics = [
+        metric
+        for universal in universal_reports
+        for metric in universal["metrics"].values()
+    ]
+    return (
+        float(all(group_gates)),
+        float(sum(group_gates)),
+        float(all(row.get("added_reverb_fraction", 1.0) <= 0.05 for row in measurable)),
+        min(float(row["pass_fraction"]) for row in measurable),
+        float(report["tail"]["pass_fraction"]),
+        min(float(row["median_tail_excess_reduction"]) for row in measurable),
+        min(float(row["median_tail_envelope_esr_improvement"]) for row in measurable),
+        min(float(row["nonregression_fraction"]) for row in universal_metrics),
+        min(
+            float(row["median_reduction"])
+            if row["median_reduction"] is not None else -1.0
+            for row in universal_metrics
+        ),
+    )
+
+
+def train(
+    args: argparse.Namespace,
+    dataset_class=AmbiencePairsV2,
+    model_class=AmbienceExpert,
+) -> dict:
     workspace = args.workspace.resolve()
     output = args.output.resolve()
-    fit = AmbiencePairsV2(workspace, "fit", args.train_samples, args.target_frames, SEED + 1)
-    calibration = AmbiencePairsV2(
-        workspace, "calibration", args.calibration_samples, args.target_frames, SEED + 2
+    seed = getattr(args, "seed", SEED)
+    fit = dataset_class(workspace, "fit", args.train_samples, args.target_frames, seed + 1)
+    calibration = dataset_class(
+        workspace, "calibration", args.calibration_samples, args.target_frames, seed + 2
     )
-    development = AmbiencePairsV2(
-        workspace, "development", args.development_samples, args.target_frames, SEED + 3
+    development = dataset_class(
+        workspace, "development", args.development_samples, args.target_frames, seed + 3
     )
     device = torch.device(args.device)
-    model = AmbienceExpert(args.channels, args.depth).to(device)
+    uncertainty_weight = getattr(args, "uncertainty_weight", 0.05)
+    tail_weight = getattr(args, "tail_weight", 1.0)
+    gate_oracle_weight = getattr(args, "gate_oracle_weight", 0.0)
+    model = model_class(args.channels, args.depth).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, weight_decay=1.0e-5)
     loader = DataLoader(
         fit,
         batch_size=args.batch_size,
         shuffle=True,
-        generator=torch.Generator().manual_seed(SEED),
+        generator=torch.Generator().manual_seed(seed),
         collate_fn=_collate,
     )
-    initial_loss = _mean_loss(model, calibration, args.batch_size, device)
+    initial_loss = _mean_loss(
+        model,
+        calibration,
+        args.batch_size,
+        device,
+        uncertainty_weight,
+        tail_weight,
+        gate_oracle_weight,
+    )
     history = [{"epoch": 0, "train": None, "calibration_loss": initial_loss}]
     best_loss = initial_loss
     best_state = {name: value.detach().cpu().clone() for name, value in model.state_dict().items()}
+    quality_selection = bool(getattr(args, "select_by_calibration_quality", False))
+    selection_interval = int(getattr(args, "quality_selection_interval", 2))
+    candidate_states = [(0, initial_loss, best_state)] if quality_selection else []
     print(json.dumps({"mechanism": "ambience", "epoch": 0, "calibration_loss": initial_loss}), flush=True)
     for epoch in range(args.epochs):
         model.train()
@@ -168,9 +312,12 @@ def train(args: argparse.Namespace) -> dict:
         for raw in loader:
             batch = _device_batch(raw, device)
             optimizer.zero_grad(set_to_none=True)
-            restored, uncertainty = model(batch["wet"], batch["controls"], batch["late_base"])
-            loss, parts = ambience_loss(
-                restored, uncertainty, batch["wet"], batch["clean"], batch["target_start"]
+            loss, parts = _batch_loss(
+                model,
+                batch,
+                uncertainty_weight,
+                tail_weight,
+                gate_oracle_weight,
             )
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 2.0)
@@ -180,7 +327,15 @@ def train(args: argparse.Namespace) -> dict:
             for name, value in parts.items():
                 totals[name] += value * count
             examples += count
-        calibration_loss = _mean_loss(model, calibration, args.batch_size, device)
+        calibration_loss = _mean_loss(
+            model,
+            calibration,
+            args.batch_size,
+            device,
+            uncertainty_weight,
+            tail_weight,
+            gate_oracle_weight,
+        )
         history.append({
             "epoch": epoch + 1,
             "train": {name: value / max(examples, 1) for name, value in sorted(totals.items())},
@@ -191,8 +346,43 @@ def train(args: argparse.Namespace) -> dict:
             best_state = {
                 name: value.detach().cpu().clone() for name, value in model.state_dict().items()
             }
+        if quality_selection and (
+            (epoch + 1) % selection_interval == 0 or epoch + 1 == args.epochs
+        ):
+            candidate_states.append((
+                epoch + 1,
+                calibration_loss,
+                {name: value.detach().cpu().clone() for name, value in model.state_dict().items()},
+            ))
         print(json.dumps({"mechanism": "ambience", "epoch": epoch + 1, "calibration_loss": calibration_loss}), flush=True)
     model = model.cpu()
+    calibration_selection = []
+    selected_epoch = next(
+        row["epoch"] for row in history if row["calibration_loss"] == best_loss
+    )
+    if quality_selection:
+        ranked = []
+        for epoch, calibration_loss, state in candidate_states:
+            model.load_state_dict(state)
+            calibration_quality = _quality(model, calibration)
+            rank = _quality_rank(calibration_quality)
+            calibration_selection.append({
+                "epoch": epoch,
+                "calibration_loss": calibration_loss,
+                "rank": list(rank),
+                "tail": calibration_quality["tail"],
+                "all_sources_accepted": calibration_quality["all_sources_accepted"],
+                "all_decay_strata_accepted": calibration_quality["all_decay_strata_accepted"],
+                "all_rooms_accepted": calibration_quality.get("all_rooms_accepted"),
+            })
+            ranked.append((rank, -calibration_loss, epoch, state))
+            print(json.dumps({
+                "mechanism": "ambience",
+                "calibration_quality_epoch": epoch,
+                "quality_rank": rank,
+            }), flush=True)
+        _, negated_loss, selected_epoch, best_state = max(ranked, key=lambda row: row[:3])
+        best_loss = -negated_loss
     model.load_state_dict(best_state)
     quality = _quality(model, development)
     runtime = _runtime(model, fit.total_frames)
@@ -201,6 +391,7 @@ def train(args: argparse.Namespace) -> dict:
         and quality["accepted"]
         and quality["all_sources_accepted"]
         and quality["all_decay_strata_accepted"]
+        and quality.get("all_rooms_accepted", True)
         and runtime["realtime_factor"] <= 0.5
     )
     target = output / "ambience"
@@ -221,13 +412,22 @@ def train(args: argparse.Namespace) -> dict:
         "mechanism": "ambience",
         "model": {**model.manifest(), "checkpoint": str(checkpoint), "sha256": digest},
         "training": {
+            "seed": seed,
             "epochs": args.epochs,
+            "uncertainty_weight": uncertainty_weight,
+            "tail_weight": tail_weight,
+            "gate_oracle_weight": gate_oracle_weight,
             "target_frames": args.target_frames,
             "history_frames": fit.history_frames,
             "fit_samples_per_epoch": args.train_samples,
             "calibration_samples": args.calibration_samples,
             "development_samples": args.development_samples,
             "selected_calibration_loss": best_loss,
+            "selected_epoch": selected_epoch,
+            "checkpoint_selection": (
+                "calibration-product-tail-quality" if quality_selection else "calibration-mean-loss"
+            ),
+            "calibration_quality_candidates": calibration_selection,
             "history": history,
             "accelerator": device.type,
         },

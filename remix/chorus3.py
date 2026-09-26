@@ -11,7 +11,7 @@ import numpy as np
 import torch
 
 from .foundation_data import RATE
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 from .product2 import FROZEN_PRODUCT2_SOURCE_IDS, _condition_clean
 from .product_data import RESEARCH_SOURCE_IDS, Clean, _read, discover_clean
 
@@ -94,7 +94,13 @@ class ChorusPairsV3(torch.utils.data.Dataset):
         sources = set(self.realized_source_counts()) | {"muspector-dsp"}
         if sources & RESEARCH_SOURCE_IDS:
             raise PermissionError("research source entered Chorus pairs")
-        self.authorization = require_product_weights(self.workspace / "remix/data_sources.json", sorted(sources))
+        requirements = {
+            source: "product-clean-source" for source in sources if source != "muspector-dsp"
+        }
+        requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", requirements
+        )
         self._cache = {}
 
     def __len__(self): return self.samples

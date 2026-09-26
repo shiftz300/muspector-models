@@ -1,0 +1,513 @@
+[
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "f824f83d3e6ec2045512567bd6aa96eb1df013baef5ac05a2720c3036814df6c",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-v1-underbudget-lstm",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "f824f83d3e6ec2045512567bd6aa96eb1df013baef5ac05a2720c3036814df6c",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-v2",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-v2/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "c048975ab51d5afb1319be019825bc69c0708afcc7c7740dc6d6b41f3351b9d2",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-v3",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-v3/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "structured_plus_residual_2k",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "c048975ab51d5afb1319be019825bc69c0708afcc7c7740dc6d6b41f3351b9d2",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-v5",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-v5/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "06e7746b020a43c8cdbc5f3870028afb905bd3f463b087295530effecdb68c2f",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-v7",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-v7/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "b456ff5233c44865ab4f0a3590d48c21ffc0ebf51d562d7fd3f4a919221f12c0",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "b456ff5233c44865ab4f0a3590d48c21ffc0ebf51d562d7fd3f4a919221f12c0",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-v2",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-v2/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "e90d0c579f5b38afa87fe8937a6b779f8148d1af450e1a995c16105f6a885016",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-v3",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-v3/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": [
+      "linear",
+      "linear_257",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box",
+      "causal_lstm_4.8k"
+    ],
+    "calibration_split": null,
+    "data_manifest_sha256": "e90d0c579f5b38afa87fe8937a6b779f8148d1af450e1a995c16105f6a885016",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-v4",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-v4/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "calibration-only FIR selection",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "3410872a49af4dd20ea289359767a2f06aa9ca69204b1e5d802d899d1006fc40",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-v5",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-v5/metrics.json",
+    "status": "invalid-diagnostic-development-probes",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "calibration-only FIR selection",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "3410872a49af4dd20ea289359767a2f06aa9ca69204b1e5d802d899d1006fc40",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-v6",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-v6/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "differentiated local cross-correlation alignment audit",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "da15d7f7c3f3b95e9c1fcfe5b404490783f34344d683d855ab10c8b84c7b5dfb",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-alignment-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-alignment-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "calibration-only fit alignment filter selection plus 64-tap FIR",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "6634a0d6a572f88b40d5c5a9f401f5bbba38bfe981028e35df8fdf5faf5747bc",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-alignment-filter-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-alignment-filter-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "calibration-only fit alignment filter selection plus 64-tap FIR",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "6634a0d6a572f88b40d5c5a9f401f5bbba38bfe981028e35df8fdf5faf5747bc",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-alignment-filter-v2",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-alignment-filter-v2/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "4.8k causal LSTM with calibration-selected epoch and expanded fit coverage",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "85eb270a9aebd295568b05475a11180c95bf5c72764658d3a29ab0b5b63ce90a",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-lstm-coverage-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-lstm-coverage-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "4.8k causal LSTM with calibration-selected epoch and expanded fit coverage",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "85eb270a9aebd295568b05475a11180c95bf5c72764658d3a29ab0b5b63ce90a",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-lstm-coverage-v2",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-lstm-coverage-v2/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "4.8k causal LSTM Wet-to-DI inverse with calibration-selected epoch",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "46a81ea8f5e4589bed23fd3b007f8aa9da84c686f392127c8df03b5a1d644fbe",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-lstm-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-lstm-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "frozen quality2 Amp gate on inverse diagnostic",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "639a3b3034ef4b2b6670f9c8bf0fc446c27e3d2b087d6f1a37a089ddc09f39ef",
+    "fit_split": "checkpoint fit split",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-gates-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-gates-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "4.8k causal LSTM inverse with restoration-aware objective and frozen Amp gate",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "017b59a1af18225f5b65695ca899d272f724d1760edd5cd5c239a1462bd5abe4",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-restoration-loss-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-restoration-loss-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "4.8k causal residual LSTM inverse with restoration-aware objective and frozen Amp gate",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "c56f55132706e544a2db2893c0d1af17dc20052195ae43c537e7ea9ff2d510d3",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-residual-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-residual-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "frozen quality2 Amp gate on inverse diagnostic",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "639a3b3034ef4b2b6670f9c8bf0fc446c27e3d2b087d6f1a37a089ddc09f39ef",
+    "fit_split": "checkpoint fit split",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-residual-gates-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-residual-gates-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "frozen quality2 Amp gate on inverse diagnostic",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "52c19cd85f9ad91bc1954184bfd432640a0b241e7ef1683bfc7fec2a3ce841ed",
+    "fit_split": "checkpoint fit split",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-residual-gates-v2",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-residual-gates-v2/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "dynamic gray-box state bank inverse with calibration-selected FIR memory",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "1c4b581175a73626aa65e981a0f432aa5f81c04f24f1c06deb183dbf198687b6",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-graybox-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-graybox-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "fit-only spectral inverse FIR plus calibration-selected dynamic gray-box state bank",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "99ae358c9670e7e2ca70773a373259a484cab59925e6f2f75b1e0c1f1439c579",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-graybox-prefilter-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-graybox-prefilter-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "fit-only spectral inverse FIR plus calibration-selected residual dynamic gray-box state bank",
+    "calibration_split": "Guitar-TECHS calibration time interval",
+    "data_manifest_sha256": "7f4ce7f6e7da3eebde811cdae5f71d072375d43565ce042d0ac92a4b34405956",
+    "fit_split": "Guitar-TECHS fit time interval",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-real-guitar-techs-inverse-graybox-residual-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-real-guitar-techs-inverse-graybox-residual-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "Guitar-TECHS development time interval"
+  },
+  {
+    "algorithm": "fit-only multi-level/control BLA and hidden-DUT history audit",
+    "calibration_split": null,
+    "data_manifest_sha256": "06e7746b020a43c8cdbc5f3870028afb905bd3f463b087295530effecdb68c2f",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-bla-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-bla-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": null
+  },
+  {
+    "algorithm": [
+      "linear",
+      "parallel_hammerstein",
+      "wiener_hammerstein",
+      "dynamic_gray_box"
+    ],
+    "calibration_split": "fit sources 6-7",
+    "data_manifest_sha256": "6aef7803e0a923538186ed8438593adf01dd2358bc4de01016b38c0995d8472b",
+    "fit_split": "fit sources 0-5",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-complexity-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-complexity-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "parallel_hammerstein",
+      "bounded_parallel_hammerstein"
+    ],
+    "calibration_split": "fit sources 6-7",
+    "data_manifest_sha256": "36cb1b3d4a884dae5890b95d6760c101f7a3a72baf321dbd3bc06578edfc995b",
+    "fit_split": "fit sources 0-5",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-bounded-ph-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-bounded-ph-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": [
+      "parallel_hammerstein",
+      "bounded_parallel_hammerstein"
+    ],
+    "calibration_split": "fit sources 6-7",
+    "data_manifest_sha256": "084b06efa6c29c0d5cf31a63323be2aea5826a242781f5dff31f367ae32884ab",
+    "fit_split": "fit sources 0-5",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-bounded-ph-v2",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-bounded-ph-v2/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": "tail-aware bounded PH plus one zero-initialized 2k residual",
+    "calibration_split": "fit sources 6-7",
+    "data_manifest_sha256": "4ad7e260c082a13970c685a21c1a8bebba181745fe3b609bcef9a14453014641",
+    "fit_split": "fit sources 0-5",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-structural-ood-residual-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-structural-ood-residual-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": "observable profile replay with tail-aware bounded PH, tiny residual and support guard",
+    "calibration_split": "fit sources 6-7",
+    "data_manifest_sha256": "bdc66b94b290ed1e768647c37199b838ba9c19834de0ebb7cdaa28aa49e4e04d",
+    "fit_split": "fit sources 0-5",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "clone-profile-replay-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/clone-profile-replay-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": [
+      "source_ood",
+      "level_ood",
+      "control_ood",
+      "topology_ood"
+    ]
+  },
+  {
+    "algorithm": "causal Wiener-Hammerstein Amp forward replay",
+    "calibration_split": "calibration",
+    "data_manifest_sha256": "16087d662fcc5497eab6ba6be184e91390fefb8f31250db1e72e37052d554a8d",
+    "fit_split": "fit",
+    "git_commit": null,
+    "id": "amp-forward-replay-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/product3-amp-guitar-techs/amp-forward-replay-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "development"
+  },
+  {
+    "algorithm": "P1 Amp inverse with frozen causal forward-replay consistency loss",
+    "calibration_split": "calibration",
+    "data_manifest_sha256": "16087d662fcc5497eab6ba6be184e91390fefb8f31250db1e72e37052d554a8d",
+    "fit_split": "fit",
+    "git_commit": "93f2820b6003b2c42d27ee45f473578138812a84",
+    "id": "amp-cab-forward-loss-p1-v1",
+    "locked": false,
+    "metrics": "/Users/shiftz/dev/muspector-models/runs/foundation/product3-amp-guitar-techs/amp-cab-forward-loss-p1-v1/metrics.json",
+    "status": "diagnostic",
+    "validation_split": "development"
+  }
+]

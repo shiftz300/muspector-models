@@ -6,7 +6,35 @@ import torch
 from torch import nn
 
 from .ambience2 import CONTROL_WIDTH
-from .inverse2 import _pre_emphasis, _spectral_loss
+from .inverse2 import _pre_emphasis
+
+
+def _ambience_spectral_loss(prediction: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+    """Per-example spectral loss with an audible-floor convergence denominator."""
+    losses = []
+    for fft_size in (256, 512, 1024):
+        if prediction.shape[1] < fft_size:
+            continue
+        window = torch.hann_window(fft_size, device=prediction.device, dtype=prediction.dtype)
+        predicted = torch.stft(
+            prediction, fft_size, fft_size // 4, window=window,
+            center=True, pad_mode="constant", return_complex=True,
+        ).abs()
+        expected = torch.stft(
+            target, fft_size, fft_size // 4, window=window,
+            center=True, pad_mode="constant", return_complex=True,
+        ).abs()
+        log_distance = (torch.log1p(predicted) - torch.log1p(expected)).abs().mean(
+            dim=(-2, -1)
+        )
+        expected_norm = torch.linalg.vector_norm(expected, dim=(-2, -1))
+        audible_floor = expected.new_tensor(expected.shape[-2] * expected.shape[-1]).sqrt() * 1.0e-4
+        convergence = torch.log1p(
+            torch.linalg.vector_norm(predicted - expected, dim=(-2, -1))
+            / expected_norm.clamp_min(audible_floor)
+        )
+        losses.append(log_distance + convergence)
+    return torch.stack(losses, dim=0).mean()
 
 
 class _LongBlock(nn.Module):
@@ -140,6 +168,7 @@ class AmbienceExpert(nn.Module):
             "uncertainty_output": True,
             "blind_late_suppression_strength": 0.25,
             "chain_order_input": False,
+            "graph_order_input": False,
             "neighbor_effect_input": False,
         }
 
@@ -154,24 +183,38 @@ def ambience_loss(
     wet: torch.Tensor,
     clean: torch.Tensor,
     target_start: int,
+    uncertainty_weight: float = 0.05,
+    tail_weight: float = 1.0,
 ) -> tuple[torch.Tensor, dict]:
+    if not 0.0 <= uncertainty_weight <= 0.05:
+        raise ValueError("ambience uncertainty weight must be in [0, 0.05]")
+    if not 1.0 <= tail_weight <= 5.0:
+        raise ValueError("ambience tail weight must be in [1, 5]")
     restored = restored[:, target_start:]
     uncertainty = uncertainty[:, target_start:]
     wet = wet[:, target_start:]
     clean = clean[:, target_start:]
-    scale = clean.abs().mean().clamp_min(1.0e-5)
+    scale = torch.maximum(clean.abs().mean(), wet.abs().mean()).clamp_min(1.0e-4)
     waveform = torch.nn.functional.l1_loss(restored, clean) / scale
+    clean_emphasized = _pre_emphasis(clean)
+    wet_emphasized = _pre_emphasis(wet)
+    emphasized_scale = torch.maximum(
+        clean_emphasized.abs().mean(), wet_emphasized.abs().mean()
+    ).clamp_min(1.0e-4)
     emphasized = torch.nn.functional.l1_loss(
-        _pre_emphasis(restored), _pre_emphasis(clean)
-    ) / _pre_emphasis(clean).abs().mean().clamp_min(1.0e-5)
-    spectral = _spectral_loss(restored, clean)
+        _pre_emphasis(restored), clean_emphasized
+    ) / emphasized_scale
+    spectral = _ambience_spectral_loss(restored, clean)
     clean_rms = _frame_rms(clean)
     wet_rms = _frame_rms(wet)
     restored_rms = _frame_rms(restored)
-    envelope = torch.nn.functional.l1_loss(restored_rms, clean_rms) / clean_rms.mean().clamp_min(1.0e-5)
+    envelope_scale = torch.maximum(clean_rms.mean(), wet_rms.mean()).clamp_min(1.0e-4)
+    envelope = torch.nn.functional.l1_loss(restored_rms, clean_rms) / envelope_scale
     clean_attacks = torch.relu(torch.diff(torch.log(clean_rms + 1.0e-6), dim=1))
     restored_attacks = torch.relu(torch.diff(torch.log(restored_rms + 1.0e-6), dim=1))
-    attack = torch.nn.functional.l1_loss(restored_attacks, clean_attacks) / clean_attacks.mean().clamp_min(1.0e-5)
+    wet_attacks = torch.relu(torch.diff(torch.log(wet_rms + 1.0e-6), dim=1))
+    attack_scale = torch.maximum(clean_attacks.mean(), wet_attacks.mean()).clamp_min(1.0e-4)
+    attack = torch.nn.functional.l1_loss(restored_attacks, clean_attacks) / attack_scale
     tail_losses = []
     for batch_index in range(clean.shape[0]):
         active = clean_rms[batch_index] > torch.quantile(clean_rms[batch_index].detach(), 0.75)
@@ -189,7 +232,15 @@ def ambience_loss(
     tail = torch.stack(tail_losses).mean() if tail_losses else waveform * 0.0
     uncertainty_target = (restored - clean).abs().detach()
     uncertainty_loss = torch.nn.functional.l1_loss(uncertainty, uncertainty_target) / scale
-    loss = waveform + 0.3 * emphasized + 0.1 * spectral + 0.5 * envelope + 0.5 * attack + tail + 0.05 * uncertainty_loss
+    loss = (
+        waveform
+        + 0.3 * emphasized
+        + 0.1 * spectral
+        + 0.5 * envelope
+        + 0.5 * attack
+        + tail_weight * tail
+        + uncertainty_weight * uncertainty_loss
+    )
     return loss, {
         "waveform": float(waveform.detach()),
         "preemphasis": float(emphasized.detach()),

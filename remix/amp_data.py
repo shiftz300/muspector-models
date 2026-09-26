@@ -15,7 +15,7 @@ import numpy as np
 import torch
 from scipy.signal import correlate, correlation_lags
 
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 
 
 RATE = 44_100
@@ -56,6 +56,7 @@ class AmpPair:
     setting: str
     controls: tuple[float, float, float, float]
     clean: Path
+    preamp: Path
     wet: Path
     locked_final: bool
     development_only: bool
@@ -93,14 +94,22 @@ def discover(workspace: Path) -> list[AmpPair]:
         if prefix != setting:
             raise ValueError(f"JVM410H filename and setting disagree: {wet}")
         clean = wet.with_name(f"{prefix}-input.wav")
+        preamp = wet.with_name(f"{prefix}-preamp.wav")
         if not clean.is_file():
             raise FileNotFoundError(f"missing aligned JVM410H input for {wet}")
-        if clean.resolve().parent != wet.resolve().parent or root not in wet.resolve().parents:
+        if not preamp.is_file():
+            raise FileNotFoundError(f"missing aligned JVM410H preamp tap for {wet}")
+        if (
+            clean.resolve().parent != wet.resolve().parent
+            or preamp.resolve().parent != wet.resolve().parent
+            or root not in wet.resolve().parents
+        ):
             raise ValueError(f"JVM410H pair escaped corpus root: {wet}")
         pairs.append(AmpPair(
             setting,
             controls,
             clean,
+            preamp,
             wet,
             controls in UNSEEN_CONTROLS,
             controls in DEVELOPMENT_ONLY_CONTROLS,
@@ -161,8 +170,8 @@ class AmpPairs(torch.utils.data.Dataset):
             raise ValueError(
                 f"Amp {split} requires exactly {expected} settings, got {len(self.pairs)}"
             )
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json", (SOURCE_ID,)
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", {SOURCE_ID: "train-amp"}
         )
 
     def __len__(self) -> int:
@@ -186,6 +195,7 @@ class AmpPairs(torch.utils.data.Dataset):
         rng = random.Random(self.seed + index * 104729)
         start = rng.randint(first, last)
         clean = _read_window(pair.clean, start, self.total_frames)
+        preamp = _read_window(pair.preamp, start, self.total_frames)
         wet = _read_window(pair.wet, start, self.total_frames)
         target = slice(self.history_frames, None)
         distance = float(np.sqrt(np.mean(np.square(wet[target] - clean[target]), dtype=np.float64)))
@@ -195,6 +205,7 @@ class AmpPairs(torch.utils.data.Dataset):
         return {
             "wet": torch.from_numpy(wet.copy()),
             "clean": torch.from_numpy(clean.copy()),
+            "preamp": torch.from_numpy(preamp.copy()),
             "controls": torch.tensor(pair.normalized_controls, dtype=torch.float32),
             "control_values": {
                 "bass": pair.controls[0],
@@ -347,7 +358,7 @@ def _alignment_report(pairs: list[AmpPair]) -> dict:
 def _scan_seen_audio(pairs: list[AmpPair]) -> dict:
     rows = []
     for pair in pairs:
-        for role, path in (("clean", pair.clean), ("wet", pair.wet)):
+        for role, path in (("clean", pair.clean), ("preamp", pair.preamp), ("wet", pair.wet)):
             peak = 0.0
             clipped = 0
             samples = 0
@@ -382,8 +393,8 @@ def _scan_seen_audio(pairs: list[AmpPair]) -> dict:
 
 def audit(workspace: Path, *, hash_audio: bool = False, decode_seen: bool = False) -> dict:
     workspace = workspace.resolve()
-    authorization = require_product_weights(
-        workspace / "remix/data_sources.json", (SOURCE_ID,)
+    authorization = require_product_uses(
+        workspace / "remix/data_sources.json", {SOURCE_ID: ("train-amp", "validate-amp")}
     )
     pairs = discover(workspace)
     seen = [pair for pair in pairs if not pair.locked_final]
@@ -398,8 +409,9 @@ def audit(workspace: Path, *, hash_audio: bool = False, decode_seen: bool = Fals
     clean_hashes = set()
     for pair in pairs:
         clean = _header(pair.clean)
+        preamp = _header(pair.preamp)
         wet = _header(pair.wet)
-        if clean["frames"] != wet["frames"]:
+        if clean["frames"] != preamp["frames"] or clean["frames"] != wet["frames"]:
             raise ValueError(f"JVM410H pair length mismatch: {pair.setting}")
         minimum_seconds = 380.0 if pair.locked_final else 360.0
         if clean["frames"] < round(minimum_seconds * RATE):
@@ -419,11 +431,16 @@ def audit(workspace: Path, *, hash_audio: bool = False, decode_seen: bool = Fals
             "subtype": clean["subtype"],
             "paths": {
                 "clean": _logical_data_path(workspace, pair.clean),
+                "preamp": _logical_data_path(workspace, pair.preamp),
                 "wet": _logical_data_path(workspace, pair.wet),
             },
         }
         if hash_audio and not pair.locked_final:
-            row["sha256"] = {"clean": _sha256(pair.clean), "wet": _sha256(pair.wet)}
+            row["sha256"] = {
+                "clean": _sha256(pair.clean),
+                "preamp": _sha256(pair.preamp),
+                "wet": _sha256(pair.wet),
+            }
             clean_hashes.add(row["sha256"]["clean"])
         rows.append(row)
     alignment = _alignment_report(seen) if decode_seen else None

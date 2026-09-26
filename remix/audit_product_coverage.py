@@ -13,7 +13,7 @@ import numpy as np
 import torch
 
 from .foundation_model import Expert, MECHANISMS
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 from .product_data import (
     MAX_DELAY_SECONDS,
     MAX_RELEASE_MS,
@@ -136,7 +136,10 @@ def audit(workspace: Path, run: Path, *, samples: int = 24, frames: int = 4096) 
             "strata": {name: _summarize(rows) for name, rows in sorted(grouped.items())},
         }
     product_sources = set(product_audit["authorization"]["sources"])
-    require_product_weights(workspace / "remix/data_sources.json", sorted(product_sources))
+    require_product_uses(
+        workspace / "remix/data_sources.json",
+        product_audit["authorization"]["required_uses"],
+    )
     return {
         "schema": 1,
         "status": "coverage-diagnostic-complete",

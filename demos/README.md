@@ -33,3 +33,7 @@ Current packages:
   is pending.
 - `drive-product3-safe-ab-demo-20260902-v1`: compact human delivery package
   following the historical Wet-to-Restored A/B convention.
+- `reverb-frequency-profile-v3-ab-20260905-v1`: two fixed, non-score-selected
+  shaping cases (BUT measured and OpenSLR simulated), each in compact Wet/silence/Restored order;
+  human acceptance was rejected because the measured-room case sounded wrong and the simulated
+  case produced only a slight effect. See `reverb-frequency-profile-v3-human-acceptance-20260905.json`.

@@ -12,7 +12,7 @@ import soundfile
 import torch
 from scipy.signal import correlate, correlation_lags
 
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 
 
 RATE = 48_000
@@ -78,8 +78,8 @@ class AmpCabPairs(torch.utils.data.Dataset):
         self.target_frames = target_frames
         self.total_frames = HISTORY_FRAMES + target_frames
         self.seed = seed
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json", (SOURCE_ID,)
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", {SOURCE_ID: "train-amp"}
         )
         if any((self.root / profile.direct).parts[-4].startswith("P3") for profile in PROFILES):
             raise ValueError("P3 must never enter Guitar-TECHS Amp-cab pairs")
@@ -96,12 +96,19 @@ class AmpCabPairs(torch.utils.data.Dataset):
         first = round(split_start * RATE)
         last = round(split_end * RATE) - self.total_frames - profile.lag_frames
         rng = random.Random(self.seed + index * 104729)
-        start = rng.randint(first, last)
-        clean = _read(self.root / profile.direct, start, self.total_frames)
-        wet = _read(self.root / profile.micamp, start + profile.lag_frames, self.total_frames)
         target = slice(HISTORY_FRAMES, None)
-        if float(np.sqrt(np.mean(np.square(wet[target] - clean[target])))) < 0.01:
-            raise ValueError(f"Amp-cab profile has no meaningful effect: {profile.id}")
+        for _ in range(64):
+            start = rng.randint(first, last)
+            clean = _read(self.root / profile.direct, start, self.total_frames)
+            wet = _read(self.root / profile.micamp, start + profile.lag_frames, self.total_frames)
+            clean_rms = float(np.sqrt(np.mean(np.square(clean[target]))))
+            wet_rms = float(np.sqrt(np.mean(np.square(wet[target]))))
+            effect_rms = float(np.sqrt(np.mean(np.square(wet[target] - clean[target]))))
+            signal_rms = max(clean_rms, wet_rms)
+            if signal_rms >= 1.0e-3 and effect_rms >= 0.05 * signal_rms:
+                break
+        else:
+            raise ValueError(f"no active Amp-cab window found inside split: {profile.id}")
         onehot = torch.zeros(len(PROFILES), dtype=torch.float32)
         onehot[profile_index] = 1.0
         return {
@@ -154,7 +161,9 @@ def _fit_alignment(root: Path, profile: Profile) -> dict:
 def audit(workspace: Path) -> dict:
     workspace = workspace.resolve()
     root = (workspace / ROOT_RELATIVE).resolve()
-    authorization = require_product_weights(workspace / "remix/data_sources.json", (SOURCE_ID,))
+    authorization = require_product_uses(
+        workspace / "remix/data_sources.json", {SOURCE_ID: ("train-amp", "validate-amp")}
+    )
     if list(root.glob("P3*")):
         raise PermissionError("P3 final-contaminated audio must remain removed")
     alignment = [_fit_alignment(root, profile) for profile in PROFILES]

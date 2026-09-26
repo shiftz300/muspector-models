@@ -1,5 +1,9 @@
 # muspector-models
 
+> Archived / training paused (2026-09-27). See
+> [ARCHIVE_STATUS_20260927.md](ARCHIVE_STATUS_20260927.md) for the final audited
+> model status and what Git does not preserve.
+
 Model research, training, evaluation, packaging, and catalog sources for
 Muspector. The desktop client remains in the sibling `muspector` repository.
 
@@ -9,8 +13,9 @@ Muspector. The desktop client remains in the sibling `muspector` repository.
   package manifests, and static model-repository builds.
 - `muspector` owns runtime inference, package download/install/activation, the
   embedded base catalog snapshot, and UI.
-- Large datasets, checkpoints, caches, generated packages, and previous runs
-  are never committed here.
+- Large datasets, caches, generated packages, and previous runs are normally
+  excluded. The archive preserves three explicitly licensed development
+  checkpoints and decisive audit JSONs listed in `ARCHIVE_STATUS_20260927.md`.
 - Training and evaluation read audio files only. They must not enumerate, open,
   or record from physical audio devices.
 

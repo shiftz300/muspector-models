@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "source_id": "egdb-pg-v2",
+  "record_url": "https://zenodo.org/records/19789500",
+  "doi": "10.5281/zenodo.19789500",
+  "license": "CC-BY-4.0",
+  "archive": {
+    "name": "EGDB_FLAC_bundle.zip",
+    "bytes": 135406622188,
+    "md5": "4c0e0801b966084002178d738c34f208",
+    "zip_central_directory_offset": 135397151686,
+    "zip_central_directory_bytes": 9470404
+  },
+  "selection_seed": 20260904,
+  "selection_policy": "shuffle numeric track IDs 1..240 with Python random.Random(seed); allocate 48 primary fit, 12 calibration, 24 development and 24 locked-final, then add the next 48 otherwise-unused IDs to fit for content-diversity augmentation",
+  "profile_selection_policy": "retain the original fit profile in each gain category and add the first nine profiles from a category-wise sorted list shuffled with Python random.Random(selection_seed + 1), excluding every development and locked-final profile; fresh validation v1 was frozen before model v5 training; after its one-shot rejection, reserve v2 from the remaining official 64-per-category map with a documented Python random.Random(selection_seed + 3) shuffle before model v6 training",
+  "profiles": {
+    "fit_calibration": {
+      "low_gain": "c5d61946-2f05-40ee-8e07-7394849f3ab4",
+      "crunch": "2c372eda-17e8-4b7f-86c5-2a13137d794b",
+      "high_gain": "da221789-6ee6-4656-a448-67821621c98e"
+    },
+    "fit_calibration_additional": {
+      "low_gain": [
+        "b1ce7da0-4310-494a-b8f7-70edb18bf5e8",
+        "dee62b79-c8e5-45ac-ae8c-ac480c988c85",
+        "fefec146-d991-43d3-a19b-4c0d79e0d494",
+        "5b7687a0-ada3-43bf-b29d-eba57ef76590",
+        "56ea4e43-1704-4b50-83c0-9a4164ab688a",
+        "da05ab40-20a0-457f-a215-6a742755dda8",
+        "798fa2fe-fcc0-404f-ae95-3730301f9dd8",
+        "807d4543-cbee-4c41-b0b2-b61bb5851846",
+        "fc23a1ef-db63-450a-b0b8-bef06c4f48f9"
+      ],
+      "crunch": [
+        "a8f6347e-9a43-4228-89b6-4c8a3bd2703f",
+        "9d53a170-0d93-45f3-81bc-ab438366556c",
+        "774d3543-0dfd-409f-80cd-266ac1aeefa0",
+        "80dfbd6a-5303-4a1a-bd8f-bfdc3e079b4a",
+        "a0e2978c-198c-43f9-bd1d-f711a654c512",
+        "4466f4fe-3a28-4ac4-b55a-6cf120d79707",
+        "ad85719b-ffa9-44b0-8dfc-dc22f81e5a40",
+        "e609b36c-fa32-465b-b124-9dffeb601bac",
+        "53b9c5bf-f658-478c-af1e-4b21dd01ddd2"
+      ],
+      "high_gain": [
+        "de0d25e0-fc4a-47b2-8438-2c826b157061",
+        "162b2f1d-c524-49c9-b54f-461b5d91bb0c",
+        "7e132017-f3f4-474e-bdd6-ba6c608e63c8",
+        "200aa006-9aab-484c-bd15-11d76fc23fb3",
+        "309632e4-e679-4366-b55e-f025d8293196",
+        "d5abaa0f-585e-4bbe-a356-5bd3eca98925",
+        "fe42cbc0-ecb9-487d-8f66-2687daad13fd",
+        "6a333d17-8bb7-4b41-b7be-c238c64acb12",
+        "58237c1d-a59d-49aa-b82c-d134480253e3"
+      ]
+    },
+    "development": {
+      "low_gain": "b50a7648-ece0-48e8-9b20-5b7c100cc7d9",
+      "crunch": "b0caddcd-f66c-49e4-80b3-fbbcae471c84",
+      "high_gain": "f7e0bf2b-2a9d-4558-9b33-33373ff8062c"
+    },
+    "fresh_validation_not_downloaded": {
+      "low_gain": "a61c942b-daad-4b4d-a475-d8d98efa638f",
+      "crunch": "eda51a4b-ee22-43bf-858d-a00a444115b4",
+      "high_gain": "ae188ecc-8b2f-449b-ad7b-4ac8675720f5"
+    },
+    "fresh_validation_v2_not_downloaded": {
+      "low_gain": "d629fa3c-4afa-4f99-9c38-b238900d6617",
+      "crunch": "cf287885-2c54-46d7-802f-9c4b0c8a09f3",
+      "high_gain": "7493f266-9e40-42e4-a37f-84f828b306b3"
+    },
+    "locked_final_not_downloaded": {
+      "low_gain": "034f8478-c9bf-4c17-b638-bc3aca79ad5b",
+      "crunch": "84d16d58-f5ed-4b24-ade7-d403ea25211a",
+      "high_gain": "43f97da9-6abd-45b9-a0fa-1c3c8db878fb"
+    }
+  },
+  "tracks": {
+    "fit": [7, 9, 10, 11, 12, 19, 21, 22, 24, 29, 30, 36, 39, 40, 42, 44, 45, 48, 52, 53, 54, 55, 57, 59, 60, 61, 63, 67, 68, 74, 75, 76, 77, 78, 82, 89, 91, 98, 100, 101, 106, 107, 110, 114, 117, 121, 127, 128, 131, 132, 135, 136, 140, 143, 145, 146, 148, 151, 152, 153, 154, 155, 157, 158, 159, 160, 167, 168, 169, 170, 177, 182, 183, 186, 187, 192, 193, 196, 197, 199, 206, 208, 209, 210, 213, 214, 215, 217, 224, 225, 226, 228, 233, 237, 238, 240],
+    "calibration": [27, 85, 90, 115, 116, 120, 124, 134, 162, 195, 231, 236],
+    "development": [6, 18, 26, 33, 41, 43, 49, 50, 62, 80, 84, 103, 108, 109, 150, 164, 171, 172, 180, 189, 194, 204, 211, 223],
+    "fresh_validation_not_downloaded": [16, 25, 56, 65, 83, 87, 88, 92, 104, 112, 118, 119, 139, 174, 179, 181, 184, 185, 188, 190, 202, 216, 229, 235],
+    "fresh_validation_v2_not_downloaded": [4, 14, 15, 23, 34, 70, 72, 79, 93, 99, 102, 111, 129, 137, 138, 147, 149, 178, 191, 203, 207, 219, 221, 222],
+    "locked_final_not_downloaded": [1, 2, 5, 17, 20, 28, 37, 38, 47, 73, 81, 86, 95, 97, 123, 125, 141, 142, 156, 163, 165, 205, 227, 232]
+  },
+  "scope": "Amp+cab preset restoration; whole-chain profile is one order-independent expert and is not relabeled as speaker-output-only Amp",
+  "audio_redistribution": "do-not-bundle-by-default; source attribution required"
+}

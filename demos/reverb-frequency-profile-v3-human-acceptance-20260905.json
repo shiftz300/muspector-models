@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "status": "rejected-human-listening",
+  "accepted": false,
+  "package": "reverb-frequency-profile-v3-ab-20260905-v1.zip",
+  "checkpoint_sha256": "c5d4e30ed69cf500aa9f9ca9b5e3ad1c8e6a933a352658b93f562b34f9046929",
+  "user_feedback": {
+    "01-but-measured-shaping-ab.wav": "听起来不对",
+    "02-openslr-simulated-shaping-ab.wav": "有点效果，但只是一点点"
+  },
+  "diagnosis": {
+    "01-but-measured-shaping-ab.wav": {
+      "tail_eligible": false,
+      "whole_example_gate_passed": false,
+      "spectrum_error_reduction": 0.004334033716145824,
+      "high_band_error_reduction": -0.007103633597633552,
+      "correction_to_wet_clean_distance": 0.11008178859005233,
+      "finding": "audible processing was applied without measurable tail evidence, while high-band error regressed"
+    },
+    "02-openslr-simulated-shaping-ab.wav": {
+      "tail_eligible": false,
+      "whole_example_gate_passed": false,
+      "spectrum_error_reduction": 0.015347968066238726,
+      "high_band_error_reduction": -0.001596002577857858,
+      "correction_to_wet_clean_distance": 0.01878177260372065,
+      "meaningful_correction_gate": false,
+      "finding": "the correction is too small to count as effective restoration"
+    }
+  },
+  "gate_failure": "aggregate tail reporting excluded both listening rows because their tails were not measurable; the package selection required shaping mode but not per-example tail evidence or hard bypass",
+  "disposition": [
+    "freeze and reject v3; do not retune it on revealed development or listening examples",
+    "keep Rochester fresh-v2 unopened",
+    "require a per-example measurable-effect-or-hard-bypass gate before any v4 training or demo"
+  ],
+  "locked_final_accessed": false
+}

@@ -105,6 +105,9 @@ class Expert(nn.Module):
                 "dynamics": ["wet", "65-sample envelope", "513-sample envelope", "513-sample mean"],
                 "temporal": ["wet", "65-sample mean", "513-sample mean", "4095-sample mean"],
             }[self.mechanism],
+            "graph_order_input": False,
+            "neighbor_effect_input": False,
+            "clean_or_oracle_input": False,
         }
 
 

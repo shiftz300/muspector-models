@@ -82,6 +82,23 @@ class PackageTests(unittest.TestCase):
         }
         self.assertEqual(validate(package)["controls"], [])
 
+    def test_audio_restoration_inverse_has_its_own_contract(self) -> None:
+        package = {
+            "schema": 1, "id": "restore", "version": "1", "display_name": "restore",
+            "kind": "inverse", "quality": "development", "device": "generic-eq",
+            "runtime": {"backend": "python", "entrypoint": "test", "minimum_client_version": "0.1"},
+            "sample_rate": 48000, "channels": 1,
+            "controls": [{"id": "gain", "label": "Gain", "unit": "dB", "minimum": -1, "maximum": 1, "default": 0}],
+            "audio_behavior": "loss_preserving_restore", "audio_quality": QUALITY,
+            "artifacts": [{"path": "weights", "role": "weights", "bytes": 1, "sha256": "0" * 64}],
+            "license": {"id": "test", "commercial_use": False, "redistribution": False, "notice": None},
+            "evidence": [], "limitations": [],
+        }
+        validate(package)
+        package["audio_behavior"] = "loss_preserving_render"
+        with self.assertRaisesRegex(ValueError, "invalid audio behavior"):
+            validate(package)
+
     def test_all_research_sources_materialize_without_touching_runs(self) -> None:
         sources = ROOT / "models/catalog/development/sources.json"
         before = sources.read_bytes()

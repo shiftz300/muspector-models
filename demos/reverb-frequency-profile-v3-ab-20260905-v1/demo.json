@@ -1,0 +1,57 @@
+{
+  "ab_order": [
+    "A: Wet",
+    "0.75-second silence",
+    "B: Restored v3"
+  ],
+  "automatic_development_gate_passed": true,
+  "checkpoint_sha256": "c5d4e30ed69cf500aa9f9ca9b5e3ad1c8e6a933a352658b93f562b34f9046929",
+  "files": {
+    "01-but-measured-shaping-ab.wav": {
+      "A": "Wet",
+      "B": "Restored v3",
+      "controls": {
+        "decay_p999_seconds": 0.7824791666666666,
+        "mix": 0.3656345197477654,
+        "room_gain_db": -7.163886394091029
+      },
+      "duration_seconds": 7.980666666666667,
+      "fixed_development_index": 2,
+      "profile_mode": "frequency-shaping-bank",
+      "restored_peak": 0.5989749431610107,
+      "rir": "Hotel_SkalskyDvur_ConferenceRoom2/MicID01/SpkID03_20170906_S/31/RIR/IR_sweep_15s_45Hzto22kHz_FS16kHz.v00.wav",
+      "rir_source_id": "but-reverbdb",
+      "selection": "fixed by source/domain and shaping mode, never by quality score",
+      "source_id": "egfxset",
+      "wet_peak": 0.6307114362716675,
+      "wet_to_restored_rms": 0.004955273121595383
+    },
+    "02-openslr-simulated-shaping-ab.wav": {
+      "A": "Wet",
+      "B": "Restored v3",
+      "controls": {
+        "decay_p999_seconds": 0.8031666666666667,
+        "mix": 0.5852993756175119,
+        "room_gain_db": -9.837843471805105
+      },
+      "duration_seconds": 7.980666666666667,
+      "fixed_development_index": 17,
+      "profile_mode": "frequency-shaping-bank",
+      "restored_peak": 0.26476413011550903,
+      "rir": "largeroom/Room155/Room155-00025.wav",
+      "rir_source_id": "openslr26-simulated-rir-external-v1",
+      "selection": "fixed by source/domain and shaping mode, never by quality score",
+      "source_id": "dafx25-guitar-effects-chains",
+      "wet_peak": 0.2648307979106903,
+      "wet_to_restored_rms": 0.0017508581513538957
+    }
+  },
+  "human_acceptance": "pending",
+  "locked_final_accessed": false,
+  "normalization": false,
+  "runtime_audit": "runs/foundation/product4-reverb-frequency-runtime-v1/metrics.json",
+  "sample_rate_hz": 48000,
+  "schema": 1,
+  "subtype": "FLOAT",
+  "title": "Product4 Reverb frequency-profile v3 compact AB demo"
+}

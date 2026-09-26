@@ -1,0 +1,616 @@
+{
+  "aggregate_quality": {
+    "accepted": true,
+    "examples": 24,
+    "gates": {
+      "dynamics": true,
+      "high_band": true,
+      "no_new_clipping": true,
+      "pass_fraction": true,
+      "spectrum": true,
+      "transient": true
+    },
+    "mechanism": "nonlinear",
+    "metrics": {
+      "dynamics": {
+        "eligible_examples": 24,
+        "eligible_fraction": 1.0,
+        "median_reduction": 0.8235767465064083,
+        "nonregression_fraction": 1.0
+      },
+      "high_band": {
+        "eligible_examples": 24,
+        "eligible_fraction": 1.0,
+        "median_reduction": 0.9534823593333341,
+        "nonregression_fraction": 1.0
+      },
+      "spectrum": {
+        "eligible_examples": 24,
+        "eligible_fraction": 1.0,
+        "median_reduction": 0.36675764570120617,
+        "nonregression_fraction": 1.0
+      },
+      "transient": {
+        "eligible_examples": 24,
+        "eligible_fraction": 1.0,
+        "median_reduction": 0.9915378145497045,
+        "nonregression_fraction": 1.0
+      }
+    },
+    "pass_fraction": 1.0,
+    "schema": 2
+  },
+  "drive_position_quality": {
+    "0": {
+      "accepted": true,
+      "examples": 6,
+      "gates": {
+        "dynamics": true,
+        "high_band": true,
+        "no_new_clipping": true,
+        "pass_fraction": true,
+        "spectrum": true,
+        "transient": true
+      },
+      "mechanism": "nonlinear",
+      "metrics": {
+        "dynamics": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.7795191427857451,
+          "nonregression_fraction": 1.0
+        },
+        "high_band": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.900305247880193,
+          "nonregression_fraction": 1.0
+        },
+        "spectrum": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.2884890448383421,
+          "nonregression_fraction": 1.0
+        },
+        "transient": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.9856714049341112,
+          "nonregression_fraction": 1.0
+        }
+      },
+      "pass_fraction": 1.0,
+      "schema": 2
+    },
+    "1": {
+      "accepted": true,
+      "examples": 6,
+      "gates": {
+        "dynamics": true,
+        "high_band": true,
+        "no_new_clipping": true,
+        "pass_fraction": true,
+        "spectrum": true,
+        "transient": true
+      },
+      "mechanism": "nonlinear",
+      "metrics": {
+        "dynamics": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.8692347743034807,
+          "nonregression_fraction": 1.0
+        },
+        "high_band": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.9293270616807423,
+          "nonregression_fraction": 1.0
+        },
+        "spectrum": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.3515948337252364,
+          "nonregression_fraction": 1.0
+        },
+        "transient": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.9926720866919363,
+          "nonregression_fraction": 1.0
+        }
+      },
+      "pass_fraction": 1.0,
+      "schema": 2
+    },
+    "2": {
+      "accepted": true,
+      "examples": 6,
+      "gates": {
+        "dynamics": true,
+        "high_band": true,
+        "no_new_clipping": true,
+        "pass_fraction": true,
+        "spectrum": true,
+        "transient": true
+      },
+      "mechanism": "nonlinear",
+      "metrics": {
+        "dynamics": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.8520411556816488,
+          "nonregression_fraction": 1.0
+        },
+        "high_band": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.9321487086113822,
+          "nonregression_fraction": 1.0
+        },
+        "spectrum": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.3871042655050779,
+          "nonregression_fraction": 1.0
+        },
+        "transient": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.985981396028947,
+          "nonregression_fraction": 1.0
+        }
+      },
+      "pass_fraction": 1.0,
+      "schema": 2
+    },
+    "3": {
+      "accepted": true,
+      "examples": 6,
+      "gates": {
+        "dynamics": true,
+        "high_band": true,
+        "no_new_clipping": true,
+        "pass_fraction": true,
+        "spectrum": true,
+        "transient": true
+      },
+      "mechanism": "nonlinear",
+      "metrics": {
+        "dynamics": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.7988483320405608,
+          "nonregression_fraction": 1.0
+        },
+        "high_band": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.9868757872404823,
+          "nonregression_fraction": 1.0
+        },
+        "spectrum": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.5453595465096779,
+          "nonregression_fraction": 1.0
+        },
+        "transient": {
+          "eligible_examples": 6,
+          "eligible_fraction": 1.0,
+          "median_reduction": 0.9943661715031327,
+          "nonregression_fraction": 1.0
+        }
+      },
+      "pass_fraction": 1.0,
+      "schema": 2
+    }
+  },
+  "gates": {
+    "aggregate_quality": true,
+    "all_24_orders_exercised": true,
+    "every_drive_position_quality": true,
+    "experts_receive_no_order_or_neighbors": true,
+    "locked_final_unopened": true,
+    "reverse_trace_matches_graph": true,
+    "source_wet_immutable": true
+  },
+  "orders": [
+    {
+      "drive_position": 0,
+      "forward_order": [
+        "nonlinear",
+        "dynamics",
+        "echo",
+        "spectral"
+      ],
+      "reverse_trace": [
+        "spectral",
+        "echo",
+        "dynamics",
+        "nonlinear"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 0,
+      "forward_order": [
+        "nonlinear",
+        "dynamics",
+        "spectral",
+        "echo"
+      ],
+      "reverse_trace": [
+        "echo",
+        "spectral",
+        "dynamics",
+        "nonlinear"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 0,
+      "forward_order": [
+        "nonlinear",
+        "echo",
+        "dynamics",
+        "spectral"
+      ],
+      "reverse_trace": [
+        "spectral",
+        "dynamics",
+        "echo",
+        "nonlinear"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 0,
+      "forward_order": [
+        "nonlinear",
+        "echo",
+        "spectral",
+        "dynamics"
+      ],
+      "reverse_trace": [
+        "dynamics",
+        "spectral",
+        "echo",
+        "nonlinear"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 0,
+      "forward_order": [
+        "nonlinear",
+        "spectral",
+        "dynamics",
+        "echo"
+      ],
+      "reverse_trace": [
+        "echo",
+        "dynamics",
+        "spectral",
+        "nonlinear"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 0,
+      "forward_order": [
+        "nonlinear",
+        "spectral",
+        "echo",
+        "dynamics"
+      ],
+      "reverse_trace": [
+        "dynamics",
+        "echo",
+        "spectral",
+        "nonlinear"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 1,
+      "forward_order": [
+        "dynamics",
+        "nonlinear",
+        "echo",
+        "spectral"
+      ],
+      "reverse_trace": [
+        "spectral",
+        "echo",
+        "nonlinear",
+        "dynamics"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 1,
+      "forward_order": [
+        "dynamics",
+        "nonlinear",
+        "spectral",
+        "echo"
+      ],
+      "reverse_trace": [
+        "echo",
+        "spectral",
+        "nonlinear",
+        "dynamics"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 2,
+      "forward_order": [
+        "dynamics",
+        "echo",
+        "nonlinear",
+        "spectral"
+      ],
+      "reverse_trace": [
+        "spectral",
+        "nonlinear",
+        "echo",
+        "dynamics"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 3,
+      "forward_order": [
+        "dynamics",
+        "echo",
+        "spectral",
+        "nonlinear"
+      ],
+      "reverse_trace": [
+        "nonlinear",
+        "spectral",
+        "echo",
+        "dynamics"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 2,
+      "forward_order": [
+        "dynamics",
+        "spectral",
+        "nonlinear",
+        "echo"
+      ],
+      "reverse_trace": [
+        "echo",
+        "nonlinear",
+        "spectral",
+        "dynamics"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 3,
+      "forward_order": [
+        "dynamics",
+        "spectral",
+        "echo",
+        "nonlinear"
+      ],
+      "reverse_trace": [
+        "nonlinear",
+        "echo",
+        "spectral",
+        "dynamics"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 1,
+      "forward_order": [
+        "echo",
+        "nonlinear",
+        "dynamics",
+        "spectral"
+      ],
+      "reverse_trace": [
+        "spectral",
+        "dynamics",
+        "nonlinear",
+        "echo"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 1,
+      "forward_order": [
+        "echo",
+        "nonlinear",
+        "spectral",
+        "dynamics"
+      ],
+      "reverse_trace": [
+        "dynamics",
+        "spectral",
+        "nonlinear",
+        "echo"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 2,
+      "forward_order": [
+        "echo",
+        "dynamics",
+        "nonlinear",
+        "spectral"
+      ],
+      "reverse_trace": [
+        "spectral",
+        "nonlinear",
+        "dynamics",
+        "echo"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 3,
+      "forward_order": [
+        "echo",
+        "dynamics",
+        "spectral",
+        "nonlinear"
+      ],
+      "reverse_trace": [
+        "nonlinear",
+        "spectral",
+        "dynamics",
+        "echo"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 2,
+      "forward_order": [
+        "echo",
+        "spectral",
+        "nonlinear",
+        "dynamics"
+      ],
+      "reverse_trace": [
+        "dynamics",
+        "nonlinear",
+        "spectral",
+        "echo"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 3,
+      "forward_order": [
+        "echo",
+        "spectral",
+        "dynamics",
+        "nonlinear"
+      ],
+      "reverse_trace": [
+        "nonlinear",
+        "dynamics",
+        "spectral",
+        "echo"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 1,
+      "forward_order": [
+        "spectral",
+        "nonlinear",
+        "dynamics",
+        "echo"
+      ],
+      "reverse_trace": [
+        "echo",
+        "dynamics",
+        "nonlinear",
+        "spectral"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 1,
+      "forward_order": [
+        "spectral",
+        "nonlinear",
+        "echo",
+        "dynamics"
+      ],
+      "reverse_trace": [
+        "dynamics",
+        "echo",
+        "nonlinear",
+        "spectral"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 2,
+      "forward_order": [
+        "spectral",
+        "dynamics",
+        "nonlinear",
+        "echo"
+      ],
+      "reverse_trace": [
+        "echo",
+        "nonlinear",
+        "dynamics",
+        "spectral"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 3,
+      "forward_order": [
+        "spectral",
+        "dynamics",
+        "echo",
+        "nonlinear"
+      ],
+      "reverse_trace": [
+        "nonlinear",
+        "echo",
+        "dynamics",
+        "spectral"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 2,
+      "forward_order": [
+        "spectral",
+        "echo",
+        "nonlinear",
+        "dynamics"
+      ],
+      "reverse_trace": [
+        "dynamics",
+        "nonlinear",
+        "echo",
+        "spectral"
+      ],
+      "wet_input_unchanged": true
+    },
+    {
+      "drive_position": 3,
+      "forward_order": [
+        "spectral",
+        "echo",
+        "dynamics",
+        "nonlinear"
+      ],
+      "reverse_trace": [
+        "nonlinear",
+        "dynamics",
+        "echo",
+        "spectral"
+      ],
+      "wet_input_unchanged": true
+    }
+  ],
+  "schema": 1,
+  "scope": {
+    "blind_controls_or_topology": false,
+    "drive_listening_scope": "previously accepted synthetic exact-control A/B only",
+    "end_to_end_product_usable": false,
+    "generic_repository_owned_effects": true,
+    "known_controls": true,
+    "locked_final_audio_opened": false,
+    "physical_chain": false,
+    "reverb_included": false
+  },
+  "status": "development-chain-pass"
+}

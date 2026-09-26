@@ -1,0 +1,3 @@
+5b7360cfd14e3d8d09800239d8f256631ce9ba26746654108b76f85bf5dd56c4  01-but-measured-shaping-ab.wav
+a5176709a568f5d4738d999f5bdd22e535ae8c85e69293cb6aa39c613564b0c3  02-openslr-simulated-shaping-ab.wav
+4923a7b93643343fc17ea30bf63fbff399c926c093d0ce599feb5be5fcb8bb2c  demo.json

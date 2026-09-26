@@ -12,7 +12,7 @@ import torch
 from scipy.signal import fftconvolve
 
 from .foundation_data import RATE
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 from .product2 import _condition_clean
 from .product_data import Clean, RESEARCH_SOURCE_IDS, _read, _rir, discover_clean, rir_splits
 
@@ -142,12 +142,18 @@ def _render(clean: np.ndarray, impulse: np.ndarray, rng: random.Random) -> tuple
     return wet.astype(np.float32), controls
 
 
-def _controls(values: dict) -> np.ndarray:
+def _controls(
+    values: dict,
+    decay_domain: tuple[float, float] = (1.25, 2.30),
+) -> np.ndarray:
+    decay_minimum, decay_maximum = decay_domain
+    if not 0.0 < decay_minimum < decay_maximum:
+        raise ValueError("invalid ambience decay control domain")
     result = np.asarray(
         (
             (values["mix"] - 0.18) / (0.62 - 0.18),
             (values["room_gain_db"] + 12.0) / 8.0,
-            (values["decay_p999_seconds"] - 1.25) / (2.30 - 1.25),
+            (values["decay_p999_seconds"] - decay_minimum) / (decay_maximum - decay_minimum),
         ),
         dtype=np.float32,
     )
@@ -167,6 +173,10 @@ class AmbiencePairsV2(torch.utils.data.Dataset):
         target_frames: int,
         seed: int,
         include_late_base: bool = True,
+        rir_source_id: str = "aachen-chapel-rir",
+        decay_domain: tuple[float, float] = (1.25, 2.30),
+        late_suppression_strength: float = 0.25,
+        clean_source_ids: frozenset[str] | None = None,
     ) -> None:
         if split not in {"fit", "calibration", "development", "locked-final"}:
             raise ValueError(f"unsupported ambience2 split: {split}")
@@ -180,22 +190,68 @@ class AmbiencePairsV2(torch.utils.data.Dataset):
         self.total_frames = HISTORY_FRAMES + target_frames
         self.seed = seed
         self.include_late_base = include_late_base
+        self.rir_source_id = rir_source_id
+        self.decay_domain = decay_domain
+        self.late_suppression_strength = late_suppression_strength
         buckets: dict[str, list[Clean]] = defaultdict(list)
         for item in discover_clean(self.workspace):
-            if item.split == split:
+            if item.split == split and (
+                clean_source_ids is None or item.source_id in clean_source_ids
+            ):
                 buckets[item.source_id].append(item)
         if not buckets:
             raise ValueError(f"no ambience2 clean programs for {split}")
         self.buckets = {name: tuple(rows) for name, rows in sorted(buckets.items())}
         self.source_ids = tuple(self.buckets)
-        self.rirs = tuple(rir_splits(self.workspace)[split])
+        if rir_source_id == "aachen-chapel-rir":
+            self.rir_root = (self.workspace / "data/corpus/aachen-chapel-rir").resolve()
+            self.rirs = tuple(rir_splits(self.workspace)[split])
+        elif rir_source_id == "but-reverbdb":
+            from .but_reverb_data import rir_splits as but_rir_splits
+
+            self.rir_root = (self.workspace / "data/corpus/but-reverbdb").resolve()
+            self.rirs = tuple(but_rir_splits(self.rir_root)[split])
+        elif rir_source_id == "openslr26-simulated-rir-external-v1":
+            from .openslr26_rir_data import product_rir_splits
+
+            source_root = (
+                self.workspace / "data/corpus/openslr26-simulated-rir"
+            ).resolve()
+            self.rir_root = (
+                source_root / "measurements/product-splits/simulated_rirs_16k"
+            ).resolve()
+            self.rirs = tuple(product_rir_splits(source_root)[0][split])
+        else:
+            raise ValueError(f"unsupported ambience RIR source: {rir_source_id}")
         if not self.rirs:
             raise ValueError(f"no ambience2 RIRs for {split}")
-        realized = set(self.realized_source_counts()) | {"aachen-chapel-rir", "muspector-dsp"}
+        self.rir_buckets = None
+        if rir_source_id in {"but-reverbdb", "openslr26-simulated-rir-external-v1"}:
+            buckets: dict[str, list[Path]] = defaultdict(list)
+            for path in self.rirs:
+                parts = path.relative_to(self.rir_root).parts
+                room = (
+                    parts[0]
+                    if rir_source_id == "but-reverbdb"
+                    else "/".join(parts[:2])
+                )
+                buckets[room].append(path)
+            self.rir_buckets = {
+                room: tuple(paths)
+                for room, paths in sorted(buckets.items())
+            }
+        realized = set(self.realized_source_counts()) | {rir_source_id, "muspector-dsp"}
         if realized & RESEARCH_SOURCE_IDS:
             raise PermissionError(f"research source entered ambience2: {realized & RESEARCH_SOURCE_IDS}")
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json", sorted(realized)
+        requirements = {
+            source: "product-clean-source"
+            for source in realized
+            if source not in {"muspector-dsp", rir_source_id}
+        }
+        requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+        requirements[rir_source_id] = "train-reverb"
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", requirements
         )
         self._cache: dict[int, dict] = {}
 
@@ -212,7 +268,30 @@ class AmbiencePairsV2(torch.utils.data.Dataset):
         return dict(Counter(self._selection(index).source_id for index in range(self.samples)))
 
     def realized_rir_counts(self) -> dict[str, int]:
-        return dict(Counter(self.rirs[index % len(self.rirs)].name for index in range(self.samples)))
+        return dict(Counter(
+            str(self._rir_selection(index).relative_to(self.rir_root))
+            for index in range(self.samples)
+        ))
+
+    def _read_clean(self, selected: Clean, seed: int) -> np.ndarray:
+        return _read(selected, self.total_frames, seed)
+
+    def _select_clean_audio(self, index: int, seed: int) -> tuple[Clean, np.ndarray]:
+        selected = self._selection(index)
+        return selected, self._read_clean(selected, seed)
+
+    def _rir_selection(self, index: int) -> Path:
+        if self.rir_buckets is None:
+            return self.rirs[index % len(self.rirs)]
+        rooms = tuple(self.rir_buckets)
+        # Clean source selection changes every example. Rotate rooms only after
+        # one complete source cycle so every source is paired with every room
+        # instead of becoming spuriously synonymous with one room.
+        source_index = index % len(self.source_ids)
+        room = rooms[(index // len(self.source_ids)) % len(rooms)]
+        rows = self.rir_buckets[room]
+        cycle = index // (len(self.source_ids) * len(rooms))
+        return rows[(cycle * 104729 + source_index * 15485863 + self.seed) % len(rows)]
 
     def __getitem__(self, index: int) -> dict:
         if not 0 <= index < self.samples:
@@ -220,10 +299,9 @@ class AmbiencePairsV2(torch.utils.data.Dataset):
         if index in self._cache:
             return self._cache[index]
         rng = random.Random(self.seed + index * 104729)
-        selected = self._selection(index)
-        clean = _read(selected, self.total_frames, rng.getrandbits(63))
+        selected, clean = self._select_clean_audio(index, rng.getrandbits(63))
         clean, input_gain_db = _condition_clean(clean, rng)
-        rir_path = self.rirs[index % len(self.rirs)]
+        rir_path = self._rir_selection(index)
         impulse = _rir(rir_path)
         wet, control_values = _render(clean, impulse, rng)
         target_wet = wet[self.history_frames :]
@@ -237,16 +315,27 @@ class AmbiencePairsV2(torch.utils.data.Dataset):
         result = {
             "wet": torch.from_numpy(wet.copy()),
             "clean": torch.from_numpy(clean.copy()),
-            "controls": torch.from_numpy(_controls(control_values)),
+            "controls": torch.from_numpy(_controls(control_values, self.decay_domain)),
             "control_values": control_values,
             "target_start": self.history_frames,
             "source_id": selected.source_id,
             "group": selected.group,
-            "rir": rir_path.name,
+            "rir": (
+                rir_path.name
+                if self.rir_source_id == "aachen-chapel-rir"
+                else str(rir_path.relative_to(self.rir_root))
+            ),
             "input_gain_db": input_gain_db,
         }
         if self.include_late_base:
             with torch.inference_mode():
-                result["late_base"] = blind_late_suppression(result["wet"].unsqueeze(0))[0]
+                result["late_base"] = blind_late_suppression(
+                    result["wet"].unsqueeze(0),
+                    strength=self.late_suppression_strength,
+                )[0]
+        else:
+            # A Wet residual base is the artifact-safe ablation. The model still
+            # receives no Clean, RIR, graph, order, or neighbouring-effect input.
+            result["late_base"] = result["wet"].clone()
         self._cache[index] = result
         return result

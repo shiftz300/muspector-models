@@ -1,0 +1,254 @@
+{
+  "schema": 1,
+  "id": "foundation-restore",
+  "description": "Development-only order-independent Wet-to-Clean experts with known effect controls. Each package remains separate and fail-closed.",
+  "packages": [
+    {
+      "package": {
+        "schema": 1,
+        "id": "foundation-drive",
+        "version": "1.0.0",
+        "display_name": "Generic bounded Drive inverse",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "generic-drive",
+        "runtime": {
+          "backend": "python-pytorch",
+          "entrypoint": "python.remix.foundation_expert_runtime.nonlinear.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {"id": "drive", "label": "Drive", "unit": "ratio", "minimum": 1.8, "maximum": 8.0, "default": 4.0},
+          {"id": "bias", "label": "Bias", "unit": "linear", "minimum": -0.12, "maximum": 0.12, "default": 0.0},
+          {"id": "cutoff_hz", "label": "Tone Cutoff", "unit": "Hz", "minimum": 1800.0, "maximum": 11000.0, "default": 6000.0},
+          {"id": "level", "label": "Output Level", "unit": "linear", "minimum": 0.45, "maximum": 0.85, "default": 0.65},
+          {"id": "shape", "label": "Shape", "unit": "enum", "minimum": 0.0, "maximum": 2.0, "default": 0.0}
+        ],
+        "audio_behavior": "loss_preserving_restore",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {"path": "contract/foundation_expert_runtime.py", "role": "runtime", "bytes": 12438, "sha256": "d0fc660f843ed7f26f3ab3b921c0ae136a3eee0c92d3b0ccf02e04902611f909"},
+          {"path": "artifacts/model.pt", "role": "checkpoint", "bytes": 219457, "sha256": "cc0f9a320345e870b0e2ec56ef331419becfa296b642b620b65df3593c4df75b"},
+          {"path": "evidence/drive-metrics.json", "role": "development", "bytes": 16483, "sha256": "9114fca0c96c103e808a63a24b0ad9ab741173c7b23a7cfde561c2b94aa21ba4"},
+          {"path": "evidence/chain-acceptance.json", "role": "chain", "bytes": 13431, "sha256": "d07f7cf44809e8be1554bccdb49e17a299138ce4e1fc512a1f87b21f97e59b6e"}
+        ],
+        "license": {
+          "id": "Apache-2.0",
+          "commercial_use": true,
+          "redistribution": true,
+          "notice": "Runtime and product weight are Apache-2.0. CC-BY source attribution used during product-safe training/evaluation is retained in evidence/drive-metrics.json."
+        },
+        "evidence": ["evidence/drive-metrics.json", "evidence/chain-acceptance.json"],
+      "limitations": [
+        "Covers only the repository-owned tanh, atan and cubic Drive family with explicit controls; it is not a named physical pedal clone.",
+        "Wet-only inverse-forward replay did not identify these controls: the frozen top-12 audit covered only 1 of 12 true tuples, so callers must provide explicit controls and must not present replay search as a knob estimate.",
+        "Human acceptance covers only the frozen synthetic exact-control A/B scope recorded outside this package.",
+          "Receives no graph order or neighboring-effect input; the separate graph executor owns reverse traversal.",
+          "Twenty-four-order synthetic integration is development evidence, not physical-chain, blind-control or locked-final acceptance."
+        ]
+      },
+      "sources": {
+        "contract/foundation_expert_runtime.py": "remix/foundation_expert_runtime.py",
+        "artifacts/model.pt": "runs/foundation/product3-safe/nonlinear/model.pt",
+        "evidence/drive-metrics.json": "runs/foundation/product3-safe/nonlinear/metrics.json",
+        "evidence/chain-acceptance.json": "runs/foundation/product6-drive-packaging/chain-acceptance.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "foundation-dynamics",
+        "version": "1.0.0",
+        "display_name": "Generic compressor inverse",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "generic-compressor",
+        "runtime": {
+          "backend": "python-numpy",
+          "entrypoint": "python.remix.foundation_expert_runtime.dynamics.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {"id": "threshold_db", "label": "Threshold", "unit": "dB", "minimum": -36.0, "maximum": -12.0, "default": -24.0},
+          {"id": "ratio", "label": "Ratio", "unit": "ratio", "minimum": 2.0, "maximum": 10.0, "default": 4.0},
+          {"id": "attack_ms", "label": "Attack", "unit": "ms", "minimum": 0.5, "maximum": 35.0, "default": 10.0},
+          {"id": "release_ms", "label": "Release", "unit": "ms", "minimum": 40.0, "maximum": 450.0, "default": 180.0},
+          {"id": "makeup_db", "label": "Makeup", "unit": "dB", "minimum": 0.0, "maximum": 8.0, "default": 3.0}
+        ],
+        "audio_behavior": "loss_preserving_restore",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {"path": "contract/foundation_expert_runtime.py", "role": "runtime", "bytes": 12438, "sha256": "d0fc660f843ed7f26f3ab3b921c0ae136a3eee0c92d3b0ccf02e04902611f909"},
+          {"path": "evidence/product2-audit.json", "role": "development", "bytes": 23051, "sha256": "8cacfac5935f653eb8ddeb30836562e25864e3c78c1fcbce215d33270b53990a"},
+          {"path": "evidence/chain-acceptance.json", "role": "chain", "bytes": 3335, "sha256": "aa1a7a386d156ad49be790dd9090ce42374a204d87829ba55f8cab4d24cb1faf"}
+        ],
+        "license": {
+          "id": "Apache-2.0",
+          "commercial_use": true,
+          "redistribution": true,
+          "notice": "Runtime code is Apache-2.0. Product-source attribution and scope are retained in evidence/product2-audit.json."
+        },
+        "evidence": ["evidence/product2-audit.json", "evidence/chain-acceptance.json"],
+        "limitations": [
+          "Exact only for the repository-owned compressor law and explicit controls within the declared domain.",
+          "Carries only its own envelope state and receives no graph order or neighboring-effect input.",
+          "Development and six-order synthetic chain evidence are not physical-device, listening, locked-final, or final-product acceptance.",
+          "Offline mono 48 kHz runtime; it does not run in the realtime audio callback."
+        ]
+      },
+      "sources": {
+        "contract/foundation_expert_runtime.py": "remix/foundation_expert_runtime.py",
+        "evidence/product2-audit.json": "runs/foundation/product2/audit.json",
+        "evidence/chain-acceptance.json": "runs/foundation/product5-expert-packaging/chain-acceptance.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "foundation-echo",
+        "version": "1.0.0",
+        "display_name": "Generic feedback echo inverse",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "generic-echo",
+        "runtime": {
+          "backend": "python-numpy",
+          "entrypoint": "python.remix.foundation_expert_runtime.echo.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {"id": "time_ms", "label": "Delay Time", "unit": "ms", "minimum": 40.0, "maximum": 650.0, "default": 350.0},
+          {"id": "feedback", "label": "Feedback", "unit": "ratio", "minimum": 0.1, "maximum": 0.72, "default": 0.35},
+          {"id": "mix", "label": "Mix", "unit": "ratio", "minimum": 0.15, "maximum": 0.65, "default": 0.3}
+        ],
+        "audio_behavior": "loss_preserving_restore",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {"path": "contract/foundation_expert_runtime.py", "role": "runtime", "bytes": 12438, "sha256": "d0fc660f843ed7f26f3ab3b921c0ae136a3eee0c92d3b0ccf02e04902611f909"},
+          {"path": "evidence/product2-audit.json", "role": "development", "bytes": 23051, "sha256": "8cacfac5935f653eb8ddeb30836562e25864e3c78c1fcbce215d33270b53990a"},
+          {"path": "evidence/chain-acceptance.json", "role": "chain", "bytes": 3335, "sha256": "aa1a7a386d156ad49be790dd9090ce42374a204d87829ba55f8cab4d24cb1faf"}
+        ],
+        "license": {
+          "id": "Apache-2.0",
+          "commercial_use": true,
+          "redistribution": true,
+          "notice": "Runtime code is Apache-2.0. Product-source attribution and scope are retained in evidence/product2-audit.json."
+        },
+        "evidence": ["evidence/product2-audit.json", "evidence/chain-acceptance.json"],
+        "limitations": [
+          "Exact only for the repository-owned feedback-delay law and explicit controls within the declared domain.",
+          "Receives no graph order or neighboring-effect input; the offline chain executor owns reverse traversal.",
+          "Development and six-order synthetic chain evidence are not physical-device, listening, locked-final, or final-product acceptance.",
+          "Offline mono 48 kHz runtime; chunked streaming state is not admitted."
+        ]
+      },
+      "sources": {
+        "contract/foundation_expert_runtime.py": "remix/foundation_expert_runtime.py",
+        "evidence/product2-audit.json": "runs/foundation/product2/audit.json",
+        "evidence/chain-acceptance.json": "runs/foundation/product5-expert-packaging/chain-acceptance.json"
+      }
+    },
+    {
+      "package": {
+        "schema": 1,
+        "id": "foundation-spectral",
+        "version": "1.0.0",
+        "display_name": "Generic three-band EQ inverse",
+        "kind": "inverse",
+        "quality": "development",
+        "device": "generic-eq",
+        "runtime": {
+          "backend": "python-pytorch",
+          "entrypoint": "python.remix.foundation_expert_runtime.spectral.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 48000,
+        "channels": 1,
+        "controls": [
+          {"id": "low_gain_db", "label": "Low Gain", "unit": "dB", "minimum": -8.0, "maximum": 8.0, "default": 0.0},
+          {"id": "mid_gain_db", "label": "Mid Gain", "unit": "dB", "minimum": -8.0, "maximum": 8.0, "default": 0.0},
+          {"id": "mid_hz", "label": "Mid Frequency", "unit": "Hz", "minimum": 250.0, "maximum": 5200.0, "default": 1000.0},
+          {"id": "mid_q", "label": "Mid Q", "unit": "Q", "minimum": 0.45, "maximum": 3.5, "default": 1.0},
+          {"id": "high_gain_db", "label": "High Gain", "unit": "dB", "minimum": -8.0, "maximum": 8.0, "default": 0.0}
+        ],
+        "audio_behavior": "loss_preserving_restore",
+        "audio_quality": {
+          "source_audio_immutable": true,
+          "preserve_frames": true,
+          "preserve_channels": true,
+          "preserve_sample_rate": true,
+          "processing_sample_format": "float32",
+          "automatic_normalization": false,
+          "automatic_limiting": false,
+          "automatic_dither": false,
+          "lossy_reencoding": false,
+          "bypass_max_absolute_error": 0.0
+        },
+        "artifacts": [
+          {"path": "contract/foundation_expert_runtime.py", "role": "runtime", "bytes": 12438, "sha256": "d0fc660f843ed7f26f3ab3b921c0ae136a3eee0c92d3b0ccf02e04902611f909"},
+          {"path": "artifacts/model.pt", "role": "checkpoint", "bytes": 31509, "sha256": "debbe0425bc63b97aa2abbf8c8dbcee70e1ff0fdb204a290e693cfeed4dd3575"},
+          {"path": "evidence/spectral-metrics.json", "role": "development", "bytes": 20261, "sha256": "d586d37baa129c13ac0d980f5a754ef27fc01794ee28f4eaa568ed1c9687eb7c"},
+          {"path": "evidence/chain-acceptance.json", "role": "chain", "bytes": 3335, "sha256": "aa1a7a386d156ad49be790dd9090ce42374a204d87829ba55f8cab4d24cb1faf"}
+        ],
+        "license": {
+          "id": "Apache-2.0",
+          "commercial_use": true,
+          "redistribution": true,
+          "notice": "Runtime and product weight are Apache-2.0. CC-BY source attribution used during product-safe training/evaluation is retained in evidence/spectral-metrics.json."
+        },
+        "evidence": ["evidence/spectral-metrics.json", "evidence/chain-acceptance.json"],
+        "limitations": [
+          "Covers only the repository-owned zero-phase generic three-band EQ with explicit controls; it is not a named-device clone.",
+          "The selected checkpoint is epoch zero because the bounded analytic inverse beat every trained residual epoch on frozen calibration.",
+          "Receives no graph order or neighboring-effect input and requires a complete bounded offline buffer.",
+          "Development and six-order synthetic chain evidence are not physical-device, listening, locked-final, or final-product acceptance."
+        ]
+      },
+      "sources": {
+        "contract/foundation_expert_runtime.py": "remix/foundation_expert_runtime.py",
+        "artifacts/model.pt": "runs/foundation/product3-spectral/spectral/model.pt",
+        "evidence/spectral-metrics.json": "runs/foundation/product3-spectral/spectral/metrics.json",
+        "evidence/chain-acceptance.json": "runs/foundation/product5-expert-packaging/chain-acceptance.json"
+      }
+    }
+  ]
+}

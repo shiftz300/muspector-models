@@ -1,0 +1,634 @@
+{
+  "acceptance": {
+    "accepted": false,
+    "gates": {
+      "dafx_random_position_recall": true,
+      "egfxset_real_recall": true,
+      "f1": true,
+      "negative_false_positive_rate": false,
+      "recall": true,
+      "synthetic_count_1_recall": true,
+      "synthetic_low_drive_recall": true,
+      "synthetic_weak_residual_recall": false
+    }
+  },
+  "artifact": null,
+  "boundaries": {
+    "ambience_head_trained": false,
+    "amp_head_trained": false,
+    "controls_used": false,
+    "development_opened_after_selection_only": true,
+    "locked_final_opened": false,
+    "mixed_chain_context_is_immutable_input_only": true,
+    "order_labels_used": false,
+    "standalone_nonlinear_head_only": true
+  },
+  "calibration": {
+    "acceptance": {
+      "accepted": false,
+      "gates": {
+        "dafx_random_position_recall": true,
+        "egfxset_real_recall": true,
+        "f1": true,
+        "negative_false_positive_rate": true,
+        "recall": true,
+        "synthetic_count_1_recall": true,
+        "synthetic_low_drive_recall": false,
+        "synthetic_weak_residual_recall": false
+      }
+    },
+    "metrics": {
+      "examples": 480,
+      "f1": 0.8811188811188811,
+      "negative_false_positive_rate": 0.04477611940298507,
+      "positive_examples": 145,
+      "precision": 0.8936170212765957,
+      "recall": 0.8689655172413793,
+      "strata": {
+        "dafx-random-position-presence": {
+          "examples": 60,
+          "f1": 1.0,
+          "positive_examples": 26,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "egfxset-real": {
+          "examples": 120,
+          "f1": 1.0,
+          "positive_examples": 30,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "synthetic-nonlinear-chain-count:count-1": {
+          "examples": 14,
+          "f1": 0.9629629629629629,
+          "positive_examples": 14,
+          "precision": 1.0,
+          "recall": 0.9285714285714286
+        },
+        "synthetic-nonlinear-drive:low": {
+          "examples": 12,
+          "f1": 0.7368421052631579,
+          "positive_examples": 12,
+          "precision": 1.0,
+          "recall": 0.5833333333333334
+        },
+        "synthetic-nonlinear-residual:weak": {
+          "examples": 15,
+          "f1": 0.5714285714285714,
+          "positive_examples": 15,
+          "precision": 1.0,
+          "recall": 0.4
+        }
+      }
+    },
+    "parameters": [
+      {
+        "bias": -0.7859853943334796,
+        "scale": 1.043579713718405
+      }
+    ],
+    "threshold": 0.36
+  },
+  "development": {
+    "examples": 640,
+    "f1": 0.8605769230769231,
+    "negative_false_positive_rate": 0.05841121495327103,
+    "positive_examples": 212,
+    "precision": 0.8774509803921569,
+    "recall": 0.8443396226415094,
+    "strata": {
+      "dafx-random-position-presence": {
+        "examples": 80,
+        "f1": 0.9142857142857143,
+        "positive_examples": 32,
+        "precision": 0.8421052631578947,
+        "recall": 1.0
+      },
+      "egfxset-real": {
+        "examples": 160,
+        "f1": 1.0,
+        "positive_examples": 40,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "synthetic-nonlinear-chain-count:count-1": {
+        "examples": 23,
+        "f1": 0.8780487804878049,
+        "positive_examples": 23,
+        "precision": 1.0,
+        "recall": 0.782608695652174
+      },
+      "synthetic-nonlinear-drive:low": {
+        "examples": 14,
+        "f1": 0.9230769230769231,
+        "positive_examples": 14,
+        "precision": 1.0,
+        "recall": 0.8571428571428571
+      },
+      "synthetic-nonlinear-residual:weak": {
+        "examples": 21,
+        "f1": 0.5517241379310345,
+        "positive_examples": 21,
+        "precision": 1.0,
+        "recall": 0.38095238095238093
+      }
+    }
+  },
+  "device": "mps",
+  "frozen_gates": {
+    "dafx_random_position_recall": 0.8,
+    "egfxset_real_recall": 0.8,
+    "f1": 0.8,
+    "negative_false_positive_rate": 0.05,
+    "recall": 0.8,
+    "synthetic_count_1_recall": 0.75,
+    "synthetic_low_drive_recall": 0.75,
+    "synthetic_weak_residual_recall": 0.7
+  },
+  "inventory": {
+    "clean_programs": 10890,
+    "controls_emitted": false,
+    "fit_clean_programs": 10453,
+    "generated_wet_written": false,
+    "order_labels_emitted": false,
+    "positive_only_amplifier_baselines": 327,
+    "positive_only_player_groups": 32,
+    "random_position_chain_presence": {
+      "author_order_metadata_exists": true,
+      "order_labels_consumed": false,
+      "presence_labels_only": true,
+      "source_id": "dafx25-guitar-effects-chains",
+      "splits": {
+        "calibration": {
+          "files": 1584,
+          "groups": 48,
+          "guitars": [
+            "strat"
+          ]
+        },
+        "development": {
+          "files": 1716,
+          "groups": 52,
+          "guitars": [
+            "strat"
+          ]
+        },
+        "fit": {
+          "files": 6600,
+          "groups": 200,
+          "guitars": [
+            "les",
+            "prs"
+          ]
+        },
+        "locked-final": {
+          "sealed": true
+        }
+      }
+    },
+    "real_hardware_examples": {
+      "calibration": {
+        "ambience": 360,
+        "echo": 351,
+        "nonlinear": 360,
+        "unknown": 354
+      },
+      "development": {
+        "ambience": 135,
+        "echo": 132,
+        "nonlinear": 135,
+        "unknown": 135
+      },
+      "fit": {
+        "ambience": 1395,
+        "echo": 1364,
+        "nonlinear": 1394,
+        "unknown": 1380
+      },
+      "locked-final": {
+        "ambience": 180,
+        "echo": 177,
+        "nonlinear": 180,
+        "unknown": 178
+      }
+    }
+  },
+  "model": {
+    "architecture": "compact-audio-resnet18-family-expert",
+    "controls_output": false,
+    "family": "nonlinear",
+    "input": [
+      1,
+      128,
+      216
+    ],
+    "labels": [
+      "nonlinear"
+    ],
+    "order_output": false,
+    "parameters": 700145,
+    "sample_rate": 44100,
+    "window_frames": 220500
+  },
+  "schema": 1,
+  "scope": "bounded hard-example fine-tune of the Wet-only standalone nonlinear presence expert",
+  "source": {
+    "path": "/Users/shiftz/dev/muspector-models/runs/foundation/product2/blind2-chainpresence-nonlinear-expert/model.pt",
+    "sha256": "b6ea4df936978d4d1f81e064df2a7137da1929516b46efeb5d5e90f981d916fe"
+  },
+  "status": "development-rejected",
+  "training": {
+    "completed_epochs": 4,
+    "elapsed_seconds": 162.76372487499611,
+    "history": [
+      {
+        "acceptance": {
+          "accepted": false,
+          "gates": {
+            "dafx_random_position_recall": true,
+            "egfxset_real_recall": true,
+            "f1": true,
+            "negative_false_positive_rate": true,
+            "recall": true,
+            "synthetic_count_1_recall": true,
+            "synthetic_low_drive_recall": false,
+            "synthetic_weak_residual_recall": false
+          }
+        },
+        "calibration": [
+          {
+            "bias": -0.4236182994964649,
+            "scale": 1.0301581822151096
+          }
+        ],
+        "epoch": 0,
+        "loss": null,
+        "metrics": {
+          "examples": 480,
+          "f1": 0.8701754385964913,
+          "negative_false_positive_rate": 0.04776119402985075,
+          "positive_examples": 145,
+          "precision": 0.8857142857142857,
+          "recall": 0.8551724137931035,
+          "strata": {
+            "dafx-random-position-presence": {
+              "examples": 60,
+              "f1": 1.0,
+              "positive_examples": 26,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "egfxset-real": {
+              "examples": 120,
+              "f1": 0.9836065573770492,
+              "positive_examples": 30,
+              "precision": 0.967741935483871,
+              "recall": 1.0
+            },
+            "synthetic-nonlinear-chain-count:count-1": {
+              "examples": 14,
+              "f1": 0.88,
+              "positive_examples": 14,
+              "precision": 1.0,
+              "recall": 0.7857142857142857
+            },
+            "synthetic-nonlinear-drive:low": {
+              "examples": 12,
+              "f1": 0.6666666666666666,
+              "positive_examples": 12,
+              "precision": 1.0,
+              "recall": 0.5
+            },
+            "synthetic-nonlinear-residual:weak": {
+              "examples": 15,
+              "f1": 0.5,
+              "positive_examples": 15,
+              "precision": 1.0,
+              "recall": 0.3333333333333333
+            }
+          }
+        },
+        "selection_key": [
+          false,
+          6,
+          0.3333333333333333,
+          0.8701754385964913,
+          -0.04776119402985075
+        ],
+        "threshold": 0.37
+      },
+      {
+        "acceptance": {
+          "accepted": false,
+          "gates": {
+            "dafx_random_position_recall": true,
+            "egfxset_real_recall": true,
+            "f1": true,
+            "negative_false_positive_rate": true,
+            "recall": false,
+            "synthetic_count_1_recall": false,
+            "synthetic_low_drive_recall": false,
+            "synthetic_weak_residual_recall": false
+          }
+        },
+        "calibration": [
+          {
+            "bias": -0.8433529318415449,
+            "scale": 0.7496118965248999
+          }
+        ],
+        "epoch": 1,
+        "loss": 0.3439118129511674,
+        "metrics": {
+          "examples": 480,
+          "f1": 0.8029739776951673,
+          "negative_false_positive_rate": 0.04776119402985075,
+          "positive_examples": 145,
+          "precision": 0.8709677419354839,
+          "recall": 0.7448275862068966,
+          "strata": {
+            "dafx-random-position-presence": {
+              "examples": 60,
+              "f1": 0.9122807017543859,
+              "positive_examples": 26,
+              "precision": 0.8387096774193549,
+              "recall": 1.0
+            },
+            "egfxset-real": {
+              "examples": 120,
+              "f1": 1.0,
+              "positive_examples": 30,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "synthetic-nonlinear-chain-count:count-1": {
+              "examples": 14,
+              "f1": 0.7272727272727273,
+              "positive_examples": 14,
+              "precision": 1.0,
+              "recall": 0.5714285714285714
+            },
+            "synthetic-nonlinear-drive:low": {
+              "examples": 12,
+              "f1": 0.5,
+              "positive_examples": 12,
+              "precision": 1.0,
+              "recall": 0.3333333333333333
+            },
+            "synthetic-nonlinear-residual:weak": {
+              "examples": 15,
+              "f1": 0.42105263157894735,
+              "positive_examples": 15,
+              "precision": 1.0,
+              "recall": 0.26666666666666666
+            }
+          }
+        },
+        "selection_key": [
+          false,
+          4,
+          0.26666666666666666,
+          0.8029739776951673,
+          -0.04776119402985075
+        ],
+        "threshold": 0.495
+      },
+      {
+        "acceptance": {
+          "accepted": false,
+          "gates": {
+            "dafx_random_position_recall": true,
+            "egfxset_real_recall": true,
+            "f1": true,
+            "negative_false_positive_rate": true,
+            "recall": true,
+            "synthetic_count_1_recall": true,
+            "synthetic_low_drive_recall": false,
+            "synthetic_weak_residual_recall": false
+          }
+        },
+        "calibration": [
+          {
+            "bias": -1.4947509374771508,
+            "scale": 0.9192493329701535
+          }
+        ],
+        "epoch": 2,
+        "loss": 0.39471985871593157,
+        "metrics": {
+          "examples": 480,
+          "f1": 0.8458781362007168,
+          "negative_false_positive_rate": 0.04776119402985075,
+          "positive_examples": 145,
+          "precision": 0.8805970149253731,
+          "recall": 0.8137931034482758,
+          "strata": {
+            "dafx-random-position-presence": {
+              "examples": 60,
+              "f1": 0.9454545454545454,
+              "positive_examples": 26,
+              "precision": 0.896551724137931,
+              "recall": 1.0
+            },
+            "egfxset-real": {
+              "examples": 120,
+              "f1": 0.9836065573770492,
+              "positive_examples": 30,
+              "precision": 0.967741935483871,
+              "recall": 1.0
+            },
+            "synthetic-nonlinear-chain-count:count-1": {
+              "examples": 14,
+              "f1": 0.9230769230769231,
+              "positive_examples": 14,
+              "precision": 1.0,
+              "recall": 0.8571428571428571
+            },
+            "synthetic-nonlinear-drive:low": {
+              "examples": 12,
+              "f1": 0.6666666666666666,
+              "positive_examples": 12,
+              "precision": 1.0,
+              "recall": 0.5
+            },
+            "synthetic-nonlinear-residual:weak": {
+              "examples": 15,
+              "f1": 0.42105263157894735,
+              "positive_examples": 15,
+              "precision": 1.0,
+              "recall": 0.26666666666666666
+            }
+          }
+        },
+        "selection_key": [
+          false,
+          6,
+          0.26666666666666666,
+          0.8458781362007168,
+          -0.04776119402985075
+        ],
+        "threshold": 0.375
+      },
+      {
+        "acceptance": {
+          "accepted": false,
+          "gates": {
+            "dafx_random_position_recall": true,
+            "egfxset_real_recall": true,
+            "f1": true,
+            "negative_false_positive_rate": true,
+            "recall": true,
+            "synthetic_count_1_recall": true,
+            "synthetic_low_drive_recall": false,
+            "synthetic_weak_residual_recall": false
+          }
+        },
+        "calibration": [
+          {
+            "bias": -1.0742724565509951,
+            "scale": 0.9206070995715199
+          }
+        ],
+        "epoch": 3,
+        "loss": 0.3671135407437881,
+        "metrics": {
+          "examples": 480,
+          "f1": 0.850909090909091,
+          "negative_false_positive_rate": 0.03880597014925373,
+          "positive_examples": 145,
+          "precision": 0.9,
+          "recall": 0.8068965517241379,
+          "strata": {
+            "dafx-random-position-presence": {
+              "examples": 60,
+              "f1": 1.0,
+              "positive_examples": 26,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "egfxset-real": {
+              "examples": 120,
+              "f1": 1.0,
+              "positive_examples": 30,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "synthetic-nonlinear-chain-count:count-1": {
+              "examples": 14,
+              "f1": 0.88,
+              "positive_examples": 14,
+              "precision": 1.0,
+              "recall": 0.7857142857142857
+            },
+            "synthetic-nonlinear-drive:low": {
+              "examples": 12,
+              "f1": 0.6666666666666666,
+              "positive_examples": 12,
+              "precision": 1.0,
+              "recall": 0.5
+            },
+            "synthetic-nonlinear-residual:weak": {
+              "examples": 15,
+              "f1": 0.5714285714285714,
+              "positive_examples": 15,
+              "precision": 1.0,
+              "recall": 0.4
+            }
+          }
+        },
+        "selection_key": [
+          false,
+          6,
+          0.4,
+          0.850909090909091,
+          -0.03880597014925373
+        ],
+        "threshold": 0.445
+      },
+      {
+        "acceptance": {
+          "accepted": false,
+          "gates": {
+            "dafx_random_position_recall": true,
+            "egfxset_real_recall": true,
+            "f1": true,
+            "negative_false_positive_rate": true,
+            "recall": true,
+            "synthetic_count_1_recall": true,
+            "synthetic_low_drive_recall": false,
+            "synthetic_weak_residual_recall": false
+          }
+        },
+        "calibration": [
+          {
+            "bias": -0.7859853943334796,
+            "scale": 1.043579713718405
+          }
+        ],
+        "epoch": 4,
+        "loss": 0.34706803746521475,
+        "metrics": {
+          "examples": 480,
+          "f1": 0.8811188811188811,
+          "negative_false_positive_rate": 0.04477611940298507,
+          "positive_examples": 145,
+          "precision": 0.8936170212765957,
+          "recall": 0.8689655172413793,
+          "strata": {
+            "dafx-random-position-presence": {
+              "examples": 60,
+              "f1": 1.0,
+              "positive_examples": 26,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "egfxset-real": {
+              "examples": 120,
+              "f1": 1.0,
+              "positive_examples": 30,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "synthetic-nonlinear-chain-count:count-1": {
+              "examples": 14,
+              "f1": 0.9629629629629629,
+              "positive_examples": 14,
+              "precision": 1.0,
+              "recall": 0.9285714285714286
+            },
+            "synthetic-nonlinear-drive:low": {
+              "examples": 12,
+              "f1": 0.7368421052631579,
+              "positive_examples": 12,
+              "precision": 1.0,
+              "recall": 0.5833333333333334
+            },
+            "synthetic-nonlinear-residual:weak": {
+              "examples": 15,
+              "f1": 0.5714285714285714,
+              "positive_examples": 15,
+              "precision": 1.0,
+              "recall": 0.4
+            }
+          }
+        },
+        "selection_key": [
+          false,
+          6,
+          0.4,
+          0.8811188811188811,
+          -0.04477611940298507
+        ],
+        "threshold": 0.36
+      }
+    ],
+    "selected_epoch": 4,
+    "weight_rules": {
+      "maximum_combined_weight": 6.0,
+      "synthetic_count_1_positive": 3.0,
+      "synthetic_low_drive_positive": 2.0,
+      "synthetic_weak_residual_positive": 2.0
+    }
+  }
+}

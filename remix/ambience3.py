@@ -63,6 +63,7 @@ def regularized_profile_inverse(
         "maximum_gain_contract": maximum_gain,
         "profile_required": True,
         "causal": False,
+        "chain_order_input": False,
         "graph_order_input": False,
         "neighbor_effect_input": False,
     }
@@ -98,7 +99,10 @@ def wet_candidate_tail_ratio(wet: np.ndarray, candidate: np.ndarray, target_star
     quiet = wet_env <= np.quantile(wet_env, 0.35)
     mask = quiet & recent
     if int(mask.sum()) < 4:
-        return 0.0
+        # No observable post-activity tail is not evidence that a fallback
+        # inverse is safe. Return a finite reject sentinel so JSON audit output
+        # remains portable and every calibrated threshold abstains fail-closed.
+        return 1.0e9
     wet_level = float(np.mean(wet_env[mask]))
     candidate_level = float(np.mean(candidate_env[mask]))
     return candidate_level / max(wet_level, 1.0e-8)

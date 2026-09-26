@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "id": "foundation-presence",
+  "description": "Development-only Wet classifier packages kept separate from order, controls and restoration audio.",
+  "packages": [
+    {
+      "package": {
+        "schema": 1,
+        "id": "foundation-drive-presence",
+        "version": "1.0.0",
+        "display_name": "Generic Drive presence gate",
+        "kind": "classifier",
+        "quality": "development",
+        "device": "generic-drive",
+        "runtime": {
+          "backend": "python-pytorch",
+          "entrypoint": "python.remix.foundation_drive_presence_runtime.v1",
+          "minimum_client_version": "0.1.0"
+        },
+        "sample_rate": 44100,
+        "channels": 1,
+        "controls": [],
+        "audio_behavior": "analysis_only",
+        "audio_quality": null,
+        "artifacts": [
+          {
+            "path": "contract/foundation_drive_presence_runtime.py",
+            "role": "runtime",
+            "bytes": 6869,
+            "sha256": "e7cb76eeb22dec16517361dc8d74864edcd953b4f608ffc7275adbd513a2fcf3"
+          },
+          {
+            "path": "artifacts/nonlinear-presence.pt",
+            "role": "nonlinear_checkpoint",
+            "bytes": 2840459,
+            "sha256": "b6ea4df936978d4d1f81e064df2a7137da1929516b46efeb5d5e90f981d916fe"
+          },
+          {
+            "path": "artifacts/any-effect-gate.pt",
+            "role": "any_effect_gate_checkpoint",
+            "bytes": 2841163,
+            "sha256": "767fe501758cf439365ffd77125abd91cccbce38ffe6c69c41be70532f9e5ca3"
+          },
+          {
+            "path": "evidence/development.json",
+            "role": "development",
+            "bytes": 24218,
+            "sha256": "0e74b02e2102fb91e274883b571db3147e24e63770b2bd6a7e034b819bf52972"
+          },
+          {
+            "path": "evidence/external-software-chain.json",
+            "role": "external_software_chain",
+            "bytes": 5660,
+            "sha256": "4e5ca48208301dea9dda4940b21124d0d9fc5dea6617fa91dd60dc389dd286b6"
+          }
+        ],
+        "license": {
+          "id": "Apache-2.0",
+          "commercial_use": true,
+          "redistribution": true,
+          "notice": "Runtime and weights are Apache-2.0. CC-BY source attribution remains embedded in the packaged development evidence."
+        },
+        "evidence": [
+          "evidence/development.json",
+          "evidence/external-software-chain.json"
+        ],
+        "limitations": [
+          "Outputs only generic nonlinear/Drive presence; it exposes no Amp or Reverb output and never predicts order or controls.",
+          "Development nonlinear recall is 80.19%; the frozen external random-position software-chain recall is 98.68%.",
+          "The historical single-effect synthetic chain-count-1 stratum reached only 34.78% nonlinear recall, so absence is not a reliable bypass decision for weak Drive.",
+          "No real multi-effect physical-hardware veto, representative listening pass or locked-final evaluation has run; this package is not promoted or installed by default."
+        ]
+      },
+      "sources": {
+        "contract/foundation_drive_presence_runtime.py": "remix/foundation_drive_presence_runtime.py",
+        "artifacts/nonlinear-presence.pt": "runs/foundation/product2/blind2-chainpresence-nonlinear-expert/model.pt",
+        "artifacts/any-effect-gate.pt": "runs/foundation/product2/blind2-chainpresence-any-gate-robust/model.pt",
+        "evidence/development.json": "runs/foundation/product2/blind2-independent-family-stack/ensemble-development.json",
+        "evidence/external-software-chain.json": "runs/foundation/product2/blind2-independent-family-stack/guitar-chain-development.json"
+      }
+    }
+  ]
+}

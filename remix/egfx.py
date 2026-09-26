@@ -1,4 +1,4 @@
-"""Train a group-disjoint EGFx RAT wet-only restoration model from scratch."""
+"""Archived EGFx RAT inverse experiment; product execution is fail-closed."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from torch.utils.data import DataLoader, Dataset
 from .asrnn_data import rat_files
 from .clean import SpectralNet, _align, _sidr, accepted, eligible, evaluate, loss
 from .cross import align
+from .license_gate import require_product_uses
 
 
 def partition(group: str) -> str:
@@ -99,6 +100,10 @@ def main() -> None:
     parser.add_argument("--data", type=Path, default=Path("data/corpus/egfxset")); parser.add_argument("--cycle", type=Path, default=Path("cycles/clean7.json")); parser.add_argument("--output", type=Path, default=Path("runs/clean/model7"))
     parser.add_argument("--epochs", type=int, default=6); parser.add_argument("--batch", type=int, default=8); parser.add_argument("--clips", type=int, default=1); parser.add_argument("--frames", type=int, default=16384); parser.add_argument("--channels", type=int, default=12); parser.add_argument("--rate", type=float, default=1e-3)
     args = parser.parse_args()
+    require_product_uses(
+        Path(__file__).with_name("data_sources.json"),
+        {"egfxset": "train-restoration"},
+    )
     if args.output.exists(): raise FileExistsError(f"refusing to replace EGFx run {args.output}")
     cycle_bytes = args.cycle.read_bytes(); cycle = json.loads(cycle_bytes)
     if cycle.get("id") != "clean1" or cycle.get("round") != 7 or cycle.get("status") != "planned": raise ValueError("invalid clean7 cycle")

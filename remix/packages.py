@@ -110,12 +110,21 @@ def validate(package: dict[str, Any]) -> dict[str, Any]:
             raise ValueError("forward package requires a device")
         if package["audio_behavior"] != "loss_preserving_render" or package["audio_quality"] != QUALITY:
             raise ValueError("forward package violates the loss-preserving audio contract")
+    elif package["kind"] == "inverse":
+        if package["device"] is None or not controls:
+            raise ValueError("inverse package requires a device and controls")
+        if package["audio_behavior"] == "analysis_only":
+            if package["audio_quality"] is not None:
+                raise ValueError("analysis-only inverse package cannot claim an audio contract")
+        elif package["audio_behavior"] == "loss_preserving_restore":
+            if package["audio_quality"] != QUALITY:
+                raise ValueError("restoration package violates the loss-preserving audio contract")
+        else:
+            raise ValueError("inverse package has an invalid audio behavior")
     else:
         if package["audio_behavior"] != "analysis_only" or package["audio_quality"] is not None:
-            raise ValueError("non-forward package must be analysis-only")
-        if package["kind"] == "inverse" and (package["device"] is None or not controls):
-            raise ValueError("inverse package requires a device and controls")
-        if package["kind"] in {"classifier", "order"} and controls:
+            raise ValueError("classifier/order package must be analysis-only")
+        if controls:
             raise ValueError("classifier/order package cannot own controls")
 
     artifacts = package["artifacts"]

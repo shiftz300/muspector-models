@@ -1,0 +1,1034 @@
+{
+  "boundaries": {
+    "amp_used": false,
+    "controls_used": false,
+    "locked_final_opened": false,
+    "order_labels_used": false,
+    "reverb_model_used": false,
+    "threshold_selection": false,
+    "training": false
+  },
+  "checkpoints": {
+    "any_effect_gate": {
+      "path": "/Users/shiftz/dev/muspector-models/runs/foundation/product2/blind2-chainpresence-any-gate-robust/model.pt",
+      "sha256": "767fe501758cf439365ffd77125abd91cccbce38ffe6c69c41be70532f9e5ca3"
+    },
+    "nonlinear": {
+      "path": "/Users/shiftz/dev/muspector-models/runs/foundation/product2/blind2-chainpresence-nonlinear-expert/model.pt",
+      "sha256": "b6ea4df936978d4d1f81e064df2a7137da1929516b46efeb5d5e90f981d916fe"
+    }
+  },
+  "development": {
+    "aggregate": {
+      "gates": {
+        "enough_missed_examples": true,
+        "safe_fraction": false
+      },
+      "metric_medians": {
+        "dynamics_error": 0.12584735390884882,
+        "gain_shift_db": 8.727542052941054,
+        "high_band_error": 1.7522313837124266,
+        "scale_invariant_residual_db": -8.760367347972764,
+        "spectral_error": 0.19127094582296394,
+        "transient_error": 0.5147145252354306
+      },
+      "metric_worst": {
+        "absolute_gain_shift_db": 19.678695773959397,
+        "dynamics_error": 0.5711094721124078,
+        "high_band_error": 8.409012510531412,
+        "scale_invariant_residual_db": 6.940811301447622,
+        "spectral_error": 0.5495055922769103,
+        "transient_error": 1.916084391118191
+      },
+      "missed_examples": 42,
+      "negative_detection_may_bypass": false,
+      "safe_examples": 0,
+      "safe_fraction": 0.0
+    },
+    "examples": 640,
+    "nonlinear_positives": 212,
+    "rows": [
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 26,
+        "metrics": {
+          "dynamics_error": 0.5711094721124078,
+          "gain_shift_db": 13.854451591563294,
+          "high_band_error": 5.644746731639962,
+          "scale_invariant_residual_db": 1.8581858708419066,
+          "spectral_error": 0.41771565913011566,
+          "transient_error": 0.9001512799142602,
+          "wet_peak": 0.9032514095306396
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:strong:count-2:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": true
+        },
+        "index": 29,
+        "metrics": {
+          "dynamics_error": 0.06619965512702956,
+          "gain_shift_db": 15.017842363985523,
+          "high_band_error": 4.601075590680195,
+          "scale_invariant_residual_db": -16.838371385925125,
+          "spectral_error": 0.39328240310139795,
+          "transient_error": 0.08417707134059417,
+          "wet_peak": 0.664133608341217
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:high:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 39,
+        "metrics": {
+          "dynamics_error": 0.26115623774935454,
+          "gain_shift_db": 14.15427653157871,
+          "high_band_error": 4.693445939005786,
+          "scale_invariant_residual_db": -8.851208638048897,
+          "spectral_error": 0.42985396731241,
+          "transient_error": 0.5986025114603882,
+          "wet_peak": 0.7818255424499512
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:high:medium:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 91,
+        "metrics": {
+          "dynamics_error": 0.2514100487009041,
+          "gain_shift_db": 9.128976087820472,
+          "high_band_error": 1.3681107651205684,
+          "scale_invariant_residual_db": -3.810763543158448,
+          "spectral_error": 0.14257456494432777,
+          "transient_error": 0.8033761084244533,
+          "wet_peak": 0.3735383152961731
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:high:strong:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 106,
+        "metrics": {
+          "dynamics_error": 0.24598514688276088,
+          "gain_shift_db": 6.917027703048813,
+          "high_band_error": 0.3016253293459261,
+          "scale_invariant_residual_db": -0.6621472618815438,
+          "spectral_error": 0.08622524477700283,
+          "transient_error": 0.7009568570016041,
+          "wet_peak": 0.5240328311920166
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:medium:strong:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 109,
+        "metrics": {
+          "dynamics_error": 0.3057922477364456,
+          "gain_shift_db": 7.5228192954385475,
+          "high_band_error": 0.4087934018016692,
+          "scale_invariant_residual_db": -0.48922255378810187,
+          "spectral_error": 0.12231570115272405,
+          "transient_error": 0.7195519227243451,
+          "wet_peak": 0.41955214738845825
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:high:strong:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 115,
+        "metrics": {
+          "dynamics_error": 0.3361882785576509,
+          "gain_shift_db": 9.104453739546146,
+          "high_band_error": 0.2880304744201035,
+          "scale_invariant_residual_db": 5.879658335909786,
+          "spectral_error": 0.05422333362246404,
+          "transient_error": 1.0758097054782743,
+          "wet_peak": 0.5124806761741638
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:medium:strong:count-2:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 139,
+        "metrics": {
+          "dynamics_error": 0.4463400764428401,
+          "gain_shift_db": 11.162633248718162,
+          "high_band_error": 1.8193597718392696,
+          "scale_invariant_residual_db": -1.5588162266115646,
+          "spectral_error": 0.2694248701141414,
+          "transient_error": 0.8972177012027818,
+          "wet_peak": 0.692176103591919
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:medium:strong:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 143,
+        "metrics": {
+          "dynamics_error": 0.12547310744060836,
+          "gain_shift_db": 6.207152395757997,
+          "high_band_error": 1.011222458864169,
+          "scale_invariant_residual_db": -15.570606102334013,
+          "spectral_error": 0.10780930085329134,
+          "transient_error": 0.4696216621817749,
+          "wet_peak": 0.6001564264297485
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:medium:weak:count-3:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 151,
+        "metrics": {
+          "dynamics_error": 0.05456287937109041,
+          "gain_shift_db": 6.407414365528201,
+          "high_band_error": 0.7204327090419969,
+          "scale_invariant_residual_db": -9.715318391126935,
+          "spectral_error": 0.17483388077029968,
+          "transient_error": 0.12528172623490785,
+          "wet_peak": 0.3845067024230957
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:high:medium:count-2:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 183,
+        "metrics": {
+          "dynamics_error": 0.34762155606960643,
+          "gain_shift_db": 19.678695773959397,
+          "high_band_error": 6.086459445498229,
+          "scale_invariant_residual_db": -1.3916240496075594,
+          "spectral_error": 0.5495055922769103,
+          "transient_error": 1.1320589554030294,
+          "wet_peak": 0.8717312216758728
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:gate-tanh:high:strong:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 211,
+        "metrics": {
+          "dynamics_error": 0.09632577423303534,
+          "gain_shift_db": 9.795581952497479,
+          "high_band_error": 1.3927104364999134,
+          "scale_invariant_residual_db": -8.447251043337674,
+          "spectral_error": 0.21937788514202836,
+          "transient_error": 0.11340466318988013,
+          "wet_peak": 0.7812475562095642
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:medium:medium:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 226,
+        "metrics": {
+          "dynamics_error": 0.07117482489589767,
+          "gain_shift_db": 5.428798888003699,
+          "high_band_error": 1.7567039378172804,
+          "scale_invariant_residual_db": -7.571150915161299,
+          "spectral_error": 0.2243326518534301,
+          "transient_error": 0.1861833369719818,
+          "wet_peak": 0.5025296807289124
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:high:medium:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": true
+        },
+        "index": 229,
+        "metrics": {
+          "dynamics_error": 0.030343639901733475,
+          "gain_shift_db": 16.125049418575234,
+          "high_band_error": 3.7712417136676777,
+          "scale_invariant_residual_db": -18.38016740880987,
+          "spectral_error": 0.26497856897809985,
+          "transient_error": 0.08695398297713414,
+          "wet_peak": 0.7768911123275757
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:high:weak:count-3:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 250,
+        "metrics": {
+          "dynamics_error": 0.15711796204081482,
+          "gain_shift_db": 13.404443459940778,
+          "high_band_error": 4.302825559020915,
+          "scale_invariant_residual_db": -8.66952605789663,
+          "spectral_error": 0.40421406513612684,
+          "transient_error": 0.48633316735287824,
+          "wet_peak": 0.7523700594902039
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:medium:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": true,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": true,
+          "transient": false
+        },
+        "index": 262,
+        "metrics": {
+          "dynamics_error": 0.08760790913623355,
+          "gain_shift_db": 0.7737742019919331,
+          "high_band_error": 0.11636766476487773,
+          "scale_invariant_residual_db": -12.562464912623955,
+          "spectral_error": 0.03568329189602982,
+          "transient_error": 0.18527030083110949,
+          "wet_peak": 0.30413591861724854
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:medium:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 302,
+        "metrics": {
+          "dynamics_error": 0.22975883910314893,
+          "gain_shift_db": 5.281052370960115,
+          "high_band_error": 2.0825026149290355,
+          "scale_invariant_residual_db": -6.943161868151981,
+          "spectral_error": 0.18184333149476364,
+          "transient_error": 0.7696926211503956,
+          "wet_peak": 0.6412718892097473
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:medium:medium:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": true
+        },
+        "index": 334,
+        "metrics": {
+          "dynamics_error": 0.03540628474124225,
+          "gain_shift_db": 12.360045972227008,
+          "high_band_error": 2.3258417008802077,
+          "scale_invariant_residual_db": -10.991811589259225,
+          "spectral_error": 0.20367832830139065,
+          "transient_error": 0.08440243503273093,
+          "wet_peak": 0.8899279832839966
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:medium:medium:count-3:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": true
+        },
+        "index": 339,
+        "metrics": {
+          "dynamics_error": 0.03499589459867089,
+          "gain_shift_db": 6.808924186656177,
+          "high_band_error": 1.1519740930696039,
+          "scale_invariant_residual_db": -18.012358675216852,
+          "spectral_error": 0.15032466580811277,
+          "transient_error": 0.06305443414624663,
+          "wet_peak": 0.31255313754081726
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:medium:weak:count-3:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 358,
+        "metrics": {
+          "dynamics_error": 0.060799799752483064,
+          "gain_shift_db": 4.691562424210366,
+          "high_band_error": 0.6086912057869346,
+          "scale_invariant_residual_db": -19.38353077535633,
+          "spectral_error": 0.2408725478289727,
+          "transient_error": 0.269503904512009,
+          "wet_peak": 0.3794395327568054
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:medium:weak:count-2:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 366,
+        "metrics": {
+          "dynamics_error": 0.046504376624502734,
+          "gain_shift_db": 1.2324440682312539,
+          "high_band_error": 0.33588988646659096,
+          "scale_invariant_residual_db": -7.9748302895374445,
+          "spectral_error": 0.1243259923071142,
+          "transient_error": 0.18206748270083295,
+          "wet_peak": 0.5292823910713196
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:medium:medium:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 373,
+        "metrics": {
+          "dynamics_error": 0.07773509610781945,
+          "gain_shift_db": 12.218213392196247,
+          "high_band_error": 2.670955230660192,
+          "scale_invariant_residual_db": -14.016985117946152,
+          "spectral_error": 0.1941016477367663,
+          "transient_error": 0.13144136236438478,
+          "wet_peak": 0.40951859951019287
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:high:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 398,
+        "metrics": {
+          "dynamics_error": 0.3005626313070166,
+          "gain_shift_db": 9.199211778344615,
+          "high_band_error": 1.3756184403546081,
+          "scale_invariant_residual_db": -3.2674527810325964,
+          "spectral_error": 0.2496696182737245,
+          "transient_error": 0.6547664242985858,
+          "wet_peak": 0.6210966110229492
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:gate-tanh:low:strong:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 435,
+        "metrics": {
+          "dynamics_error": 0.21721398425765798,
+          "gain_shift_db": 7.862948136667085,
+          "high_band_error": 1.7477588296075728,
+          "scale_invariant_residual_db": -7.70326757579663,
+          "spectral_error": 0.18844024390916161,
+          "transient_error": 1.2552684421058244,
+          "wet_peak": 0.46315091848373413
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:medium:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 445,
+        "metrics": {
+          "dynamics_error": 0.1737386657846548,
+          "gain_shift_db": 8.350630366335963,
+          "high_band_error": 1.760514689757856,
+          "scale_invariant_residual_db": -1.2656812678476665,
+          "spectral_error": 0.13056173466413248,
+          "transient_error": 1.8349702988458856,
+          "wet_peak": 0.39996257424354553
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:gate-tanh:medium:strong:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 447,
+        "metrics": {
+          "dynamics_error": 0.1399362610886468,
+          "gain_shift_db": 6.494613421614346,
+          "high_band_error": 1.2142955311762829,
+          "scale_invariant_residual_db": -9.344778756589838,
+          "spectral_error": 0.08320936809266176,
+          "transient_error": 1.916084391118191,
+          "wet_peak": 0.6435303092002869
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:medium:medium:count-2:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 455,
+        "metrics": {
+          "dynamics_error": 0.28031973630149176,
+          "gain_shift_db": 16.01904547660811,
+          "high_band_error": 4.435170205532577,
+          "scale_invariant_residual_db": -0.8735503062558356,
+          "spectral_error": 0.30587931101061566,
+          "transient_error": 1.1173435515087673,
+          "wet_peak": 0.632036030292511
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:strong:count-3:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 461,
+        "metrics": {
+          "dynamics_error": 0.2244976301742652,
+          "gain_shift_db": 16.269896142153307,
+          "high_band_error": 5.038604111713695,
+          "scale_invariant_residual_db": -7.317671766316643,
+          "spectral_error": 0.3335048346662431,
+          "transient_error": 1.1831903731037428,
+          "wet_peak": 0.7581879496574402
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:medium:count-3:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 462,
+        "metrics": {
+          "dynamics_error": 0.25396319434633524,
+          "gain_shift_db": 11.969077150731952,
+          "high_band_error": 3.119253083301015,
+          "scale_invariant_residual_db": -6.973932104884763,
+          "spectral_error": 0.35618791226535546,
+          "transient_error": 0.543095883117983,
+          "wet_peak": 0.8010120391845703
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:square-root:medium:medium:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 463,
+        "metrics": {
+          "dynamics_error": 0.07159772994438475,
+          "gain_shift_db": 8.080870360658615,
+          "high_band_error": 1.472630189427823,
+          "scale_invariant_residual_db": -12.749060741224898,
+          "spectral_error": 0.14059377715620205,
+          "transient_error": 0.2151529136950937,
+          "wet_peak": 0.6137247085571289
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:medium:weak:count-3:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 471,
+        "metrics": {
+          "dynamics_error": 0.42949092234293557,
+          "gain_shift_db": 12.762606804228147,
+          "high_band_error": 2.094348580740523,
+          "scale_invariant_residual_db": 2.2973197940822008,
+          "spectral_error": 0.25533908979798664,
+          "transient_error": 0.9010351004286324,
+          "wet_peak": 0.3734118640422821
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:strong:count-2:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": true
+        },
+        "index": 502,
+        "metrics": {
+          "dynamics_error": 0.058320130161810056,
+          "gain_shift_db": 12.99535846162163,
+          "high_band_error": 3.359188095711731,
+          "scale_invariant_residual_db": -18.730079828655228,
+          "spectral_error": 0.28274282832361725,
+          "transient_error": 0.08742276985404421,
+          "wet_peak": 0.3488471210002899
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:high:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 518,
+        "metrics": {
+          "dynamics_error": 0.07838179228388042,
+          "gain_shift_db": 13.433723024491268,
+          "high_band_error": 3.4565806768609257,
+          "scale_invariant_residual_db": -16.703415190209277,
+          "spectral_error": 0.2363183852845492,
+          "transient_error": 0.12998279856999986,
+          "wet_peak": 0.7158994674682617
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:high:weak:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": true,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": true,
+          "transient": false
+        },
+        "index": 539,
+        "metrics": {
+          "dynamics_error": 0.16727460979752057,
+          "gain_shift_db": -0.11875249699771834,
+          "high_band_error": 0.14024977846347356,
+          "scale_invariant_residual_db": -11.063683760567777,
+          "spectral_error": 0.04609495985943939,
+          "transient_error": 0.613910676588708,
+          "wet_peak": 0.3231419026851654
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:medium:medium:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 554,
+        "metrics": {
+          "dynamics_error": 0.12622160037708927,
+          "gain_shift_db": 6.646664604951226,
+          "high_band_error": 1.2640613610305151,
+          "scale_invariant_residual_db": -10.02860910227226,
+          "spectral_error": 0.1435794518021441,
+          "transient_error": 0.39927688328346167,
+          "wet_peak": 0.37342366576194763
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:asymmetric-tanh:high:medium:count-1:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": true,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": true,
+          "transient": true
+        },
+        "index": 555,
+        "metrics": {
+          "dynamics_error": 0.014210848340954468,
+          "gain_shift_db": 2.761302693547802,
+          "high_band_error": 0.06550424352896551,
+          "scale_invariant_residual_db": -12.20574060094261,
+          "spectral_error": 0.03246820181192502,
+          "transient_error": 0.08389521041571292,
+          "wet_peak": 0.4722709059715271
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:low:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 567,
+        "metrics": {
+          "dynamics_error": 0.07225994818562353,
+          "gain_shift_db": 3.932060610053578,
+          "high_band_error": 0.6005544250433932,
+          "scale_invariant_residual_db": -15.439664045204985,
+          "spectral_error": 0.0770592885650095,
+          "transient_error": 0.10171872725074302,
+          "wet_peak": 0.38575479388237
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:atan:medium:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 574,
+        "metrics": {
+          "dynamics_error": 0.2609124801797425,
+          "gain_shift_db": 14.65931876114945,
+          "high_band_error": 1.4190730314700268,
+          "scale_invariant_residual_db": -9.386489910830063,
+          "spectral_error": 0.3907031608152698,
+          "transient_error": 1.5722907302483442,
+          "wet_peak": 0.8631039261817932
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:high:medium:count-3:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": false,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 587,
+        "metrics": {
+          "dynamics_error": 0.11656490061931736,
+          "gain_shift_db": -1.1795751680420528,
+          "high_band_error": 0.5560557826552265,
+          "scale_invariant_residual_db": 6.940811301447622,
+          "spectral_error": 0.3045148128555241,
+          "transient_error": 0.8986433704155339,
+          "wet_peak": 0.6240726709365845
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:low:strong:count-1:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": true,
+          "spectrum": false,
+          "transient": true
+        },
+        "index": 591,
+        "metrics": {
+          "dynamics_error": 0.03629310954268077,
+          "gain_shift_db": 10.34790713295058,
+          "high_band_error": 2.229793068125845,
+          "scale_invariant_residual_db": -20.855101901294976,
+          "spectral_error": 0.1713847671166883,
+          "transient_error": 0.062114049859138924,
+          "wet_peak": 0.7159949541091919
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:medium:weak:count-2:dafx25-guitar-effects-chains"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 637,
+        "metrics": {
+          "dynamics_error": 0.05123406916267592,
+          "gain_shift_db": 3.22794992577808,
+          "high_band_error": 4.371246756370504,
+          "scale_invariant_residual_db": -3.546825381858552,
+          "spectral_error": 0.17808905560862778,
+          "transient_error": 0.22940421187060744,
+          "wet_peak": 0.46054989099502563
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:tanh:high:strong:count-3:egfxset"
+      },
+      {
+        "gates": {
+          "dynamics": true,
+          "gain_shift": false,
+          "high_band": false,
+          "no_clipping": true,
+          "scale_invariant_residual": false,
+          "spectrum": false,
+          "transient": false
+        },
+        "index": 638,
+        "metrics": {
+          "dynamics_error": 0.08574708257194821,
+          "gain_shift_db": 7.344369334500732,
+          "high_band_error": 8.409012510531412,
+          "scale_invariant_residual_db": -10.502091681221506,
+          "spectral_error": 0.15217933904633618,
+          "transient_error": 0.7952436086769833,
+          "wet_peak": 0.5557241439819336
+        },
+        "safe_to_bypass": false,
+        "source": "synthetic-product-render:nonlinear:hard-clip:high:medium:count-2:egfxset"
+      }
+    ],
+    "synthetic_nonlinear_misses": 42
+  },
+  "device": "mps",
+  "frozen_thresholds": {
+    "maximum_absolute_gain_shift_db": 1.0,
+    "maximum_dynamics_error": 0.1,
+    "maximum_high_band_error": 0.1,
+    "maximum_scale_invariant_residual_db": -20.0,
+    "maximum_spectral_error": 0.05,
+    "maximum_transient_error": 0.1,
+    "minimum_missed_examples": 10,
+    "minimum_safe_fraction": 0.95
+  },
+  "schema": 1,
+  "scope": "impact audit for missed synthetic Drive stages; no training or threshold selection",
+  "status": "development-bypass-rejected"
+}

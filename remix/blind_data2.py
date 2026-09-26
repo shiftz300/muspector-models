@@ -14,7 +14,7 @@ from scipy.signal import butter, fftconvolve, resample_poly, sosfilt
 from .blind2 import LABELS, RATE, WINDOW
 from .guitar_chain_data import discover as discover_chain_presence
 from .guitar_chain_data import inventory as chain_presence_inventory
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 from .product_data import RATE as RENDER_RATE
 from .product_data import Clean, PRODUCT_CLEAN_SOURCE_IDS, _read, _rir, discover_clean, rir_splits
 
@@ -255,7 +255,15 @@ def _real_inventory(workspace: Path, split: str) -> dict[str, list[Path]]:
 class BlindPresenceData(torch.utils.data.Dataset):
     """Random-order chains; output contains presence only, never order."""
 
-    def __init__(self, workspace: Path, split: str, samples: int, seed: int) -> None:
+    def __init__(
+        self,
+        workspace: Path,
+        split: str,
+        samples: int,
+        seed: int,
+        *,
+        include_nonlinear_audit_pair: bool = False,
+    ) -> None:
         if split not in {"fit", "calibration", "development", "locked-final"}:
             raise ValueError(f"invalid split: {split}")
         if samples < 1:
@@ -265,6 +273,7 @@ class BlindPresenceData(torch.utils.data.Dataset):
         self.samples = samples
         self.seed = seed
         self.epoch = 0
+        self.include_nonlinear_audit_pair = include_nonlinear_audit_pair
         self.clean = [item for item in discover_clean(self.workspace) if item.split == split]
         if split == "fit":
             self.clean.extend(_multimodal_fit_sources(self.workspace))
@@ -284,9 +293,18 @@ class BlindPresenceData(torch.utils.data.Dataset):
         )
         if not self.clean or not all(self.real.values()) or not self.random_position_chains:
             raise ValueError(f"incomplete Blind product inventory for {split}")
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json",
-            (*PRODUCT_CLEAN_SOURCE_IDS, MULTIMODAL_SOURCE_ID, "muspector-dsp", "aachen-chapel-rir"),
+        requirements = {
+            source: "product-clean-source" for source in PRODUCT_CLEAN_SOURCE_IDS
+        }
+        requirements["egfxset"] = ("product-clean-source", "train-family")
+        requirements["dafx25-guitar-effects-chains"] = (
+            "product-clean-source", "train-family", "train-order"
+        )
+        requirements[MULTIMODAL_SOURCE_ID] = "train-family-positive-only"
+        requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+        requirements["aachen-chapel-rir"] = "train-reverb"
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", requirements
         )
 
     def __len__(self) -> int:
@@ -351,9 +369,15 @@ class BlindPresenceData(torch.utils.data.Dataset):
         active = rng.sample(list(LABELS), count)
         rng.shuffle(active)
         nonlinear_details: dict[str, str | float | int] = {}
+        nonlinear_predecessor: np.ndarray | None = None
+        nonlinear_wet: np.ndarray | None = None
         for label in active:
             if label == "nonlinear":
+                if getattr(self, "include_nonlinear_audit_pair", False):
+                    nonlinear_predecessor = audio.copy()
                 audio = _nonlinear(audio, rng, nonlinear_details)
+                if getattr(self, "include_nonlinear_audit_pair", False):
+                    nonlinear_wet = audio.copy()
             elif label == "echo":
                 audio = _echo(audio, rng)
             elif label == "ambience":
@@ -385,12 +409,22 @@ class BlindPresenceData(torch.utils.data.Dataset):
             diagnostic_source = (
                 f"synthetic-product-render:no-nonlinear:count-{count}:{selected.source_id}"
             )
-        return {
+        result = {
             "audio": torch.from_numpy(audio.copy()),
             "target": torch.from_numpy(target),
             "target_mask": torch.from_numpy(target_mask),
             "source": diagnostic_source,
         }
+        if getattr(self, "include_nonlinear_audit_pair", False) and nonlinear_predecessor is not None:
+            assert nonlinear_wet is not None
+            result["nonlinear_predecessor"] = torch.from_numpy(
+                nonlinear_predecessor.astype(np.float32, copy=True)
+            )
+            result["nonlinear_wet"] = torch.from_numpy(
+                nonlinear_wet.astype(np.float32, copy=True)
+            )
+            result["nonlinear_pair_sample_rate"] = RENDER_RATE
+        return result
 
 
 def inventory(workspace: Path) -> dict:

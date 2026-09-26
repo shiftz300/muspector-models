@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "status": "blocked-no-product-safe-physical-multieffect-pairs",
+  "scope": "public data for generic Drive, Dynamics, Echo or EQ physical multi-effect Wet-to-Clean validation; Amp and Reverb excluded",
+  "checked_at": "2026-09-06",
+  "candidates": [
+    {
+      "id": "dafx25-guitar-effects-chains",
+      "license": "CC-BY-4.0",
+      "local": true,
+      "hardware": false,
+      "multieffect": true,
+      "decision": "presence-and-order-only",
+      "blockers": [
+        "software chain rather than physical hardware",
+        "randomized parameters are not published",
+        "immediate per-stage predecessors are not published"
+      ]
+    },
+    {
+      "id": "egfxset",
+      "license": "CC-BY-4.0",
+      "local": true,
+      "hardware": true,
+      "multieffect": false,
+      "decision": "family-and-parameter-recognition-only",
+      "blockers": [
+        "single effects rather than a physical multi-effect chain",
+        "Clean and Wet files were independently normalized",
+        "not admitted for sample-faithful restoration evaluation"
+      ]
+    },
+    {
+      "id": "pod-set",
+      "doi": "10.5281/zenodo.15389653",
+      "license": "CC-BY-NC-4.0",
+      "license_evidence": "official Zenodo API metadata.license.id",
+      "local": false,
+      "hardware": true,
+      "multieffect": false,
+      "archive_bytes": 45090575173,
+      "decision": "metadata-only-product-blocked",
+      "blockers": [
+        "noncommercial license",
+        "single analog overdrive pedals rather than chains",
+        "one shared approximately six-minute source program"
+      ]
+    },
+    {
+      "id": "guitar-fx-dist",
+      "doi": "10.5281/zenodo.4298017",
+      "license": "CC-BY-4.0 deposit with unresolved CC-BY-NC-ND upstream conflict",
+      "local": false,
+      "hardware": false,
+      "multieffect": false,
+      "decision": "metadata-only-product-blocked",
+      "blockers": [
+        "software effects",
+        "single effects rather than chains",
+        "upstream dry-source derivative rights conflict"
+      ]
+    },
+    {
+      "id": "tonetwist-drive-candidates",
+      "license": "CC-BY-NC-4.0 for the checked physical Drive deposits",
+      "local": false,
+      "hardware": true,
+      "multieffect": false,
+      "decision": "metadata-only-product-blocked",
+      "blockers": [
+        "noncommercial license",
+        "single-device records do not close the physical chain veto",
+        "heterogeneous dry-source provenance"
+      ]
+    }
+  ],
+  "result": {
+    "product_safe_candidate_count": 0,
+    "downloaded_bytes": 0,
+    "training_started": false,
+    "physical_chain_gate_closed": false,
+    "next_evidence_needed": "a clearly licensed physical non-Amp/non-Reverb multi-effect capture with aligned Clean/Wet, effect-family labels, and either explicit controls or per-stage predecessors"
+  },
+  "boundaries": {
+    "amp_searched_or_trained": false,
+    "reverb_searched_or_trained": false,
+    "locked_final_opened": false,
+    "order_assumed_by_experts": false,
+    "rights_fail_closed": true
+  }
+}

@@ -11,7 +11,7 @@ import torch
 from scipy.signal import resample_poly, stft
 
 from .chorus3 import ChorusPairsV3
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 
 
 RATE = 48_000
@@ -248,9 +248,16 @@ class StonePhaserPairsV3(torch.utils.data.Dataset):
     def __init__(self, workspace: Path, split: str, samples: int, seed: int) -> None:
         self.base = ChorusPairsV3(workspace, split, samples, 96_000, seed)
         self.workspace, self.split, self.samples, self.seed = workspace.resolve(), split, samples, seed
-        source_ids = sorted(set(self.base.authorization["sources"]) | {"stone-phaser-cc0"})
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json", source_ids
+        source_ids = set(self.base.authorization["sources"]) | {"stone-phaser-cc0"}
+        requirements = {
+            source: "product-clean-source"
+            for source in source_ids
+            if source not in {"muspector-dsp", "stone-phaser-cc0"}
+        }
+        requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+        requirements["stone-phaser-cc0"] = ("product-pair-generation", "train-restoration")
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", requirements
         )
 
     def __len__(self) -> int:

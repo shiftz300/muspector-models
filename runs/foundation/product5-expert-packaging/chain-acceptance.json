@@ -1,0 +1,134 @@
+{
+  "gates": {
+    "all_six_orders_pass": true,
+    "every_expert_seen_in_every_position": true,
+    "experts_receive_no_order_or_neighbors": true,
+    "locked_final_unopened": true,
+    "source_wet_immutable": true
+  },
+  "maximum_absolute_error": 2.3525208234786987e-06,
+  "minimum_relative_rms_reduction": 0.9999848692276947,
+  "orders": [
+    {
+      "forward_order": [
+        "dynamics",
+        "echo",
+        "spectral"
+      ],
+      "maximum_absolute_error": 6.258487701416016e-07,
+      "passed": true,
+      "relative_rms_reduction": 0.9999948402481524,
+      "reverse_trace": [
+        "spectral",
+        "echo",
+        "dynamics"
+      ],
+      "rms_error": 2.777215399873967e-07,
+      "wet_input_unchanged": true,
+      "wet_rms_error": 0.053824592381715775
+    },
+    {
+      "forward_order": [
+        "dynamics",
+        "spectral",
+        "echo"
+      ],
+      "maximum_absolute_error": 6.258487701416016e-07,
+      "passed": true,
+      "relative_rms_reduction": 0.999994183037096,
+      "reverse_trace": [
+        "echo",
+        "spectral",
+        "dynamics"
+      ],
+      "rms_error": 2.772406162421248e-07,
+      "wet_input_unchanged": true,
+      "wet_rms_error": 0.047660715878009796
+    },
+    {
+      "forward_order": [
+        "echo",
+        "dynamics",
+        "spectral"
+      ],
+      "maximum_absolute_error": 8.940696716308594e-07,
+      "passed": true,
+      "relative_rms_reduction": 0.9999848692276947,
+      "reverse_trace": [
+        "spectral",
+        "dynamics",
+        "echo"
+      ],
+      "rms_error": 3.7386621443147305e-07,
+      "wet_input_unchanged": true,
+      "wet_rms_error": 0.024708997458219528
+    },
+    {
+      "forward_order": [
+        "echo",
+        "spectral",
+        "dynamics"
+      ],
+      "maximum_absolute_error": 1.3746321201324463e-06,
+      "passed": true,
+      "relative_rms_reduction": 0.9999914224459004,
+      "reverse_trace": [
+        "dynamics",
+        "spectral",
+        "echo"
+      ],
+      "rms_error": 3.723750410244975e-07,
+      "wet_input_unchanged": true,
+      "wet_rms_error": 0.04341273009777069
+    },
+    {
+      "forward_order": [
+        "spectral",
+        "dynamics",
+        "echo"
+      ],
+      "maximum_absolute_error": 5.960464477539062e-07,
+      "passed": true,
+      "relative_rms_reduction": 0.999993960258168,
+      "reverse_trace": [
+        "echo",
+        "dynamics",
+        "spectral"
+      ],
+      "rms_error": 2.668850811460288e-07,
+      "wet_input_unchanged": true,
+      "wet_rms_error": 0.044188160449266434
+    },
+    {
+      "forward_order": [
+        "spectral",
+        "echo",
+        "dynamics"
+      ],
+      "maximum_absolute_error": 2.3525208234786987e-06,
+      "passed": true,
+      "relative_rms_reduction": 0.9999868374132989,
+      "reverse_trace": [
+        "dynamics",
+        "echo",
+        "spectral"
+      ],
+      "rms_error": 6.434621582229738e-07,
+      "wet_input_unchanged": true,
+      "wet_rms_error": 0.04888569191098213
+    }
+  ],
+  "schema": 1,
+  "scope": {
+    "end_to_end_product_usable": false,
+    "generic_repository_owned_effects": true,
+    "human_listening": false,
+    "known_controls": true,
+    "locked_final_audio_opened": false,
+    "physical_chain": false
+  },
+  "status": "development-chain-pass",
+  "thresholds": {
+    "maximum_absolute_error": 2e-05
+  }
+}

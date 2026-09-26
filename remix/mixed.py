@@ -1,4 +1,4 @@
-"""Joint ASRNN and EGFx fine-tuning for the compact RAT clean restorer."""
+"""Archived ASRNN/EGFx RAT inverse experiment; product execution is fail-closed."""
 
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ from .egfx import Windows as EgfxWindows
 from .egfx import audit as audit_egfx
 from .egfx import evaluate_rows
 from .net import SpectralNet
+from .license_gate import require_product_uses
 from .train_asrnn_rat_adapter import _partition
 
 
@@ -102,6 +103,13 @@ def load_model(path: Path, channels: int | None = None) -> tuple[SpectralNet, di
 
 
 def train(args: argparse.Namespace) -> dict:
+    require_product_uses(
+        Path(__file__).with_name("data_sources.json"),
+        {
+            "asrnn-physical-effects": "train-restoration",
+            "egfxset": "train-restoration",
+        },
+    )
     cycle_bytes = args.cycle.read_bytes()
     cycle = json.loads(cycle_bytes)
     if cycle.get("id") != "clean1" or cycle.get("round") not in (9, 10, 11) or cycle.get("status") != "planned":

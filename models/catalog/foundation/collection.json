@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "foundation-restore",
+  "display_name": "Foundation restoration experts",
+  "default_install": false,
+  "packages": [
+    {"package_id": "foundation-drive", "version": "1.0.0", "required": false},
+    {"package_id": "foundation-dynamics", "version": "1.0.0", "required": false},
+    {"package_id": "foundation-echo", "version": "1.0.0", "required": false},
+    {"package_id": "foundation-spectral", "version": "1.0.0", "required": false}
+  ]
+}

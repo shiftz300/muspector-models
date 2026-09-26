@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "foundation-presence",
+  "display_name": "Foundation presence gates",
+  "default_install": false,
+  "packages": [
+    {
+      "package_id": "foundation-drive-presence",
+      "version": "1.0.0",
+      "required": false
+    }
+  ]
+}

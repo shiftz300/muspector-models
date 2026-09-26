@@ -9,7 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Iterable
+from collections.abc import Iterable, Mapping
 
 
 REQUIRED_FIELDS = {
@@ -99,6 +99,54 @@ def authorize_product_weights(registry: dict, source_ids: Iterable[str]) -> dict
     }
 
 
+def authorize_product_uses(
+    registry: dict,
+    requirements: Mapping[str, str | Iterable[str]],
+) -> dict:
+    """Authorize product weights only for explicitly registered task uses.
+
+    A permissive weight license is necessary but not sufficient.  For example,
+    EGFxSet may train the family recognizer and provide Clean programs, while its
+    normalized Wet files are deliberately excluded from restoration gradients.
+    """
+
+    sources = by_id(registry)
+    normalized: dict[str, tuple[str, ...]] = {}
+    for identifier, uses in requirements.items():
+        values = (uses,) if isinstance(uses, str) else tuple(uses)
+        if not values or any(not value for value in values):
+            raise ValueError(f"source {identifier} has no required product use")
+        normalized[identifier] = values
+
+    weight_result = authorize_product_weights(registry, normalized)
+    blocked = list(weight_result["blocked"])
+    weight_authorized = set(weight_result["sources"])
+    selected = []
+    attributions = []
+    for identifier, required_uses in normalized.items():
+        if identifier not in weight_authorized:
+            continue
+        allowed_uses = set(sources[identifier].get("allowed_uses", ()))
+        missing = sorted(set(required_uses) - allowed_uses)
+        if missing:
+            blocked.append({
+                "id": identifier,
+                "reason": f"use-not-allowed:{','.join(missing)}",
+            })
+            continue
+        selected.append(identifier)
+        credit = attribution(sources[identifier])
+        if credit:
+            attributions.append(credit)
+    return {
+        "authorized": not blocked and bool(selected),
+        "sources": selected,
+        "required_uses": {key: list(value) for key, value in normalized.items()},
+        "blocked": blocked,
+        "required_attribution": attributions,
+    }
+
+
 def audit(registry: dict) -> dict:
     sources = by_id(registry)
     contradictions = []
@@ -147,10 +195,61 @@ def audit(registry: dict) -> dict:
             "spotify-pedalboard-renderer",
             "tonetwist-local-collection",
             "remfx-local",
+            "remfx-pretrained-models",
             "pod-set",
         ),
     )
-    passed = not contradictions and foundation["authorized"] and not explicitly_blocked["authorized"]
+    task_use_probes = {
+        "egfx_restoration_must_be_blocked": authorize_product_uses(
+            registry, {"egfxset": "train-restoration"}
+        ),
+        "guitar_techs_amp_must_be_blocked": authorize_product_uses(
+            registry, {"guitar-techs": "train-amp"}
+        ),
+        "aachen_reverb_must_be_allowed": authorize_product_uses(
+            registry, {"aachen-chapel-rir": "train-reverb"}
+        ),
+        "marshall_amp_must_be_allowed": authorize_product_uses(
+            registry, {"marshall-jvm410h": "train-amp"}
+        ),
+        "ok5_reverb_validation_must_be_allowed": authorize_product_uses(
+            registry, {"ok5-rir": "validate-reverb"}
+        ),
+        "ok5_reverb_training_must_be_blocked": authorize_product_uses(
+            registry, {"ok5-rir": "train-reverb"}
+        ),
+        "openair_reverb_validation_must_be_allowed": authorize_product_uses(
+            registry, {"openair-rir-external-v1": "validate-reverb"}
+        ),
+        "openair_reverb_training_must_be_blocked": authorize_product_uses(
+            registry, {"openair-rir-external-v1": "train-reverb"}
+        ),
+        "openslr26_reverb_training_must_be_allowed": authorize_product_uses(
+            registry, {"openslr26-simulated-rir-external-v1": "train-reverb"}
+        ),
+        "rochester_reverb_validation_must_be_allowed": authorize_product_uses(
+            registry, {"rochester-rir-fresh-v2": "validate-reverb"}
+        ),
+        "rochester_reverb_training_must_be_blocked": authorize_product_uses(
+            registry, {"rochester-rir-fresh-v2": "train-reverb"}
+        ),
+    }
+    passed = (
+        not contradictions
+        and foundation["authorized"]
+        and not explicitly_blocked["authorized"]
+        and not task_use_probes["egfx_restoration_must_be_blocked"]["authorized"]
+        and not task_use_probes["guitar_techs_amp_must_be_blocked"]["authorized"]
+        and task_use_probes["aachen_reverb_must_be_allowed"]["authorized"]
+        and task_use_probes["marshall_amp_must_be_allowed"]["authorized"]
+        and task_use_probes["ok5_reverb_validation_must_be_allowed"]["authorized"]
+        and not task_use_probes["ok5_reverb_training_must_be_blocked"]["authorized"]
+        and task_use_probes["openair_reverb_validation_must_be_allowed"]["authorized"]
+        and not task_use_probes["openair_reverb_training_must_be_blocked"]["authorized"]
+        and task_use_probes["openslr26_reverb_training_must_be_allowed"]["authorized"]
+        and task_use_probes["rochester_reverb_validation_must_be_allowed"]["authorized"]
+        and not task_use_probes["rochester_reverb_training_must_be_blocked"]["authorized"]
+    )
     return {
         "schema": 1,
         "status": "passed" if passed else "failed",
@@ -160,6 +259,7 @@ def audit(registry: dict) -> dict:
         "research_only_or_blocked_sources": research_only,
         "foundation_product_training": foundation,
         "restricted_source_probe": explicitly_blocked,
+        "task_use_probes": task_use_probes,
         "contradictions": contradictions,
         "research_isolation": {
             "gradients": False,
@@ -176,6 +276,16 @@ def require_product_weights(registry_path: Path, source_ids: Iterable[str]) -> d
     result = authorize_product_weights(load_registry(registry_path), source_ids)
     if not result["authorized"]:
         raise PermissionError(f"product-weight source gate failed: {result['blocked']}")
+    return result
+
+
+def require_product_uses(
+    registry_path: Path,
+    requirements: Mapping[str, str | Iterable[str]],
+) -> dict:
+    result = authorize_product_uses(load_registry(registry_path), requirements)
+    if not result["authorized"]:
+        raise PermissionError(f"product-use source gate failed: {result['blocked']}")
     return result
 
 

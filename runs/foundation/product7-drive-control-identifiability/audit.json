@@ -1,0 +1,731 @@
+{
+  "candidate_count": 324,
+  "checkpoint_sha256": "cc0f9a320345e870b0e2ec56ef331419becfa296b642b620b65df3593c4df75b",
+  "compute": "mps",
+  "examples": [
+    {
+      "example": 0,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 6.0,
+          "minimum": 2.0,
+          "normalized_width": 0.6666666666666666
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.5,
+          "normalized_width": 1.0
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            1.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": -0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 4.0,
+        "level": 0.5,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.003451603464782238,
+      "top1_replay_nmse": 1.5381380080725648e-07,
+      "top_k_boundary_margin": 0.09730956668727579,
+      "truth": {
+        "bias": -0.1,
+        "cutoff_hz": 2200.0,
+        "drive": 2.0,
+        "level": 0.5,
+        "shape": 0.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 237
+    },
+    {
+      "example": 1,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": true,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 6.0,
+          "minimum": 2.0,
+          "normalized_width": 0.6666666666666666
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.5,
+          "normalized_width": 1.0
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            1.0
+          ]
+        }
+      },
+      "shape_top1": true,
+      "top1": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 1.0
+      },
+      "top1_median_uncertainty": 0.0037740927655249834,
+      "top1_replay_nmse": 3.405278766877018e-05,
+      "top_k_boundary_margin": 0.0022253419981007137,
+      "truth": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 2.0,
+        "level": 0.65,
+        "shape": 1.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 18
+    },
+    {
+      "example": 2,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 6.0,
+          "minimum": 2.0,
+          "normalized_width": 0.6666666666666666
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.5,
+          "normalized_width": 1.0
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            1.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 0.0
+      },
+      "top1_median_uncertainty": 0.003889641026034951,
+      "top1_replay_nmse": 2.750738758550142e-06,
+      "top_k_boundary_margin": 0.004149571036306618,
+      "truth": {
+        "bias": 0.0,
+        "cutoff_hz": 5500.0,
+        "drive": 2.0,
+        "level": 0.5,
+        "shape": 2.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 144
+    },
+    {
+      "example": 3,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 6.0,
+          "minimum": 4.0,
+          "normalized_width": 0.3333333333333333
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.5,
+          "normalized_width": 1.0
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": 0.0,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.003569683525711298,
+      "top1_replay_nmse": 2.6853265353565803e-06,
+      "top_k_boundary_margin": 0.003630762618487711,
+      "truth": {
+        "bias": -0.1,
+        "cutoff_hz": 5500.0,
+        "drive": 4.0,
+        "level": 0.65,
+        "shape": 0.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 132
+    },
+    {
+      "example": 4,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 6.0,
+          "minimum": 4.0,
+          "normalized_width": 0.3333333333333333
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.5,
+          "normalized_width": 1.0
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            1.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": 0.0,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.0035897581838071346,
+      "top1_replay_nmse": 1.2236122870490362e-07,
+      "top_k_boundary_margin": 0.08024197697530175,
+      "truth": {
+        "bias": 0.1,
+        "cutoff_hz": 2200.0,
+        "drive": 4.0,
+        "level": 0.5,
+        "shape": 1.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 244
+    },
+    {
+      "example": 5,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": true,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 8.0,
+          "minimum": 2.0,
+          "normalized_width": 1.0
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.65,
+          "minimum": 0.5,
+          "normalized_width": 0.5
+        },
+        "shape": {
+          "covers_truth": false,
+          "values": [
+            1.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 8.0,
+        "level": 0.5,
+        "shape": 1.0
+      },
+      "top1_median_uncertainty": 0.0038629225455224514,
+      "top1_replay_nmse": 3.8307545764837414e-05,
+      "top_k_boundary_margin": 0.011012072481613781,
+      "truth": {
+        "bias": 0.0,
+        "cutoff_hz": 10000.0,
+        "drive": 4.0,
+        "level": 0.65,
+        "shape": 2.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 74
+    },
+    {
+      "example": 6,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": true,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 8.0,
+          "minimum": 2.0,
+          "normalized_width": 1.0
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.65,
+          "minimum": 0.5,
+          "normalized_width": 0.5
+        },
+        "shape": {
+          "covers_truth": false,
+          "values": [
+            1.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 8.0,
+        "level": 0.5,
+        "shape": 1.0
+      },
+      "top1_median_uncertainty": 0.003860191209241748,
+      "top1_replay_nmse": 3.693246253533289e-05,
+      "top_k_boundary_margin": 0.020297543774486754,
+      "truth": {
+        "bias": -0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 0.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 36
+    },
+    {
+      "example": 7,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 8.0,
+          "minimum": 6.0,
+          "normalized_width": 0.3333333333333333
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.5,
+          "normalized_width": 1.0
+        },
+        "shape": {
+          "covers_truth": false,
+          "values": [
+            0.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": -0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.65,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.0038253965321928263,
+      "top1_replay_nmse": 2.5548870326019824e-06,
+      "top_k_boundary_margin": 0.003085388063484469,
+      "truth": {
+        "bias": 0.1,
+        "cutoff_hz": 5500.0,
+        "drive": 6.0,
+        "level": 0.65,
+        "shape": 1.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 138
+    },
+    {
+      "example": 8,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 6.0,
+          "minimum": 4.0,
+          "normalized_width": 0.3333333333333333
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.65,
+          "minimum": 0.5,
+          "normalized_width": 0.5
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            1.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": true,
+      "top1": {
+        "bias": 0.0,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.0035623188596218824,
+      "top1_replay_nmse": 1.669087907885114e-07,
+      "top_k_boundary_margin": 0.052966234097069076,
+      "truth": {
+        "bias": 0.0,
+        "cutoff_hz": 2200.0,
+        "drive": 6.0,
+        "level": 0.5,
+        "shape": 2.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 270
+    },
+    {
+      "example": 9,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": false,
+          "maximum": 6.0,
+          "minimum": 4.0,
+          "normalized_width": 0.3333333333333333
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.65,
+          "normalized_width": 0.5
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": false,
+      "top1": {
+        "bias": -0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.65,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.003805208019912243,
+      "top1_replay_nmse": 1.8789772582294972e-07,
+      "top_k_boundary_margin": 0.0476534524286448,
+      "truth": {
+        "bias": -0.1,
+        "cutoff_hz": 2200.0,
+        "drive": 8.0,
+        "level": 0.65,
+        "shape": 0.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 200
+    },
+    {
+      "example": 10,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": true,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 8.0,
+          "minimum": 2.0,
+          "normalized_width": 1.0
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.65,
+          "minimum": 0.5,
+          "normalized_width": 0.5
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            1.0
+          ]
+        }
+      },
+      "shape_top1": true,
+      "top1": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 8.0,
+        "level": 0.5,
+        "shape": 1.0
+      },
+      "top1_median_uncertainty": 0.003826702944934368,
+      "top1_replay_nmse": 3.825128806056455e-05,
+      "top_k_boundary_margin": 0.013937792562110333,
+      "truth": {
+        "bias": 0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 8.0,
+        "level": 0.5,
+        "shape": 1.0
+      },
+      "truth_in_top_k": true,
+      "truth_rank": 1
+    },
+    {
+      "example": 11,
+      "intervals": {
+        "bias": {
+          "covers_truth": true,
+          "maximum": 0.1,
+          "minimum": -0.1,
+          "normalized_width": 1.0
+        },
+        "cutoff_hz": {
+          "covers_truth": false,
+          "maximum": 10000.0,
+          "minimum": 10000.0,
+          "normalized_width": 0.0
+        },
+        "drive": {
+          "covers_truth": true,
+          "maximum": 8.0,
+          "minimum": 4.0,
+          "normalized_width": 0.6666666666666666
+        },
+        "level": {
+          "covers_truth": true,
+          "maximum": 0.8,
+          "minimum": 0.65,
+          "normalized_width": 0.5
+        },
+        "shape": {
+          "covers_truth": true,
+          "values": [
+            0.0,
+            2.0
+          ]
+        }
+      },
+      "shape_top1": true,
+      "top1": {
+        "bias": -0.1,
+        "cutoff_hz": 10000.0,
+        "drive": 6.0,
+        "level": 0.65,
+        "shape": 2.0
+      },
+      "top1_median_uncertainty": 0.003800932550802827,
+      "top1_replay_nmse": 3.008152134498232e-06,
+      "top_k_boundary_margin": 0.006068786279781101,
+      "truth": {
+        "bias": 0.0,
+        "cutoff_hz": 5500.0,
+        "drive": 8.0,
+        "level": 0.65,
+        "shape": 2.0
+      },
+      "truth_in_top_k": false,
+      "truth_rank": 88
+    }
+  ],
+  "schema": 1,
+  "scope": {
+    "amp_included": false,
+    "locked_final_opened": false,
+    "physical_drive": false,
+    "point_estimate_promoted": false,
+    "reverb_included": false,
+    "source_audio_modified": false,
+    "synthetic_repository_owned_drive": true,
+    "training_performed": false,
+    "truth_used_for_scoring_only": true,
+    "wet_only_at_inference": true
+  },
+  "status": "rejected-unidentifiable",
+  "summary": {
+    "accepted": false,
+    "gates": {
+      "each_continuous_interval_narrow": false,
+      "each_control_interval_coverage": false,
+      "shape_top1_accuracy": false,
+      "top_k_boundary_separated": false,
+      "top_k_exact_tuple_coverage": false
+    },
+    "metrics": {
+      "continuous_median_normalized_width": {
+        "bias": 1.0,
+        "cutoff_hz": 0.0,
+        "drive": 0.6666666666666666,
+        "level": 0.75
+      },
+      "control_interval_coverage": {
+        "bias": 1.0,
+        "cutoff_hz": 0.3333333333333333,
+        "drive": 0.9166666666666666,
+        "level": 1.0,
+        "shape": 0.75
+      },
+      "examples": 12,
+      "median_top_k_boundary_margin": 0.012474932521862058,
+      "shape_top1_accuracy": 0.3333333333333333,
+      "top_k_exact_tuple_coverage": 0.08333333333333333
+    }
+  },
+  "thresholds": {
+    "each_continuous_median_normalized_width_maximum": 0.5,
+    "each_control_interval_coverage_minimum": 0.9,
+    "median_top_k_boundary_margin_minimum": 0.02,
+    "shape_top1_accuracy_minimum": 0.8,
+    "top_k_exact_tuple_coverage_minimum": 0.8
+  },
+  "top_k": 12
+}

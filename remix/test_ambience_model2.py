@@ -2,7 +2,7 @@ import unittest
 
 import torch
 
-from .ambience_model2 import AmbienceExpert, ambience_loss
+from .ambience_model2 import AmbienceExpert, _ambience_spectral_loss, ambience_loss
 
 
 class AmbienceModel2Tests(unittest.TestCase):
@@ -27,6 +27,13 @@ class AmbienceModel2Tests(unittest.TestCase):
         loss.backward()
         self.assertTrue(torch.isfinite(loss))
         self.assertIn("tail", parts)
+
+    def test_quiet_spectral_loss_has_an_audible_floor(self):
+        target = torch.zeros(2, 16384)
+        prediction = torch.full_like(target, 1.0e-5)
+        loss = _ambience_spectral_loss(prediction, target)
+        self.assertTrue(torch.isfinite(loss))
+        self.assertLess(float(loss), 3.0)
 
 
 if __name__ == "__main__":

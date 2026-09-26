@@ -63,6 +63,11 @@ class Ambience3Tests(unittest.TestCase):
         candidate[1600:2600] = 0.1
         self.assertGreater(wet_candidate_tail_ratio(wet, candidate, 0), 1.0)
 
+    def test_observable_tail_ratio_rejects_when_no_tail_is_measurable(self):
+        wet = np.zeros(4096, dtype=np.float32)
+        candidate = np.zeros_like(wet)
+        self.assertGreater(wet_candidate_tail_ratio(wet, candidate, 0), 1.0)
+
 
 if __name__ == "__main__":
     unittest.main()

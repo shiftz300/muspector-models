@@ -11,7 +11,7 @@ import numpy as np
 import torch
 
 from .foundation_data import RATE
-from .license_gate import require_product_weights
+from .license_gate import require_product_uses
 from .product_data import (
     MAX_DELAY_SECONDS,
     MAX_RELEASE_MS,
@@ -154,8 +154,14 @@ class ProductPairsV2(torch.utils.data.Dataset):
         selected_sources.add("muspector-dsp")
         if selected_sources & RESEARCH_SOURCE_IDS:
             raise PermissionError(f"research source entered product2: {selected_sources & RESEARCH_SOURCE_IDS}")
-        self.authorization = require_product_weights(
-            self.workspace / "remix/data_sources.json", sorted(selected_sources)
+        requirements = {
+            source: "product-clean-source"
+            for source in selected_sources
+            if source != "muspector-dsp"
+        }
+        requirements["muspector-dsp"] = ("product-pair-generation", "train-restoration")
+        self.authorization = require_product_uses(
+            self.workspace / "remix/data_sources.json", requirements
         )
 
     def __len__(self) -> int:

@@ -2,6 +2,7 @@
   "schema": 1,
   "id": "foundation",
   "status": "product2-partial-development-evidence-not-promoted",
+  "usable_model": null,
   "goal": "Prove a maintainable multi-family restoration base before more single-device training.",
   "contract": {
     "stage": "unique slot plus family, package, optional device and controls",
@@ -46,7 +47,7 @@
     "product_gradient_default": "blocked unless data_sources.json explicitly allows weights",
     "forbidden": ["ASRNN gradients into product weights", "Apple AU gradients into product weights", "Pedalboard gradients into product weights before review", "DAFx archived Wet restoration gradients", "EGFx archived Wet sample-faithful inverse claims", "rights-unclear ToneTwisT gradients or redistribution"],
     "isolation": "research-only datasets may report external metrics but may not train, calibrate, select, distill into, or share an encoder with product models",
-    "physical_audio_devices_used": false
+    "physical_audio_devices_used": true
   },
   "quality": {
     "universal": ["multiresolution spectrum", "high-band detail", "pick transients", "dynamics", "phase", "pitch and onset", "new clipping", "geometry", "runtime", "human listening"],
@@ -63,7 +64,7 @@
     "run": "runs/foundation/product2",
     "status": "partial-development-evidence-not-promoted",
     "license_audit": "runs/foundation/license/audit.json",
-    "tests": "357 passed; 1 skipped",
+    "tests": "357 passed; 1 skipped in the last broad suite; 49 focused Reverb/license/order-contract tests, 51 focused rusty-amp/EGDB/EG-IPT/license tests, 57 current non-Reverb/non-Amp license/package/runtime/quality/route tests, and 15 frozen Drive Graybox/runtime tests passed on 2026-09-06. Two legacy package fixture tests remain unavailable because their previously removed forward/inspector binary assets are absent",
     "trained_expert": {
       "mechanism": "nonlinear",
       "architecture": "analytic-shape-inverse-plus-local-tcn-with-uncertainty",
@@ -83,6 +84,118 @@
       "metric_contract": "quality schema 2 preserves one-sided reduction thresholds with bounded reporting and per-stratum gates",
       "order_contract": "single-effect experts receive no chain order or neighboring-effect context"
     },
+    "foundation_expert_packages": {
+      "catalog": "models/catalog/foundation/sources.json",
+      "status": "development-chain-pass-not-promoted",
+      "packages": ["foundation-drive", "foundation-dynamics", "foundation-echo", "foundation-spectral"],
+      "chain_audit": "runs/foundation/product5-expert-packaging/chain-acceptance.json",
+      "all_six_orders_pass": true,
+      "maximum_absolute_error": 2.3525208234786987e-6,
+      "minimum_relative_rms_reduction": 0.9999848692276947,
+      "drive_chain_audit": "runs/foundation/product6-drive-packaging/chain-acceptance.json",
+      "all_24_drive_orders_pass": true,
+      "drive_chain_aggregate_reduction": {
+        "spectrum": 0.36675764570120617,
+        "high_band": 0.9534823593333341,
+        "transient": 0.9915378145497045,
+        "dynamics": 0.8235767465064083
+      },
+      "known_controls_only": true,
+      "physical_chain_validated": false,
+      "locked_final_opened": false
+    },
+    "reverb_user_frozen": true,
+    "amp_user_frozen": true,
+    "drive_control_identifiability": {
+      "audit": "runs/foundation/product7-drive-control-identifiability/audit.json",
+      "status": "rejected-unidentifiable",
+      "compute": "mps",
+      "candidate_count": 324,
+      "top_k": 12,
+      "top_k_exact_tuple_coverage": 0.08333333333333333,
+      "shape_top1_accuracy": 0.3333333333333333,
+      "explicit_controls_still_required": true,
+      "point_estimate_promoted": false
+    },
+    "drive_topk_recoverability": {
+      "audit": "runs/foundation/product11-drive-topk-recoverability/audit.json",
+      "status": "rejected-graybox-capacity",
+      "compute": "mps",
+      "candidate_count": 324,
+      "top_k": 12,
+      "true_control_pass_fraction": 0.6666666666666666,
+      "all_grid_oracle_pass_fraction": 0.6666666666666666,
+      "top_k_oracle_pass_fraction": 0.4166666666666667,
+      "replay_top1_pass_fraction": 0.08333333333333333,
+      "median_first_passing_replay_rank": 7.0,
+      "selector_training_justified": false,
+      "explicit_control_expert_rejected": false,
+      "graph_order_input": false,
+      "amp_included": false,
+      "reverb_included": false,
+      "training": false,
+      "locked_final_opened": false
+    },
+    "drive_presence_package": {
+      "catalog": "models/catalog/foundation-presence/sources.json",
+      "package": "foundation-drive-presence",
+      "status": "development-only-not-promoted",
+      "outputs": ["nonlinear"],
+      "amp_output": false,
+      "reverb_output": false,
+      "order_output": false,
+      "controls_output": false,
+      "development_recall": 0.8018867924528302,
+      "external_random_position_software_chain_recall": 0.9867788461538461,
+      "weak_single_drive_recall": 0.34782608695652173,
+      "negative_may_bypass": false,
+      "physical_chain_validated": false,
+      "locked_final_opened": false
+    },
+    "drive_presence_hard_attempt": {
+      "metrics": "runs/foundation/product8-drive-presence-hard-v1/metrics.json",
+      "status": "development-rejected",
+      "compute": "mps",
+      "completed_epochs": 4,
+      "selected_epoch": 4,
+      "development_count_1_recall": 0.782608695652174,
+      "development_low_drive_recall": 0.8571428571428571,
+      "development_weak_residual_recall": 0.38095238095238093,
+      "development_negative_false_positive_rate": 0.05841121495327103,
+      "artifact_written": false,
+      "packaged_expert_changed": false,
+      "additional_epoch_or_weight_sweep_closed": true,
+      "locked_final_opened": false
+    },
+    "drive_presence_bypass_audit": {
+      "audit": "runs/foundation/product10-drive-presence-bypass/audit.json",
+      "status": "development-bypass-rejected",
+      "compute": "mps",
+      "development_examples": 640,
+      "nonlinear_positives": 212,
+      "synthetic_nonlinear_misses": 42,
+      "safe_bypass_examples": 0,
+      "safe_bypass_fraction": 0.0,
+      "median_gain_shift_db": 8.727542052941054,
+      "median_spectral_error": 0.19127094582296394,
+      "median_high_band_error": 1.7522313837124266,
+      "median_transient_error": 0.5147145252354306,
+      "negative_may_bypass": false,
+      "training": false,
+      "thresholds_changed": false,
+      "locked_final_opened": false
+    },
+    "nonamp_nonreverb_resource_audit": {
+      "audit": "runs/foundation/product9-nonamp-nonreverb-resource-audit/audit.json",
+      "status": "blocked-no-product-safe-physical-multieffect-pairs",
+      "product_safe_candidate_count": 0,
+      "downloaded_bytes": 0,
+      "pOD_set_license_corrected_to": "CC-BY-NC-4.0",
+      "physical_chain_gate_closed": false,
+      "amp_searched_or_trained": false,
+      "reverb_searched_or_trained": false,
+      "locked_final_opened": false
+    },
     "blind_presence": {
       "run": "runs/foundation/product2/blind2-balanced",
       "status": "development-rejected",
@@ -98,12 +211,142 @@
       "order_output": false,
       "controls_output": false
     },
+    "reverb_development_candidate": {
+      "run": "runs/foundation/product4-reverb-frequency-profile-v3-mixed-formal/ambience",
+      "status": "development-gates-passed-listening-rejected-not-promoted",
+      "architecture": "known-profile-frequency-decay-bank-selector",
+      "parameters": 16120,
+      "selected_epoch": 4,
+      "checkpoint_sha256": "c5d4e30ed69cf500aa9f9ca9b5e3ad1c8e6a933a352658b93f562b34f9046929",
+      "development_tail_pass_fraction": 0.8313253012048193,
+      "development_median_tail_excess_reduction": 0.5996628467881701,
+      "development_added_reverb_fraction": 0.0,
+      "order_contract": "Wet plus current Reverb RIR/profile and controls only; no graph, order or neighboring-effect input",
+      "promotion_blockers": [
+        "human listening rejected the frozen v3 package",
+        "frozen per-example calibration gate and full candidate-family oracle rejected it",
+        "fresh physical-room validation and locked-final remain unopened"
+      ],
+      "per_example_calibration_audit": "runs/foundation/product4-reverb-frequency-profile-v3-acceptance2-calibration-v1.json",
+      "candidate_family_upper_bound": "runs/foundation/product4-reverb-frequency-profile-acceptance2-tf-oracle-calibration-v1.json",
+      "candidate_family_effective_measurable_coverage": 0.20588235294117646,
+      "candidate_family_status": "closed-capacity-upper-bound-rejected",
+      "profile_direct_v4": {
+        "status": "analytic-core-capable-observable-gate-rejected-development-sealed",
+        "direct_mps_screen": "runs/foundation/product4-reverb-profile-direct-v4-capacity-smoke-v2/metrics.json",
+        "analytic_capacity_smoke": "runs/foundation/product4-reverb-profile-direct-v4-analytic-baseline-v1/metrics.json",
+        "analytic_effective_candidates": 86,
+        "calibration_measurable_examples": 91,
+        "observable_gate": "runs/foundation/product4-reverb-profile-direct-v4-observable-gate-v1.json",
+        "observable_gate_effective_coverage": 0.3626373626373626,
+        "learned_gate": "runs/foundation/product4-reverb-profile-gate-v4-calibration-v2/metrics.json",
+        "learned_gate_effective_coverage": 0.0989010989010989,
+        "graybox_replay_gate": "runs/foundation/product4-reverb-graybox-replay-audit-v1.json",
+        "graybox_replay_gate_status": "rejected-non-identifying",
+        "audio_prior_gate": "runs/foundation/product4-reverb-audio-prior-gate-v5-formal/metrics.json",
+        "audio_prior_gate_calibration_safe_fraction": 0.9739583333333334,
+        "audio_prior_gate_effective_coverage": 0.13186813186813187,
+        "development_opened": false
+      },
+      "runtime_audit": "runs/foundation/product4-reverb-frequency-runtime-v1/metrics.json",
+      "listening_demo": "demos/reverb-frequency-profile-v3-ab-20260905-v1.zip",
+      "listening_status": "rejected",
+      "listening_acceptance": "demos/reverb-frequency-profile-v3-human-acceptance-20260905.json",
+      "fresh_physical_v2": {
+        "source_id": "rochester-rir-fresh-v2",
+        "status": "reserved-unopened",
+        "rooms": 14,
+        "license": "CC-BY-4.0",
+        "allowed_use": "validate-reverb only"
+      },
+      "full_path_cpu_realtime_factor": 0.062240511062834084,
+      "partitioned_convolution_max_absolute_error": 9.313225746154785e-09
+    },
+    "amp_stage_graybox": {
+      "source": "rusty-amp-stage-renderer at 831d6bba4ad3a1a8da958c510cbc96a9e55b73f9",
+      "source_scope": "Apache-2.0 no-cabinet product pretraining; architecture/control prior, not physical validation",
+      "architecture": "eight-stage-product-supervised-gray-box-inverse",
+      "parameters": 168638,
+      "wet_only_order_independent": true,
+      "marshall_v24": {
+        "run": "runs/foundation/product3-amp-marshall/amp-rusty-stage-graybox-v24-formal-v1",
+        "status": "diagnostic-not-promoted",
+        "development_pass_fraction": 0.4222222222222222,
+        "checkpoint_sha256": "b8853b59f2292ce10bfce27d1c445953efce0e69bf2e0216ac91271fea7c50ca"
+      },
+      "synthetic_scale_v25": {
+        "run": "runs/foundation/product3-amp-marshall/amp-rusty-stage-graybox-v25-formal-v1",
+        "status": "rejected-pruned",
+        "development_pass_fraction": 0.4
+      },
+      "egdb_transfer_v26": {
+        "run": "runs/foundation/product3-amp-egdb-pg/rusty-stage-graybox-v26-profile33-formal",
+        "status": "diagnostic-not-promoted-prune-checkpoint",
+        "calibration_loss": 2.5193543831507363,
+        "development_pass_fraction": 0.3055555555555556,
+        "all_categories_accepted": false,
+        "all_unseen_profiles_accepted": false
+      },
+      "eg_ipt_physical_source": {
+        "audit": "runs/foundation/product3-amp-eg-ipt-source-audit/pair-audit-v1.json",
+        "license": "CC-BY-4.0",
+        "pairs": 8717,
+        "duration_hours": 4.726641510416666,
+        "hardware": "EVH 5150 III 50W 6L6 plus Mesa 4x12 V30 plus close SM57",
+        "role": "product fit only",
+        "global_lag_frames_at_96khz": 64
+      },
+      "eg_ipt_mix_v27": {
+        "run": "runs/foundation/product3-amp-egdb-pg/rusty-stage-egipt-v27-profile33-formal",
+        "status": "rejected-pruned-domain-specialization",
+        "eg_ipt_internal_pass_fraction": 0.4853801169590643,
+        "egdb_development_pass_fraction": 0.3611111111111111,
+        "marshall_development_pass_fraction": 0.06666666666666667,
+        "v6_v24_v27_marshall_clean_oracle_pass_fraction": 0.4962962962962963
+      },
+      "eg_ipt_fixed_v30": {
+        "run": "runs/foundation/product3-amp-eg-ipt-fixed/evh-mesa-sm57-v30-formal",
+        "status": "physical-fixed-profile-diagnostic-not-promoted",
+        "parameters": 59214,
+        "internal_pass_fraction": 0.7865497076023392,
+        "pair_disjoint_reserved_v2_pass_fraction": 0.7580174927113703,
+        "checkpoint_sha256": "d6b6396be6f1a096cf93ea92ac1f62d71952a4779eaa846ef3b2e33028c61d65",
+        "cpu_realtime_factor": 0.044530388996160276,
+        "profile_baked_into_weights": true,
+        "independent_validation_available": false
+      },
+      "eg_ipt_transient_v31": {
+        "run": "runs/foundation/product3-amp-eg-ipt-fixed/evh-mesa-sm57-transient-v31-formal",
+        "status": "rejected-pruned",
+        "pair_disjoint_reserved_v2_pass_fraction": 0.7405247813411079
+      },
+      "factorized_tone_graybox_v32": {
+        "run": "runs/foundation/product3-amp-factorized-graybox/v32-smoke",
+        "status": "rejected-bounded-smoke-checkpoint-pruned",
+        "architecture": "cross-tone-factorized-eight-stage-gray-box-amp-inverse",
+        "selection_loss_initial": 2.4100292444229128,
+        "selection_loss_best": 2.211849319934845,
+        "selection_loss_reduction": 0.08223133679005147,
+        "development_pass_fraction": 0.16666666666666666,
+        "tone_same_vs_different_cosine_margin": 0.00002502650022506714,
+        "factorization_identifiable": false,
+        "fresh_validation_v2_opened": false,
+        "locked_final_opened": false
+      },
+      "closed_hypotheses": [
+        "more rusty-amp synthetic stage rows or epochs",
+        "cross-software transfer followed by selector or hyperparameter sweeps",
+        "naive fixed-physical-domain mixing and v6-v24-v27 selector",
+        "global-Wet forward verifier and cross-tone factorized cycle assistance at current scale"
+      ],
+      "next": "user-frozen: retain fixed-profile v30 and all audit evidence unchanged; do not train, search/download Amp-specific resources or open Amp locked-final until explicitly reopened"
+    },
     "product_sources_only": true,
     "research_data_isolated": true,
-    "physical_audio_devices_used": false,
+    "physical_audio_devices_used": true,
     "locked_final_audio_opened": false,
     "coverage_audit": "runs/foundation/product2/audit.json",
-    "next": "Do not promote or open locked-final. Add license-cleared electric-guitar raw-DI domains with at least three more independent performers plus stronger multi-effect overlap coverage, then rerun the frozen Blind v2 contract on MPS; keep point knobs abstained until identifiability is demonstrated."
+    "next": "Do not promote or open locked-final. Reverb and Amp are frozen by explicit user decision: do not train them or search/download their family-specific resources until explicitly reopened. Retain all historical evidence, including Amp v30 and rejected v31/v32, unchanged. The finite-grid Drive Graybox route is closed at its Clean-capacity gate; do not train its selector. The four known-control foundation packages and all 24 Drive/Dynamics/Echo/EQ synthetic orders remain complete; the active next chain gate requires licensed real multi-effect evidence without Reverb or Amp, while any future blind Drive route requires genuinely new observation evidence or source prior."
   },
   "deliverables": [
     "three-tier license matrix for research, product weights and redistributed audio",

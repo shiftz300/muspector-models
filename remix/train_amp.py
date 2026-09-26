@@ -19,6 +19,7 @@ from .amp_data import AmpPairs, EXPECTED_DEVELOPMENT_SETTINGS, RATE, SOURCE_ID
 from .amp_model import AmpInverseExpert
 from .amp_model2 import AmpDynamicsInverseExpert
 from .amp_model3 import AmpFrameDynamicsInverseExpert
+from .amp_model4 import AmpStructuredInverseExpert
 from .inverse2 import inverse_loss
 from .quality2 import summarize
 
@@ -33,6 +34,7 @@ def _collate(rows: list[dict]) -> dict:
     return {
         "wet": torch.stack([row["wet"] for row in rows]),
         "clean": torch.stack([row["clean"] for row in rows]),
+        "preamp": torch.stack([row["preamp"] for row in rows]),
         "controls": torch.stack([row["controls"] for row in rows]),
         "target_start": starts.pop(),
     }
@@ -43,6 +45,7 @@ def _batch_to(batch: dict, device: torch.device) -> dict:
         **batch,
         "wet": batch["wet"].to(device),
         "clean": batch["clean"].to(device),
+        "preamp": batch["preamp"].to(device),
         "controls": batch["controls"].to(device),
     }
 
@@ -76,6 +79,7 @@ def _mean_loss(
     device: torch.device,
     attack_extra_weight: float,
     crest_weight: float,
+    preamp_stage_weight: float,
 ) -> float:
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, collate_fn=_collate)
     total = 0.0
@@ -86,6 +90,12 @@ def _mean_loss(
             batch = _batch_to(raw, device)
             restored, uncertainty, _ = model(batch["wet"], batch["controls"])
             loss, _ = inverse_loss(restored, uncertainty, batch["clean"], batch["target_start"])
+            if preamp_stage_weight:
+                _, preamp = model.forward_stages(batch["wet"], batch["controls"])
+                stage_loss, _ = inverse_loss(
+                    preamp, uncertainty, batch["preamp"], batch["target_start"]
+                )
+                loss = loss + preamp_stage_weight * stage_loss
             attack, crest = _amp_dynamics_penalty(restored, batch["clean"], batch["target_start"])
             loss = loss + attack_extra_weight * attack + crest_weight * crest
             count = len(batch["wet"])
@@ -187,10 +197,22 @@ def train(args: argparse.Namespace) -> dict:
         1: AmpInverseExpert,
         2: AmpDynamicsInverseExpert,
         3: AmpFrameDynamicsInverseExpert,
+        4: AmpStructuredInverseExpert,
     }[args.model_version]
     model = model_class(args.hidden_size, args.depth).to(device)
     warm_start = None
-    if args.warm_start_profile is not None:
+    if args.warm_start_model is not None:
+        payload = torch.load(args.warm_start_model.resolve(), map_location="cpu", weights_only=True)
+        source_architecture = payload.get("architecture") or {}
+        if source_architecture.get("architecture") != model.manifest().get("architecture"):
+            raise ValueError("Amp full-model warm start architecture mismatch")
+        model.load_state_dict(payload.get("state_dict", {}), strict=True)
+        warm_start = {
+            "checkpoint": str(args.warm_start_model.resolve()),
+            "sha256": hashlib.sha256(args.warm_start_model.read_bytes()).hexdigest(),
+            "loaded_scope": "full-model",
+        }
+    elif args.warm_start_profile is not None:
         payload = torch.load(args.warm_start_profile.resolve(), map_location="cpu", weights_only=True)
         state = payload.get("state_dict", {})
         profile_state = {
@@ -222,6 +244,7 @@ def train(args: argparse.Namespace) -> dict:
     initial_loss = _mean_loss(
         model, calibration, args.batch_size, device,
         args.attack_extra_weight, args.crest_weight,
+        args.preamp_stage_weight,
     )
     history = [{"epoch": 0, "train": None, "calibration_loss": initial_loss}]
     best_loss = initial_loss
@@ -244,6 +267,13 @@ def train(args: argparse.Namespace) -> dict:
             )
             attack, crest = _amp_dynamics_penalty(restored, batch["clean"], batch["target_start"])
             loss = loss + args.attack_extra_weight * attack + args.crest_weight * crest
+            if args.preamp_stage_weight:
+                _, preamp = model.forward_stages(batch["wet"], batch["controls"])
+                stage_loss, _ = inverse_loss(
+                    preamp, uncertainty, batch["preamp"], batch["target_start"]
+                )
+                loss = loss + args.preamp_stage_weight * stage_loss
+                parts["preamp_stage"] = float(stage_loss.detach())
             parts["amp_attack_extra"] = float(attack.detach())
             parts["amp_crest"] = float(crest.detach())
             loss.backward()
@@ -257,6 +287,7 @@ def train(args: argparse.Namespace) -> dict:
         calibration_loss = _mean_loss(
             model, calibration, args.batch_size, device,
             args.attack_extra_weight, args.crest_weight,
+            args.preamp_stage_weight,
         )
         history.append({
             "epoch": epoch + 1,
@@ -318,6 +349,7 @@ def train(args: argparse.Namespace) -> dict:
             "profile_frozen_epochs": args.freeze_profile_epochs,
             "attack_extra_weight": args.attack_extra_weight,
             "crest_weight": args.crest_weight,
+            "preamp_stage_weight": args.preamp_stage_weight,
             "epochs": args.epochs,
             "selected_epoch": best_epoch,
             "initial_calibration_loss": initial_loss,
@@ -382,11 +414,13 @@ def main() -> None:
         default=Path("runs/foundation/product3-amp-marshall/amp"),
     )
     parser.add_argument("--device", choices=("mps", "cpu"), default="mps")
-    parser.add_argument("--model-version", type=int, choices=(1, 2, 3), default=1)
+    parser.add_argument("--model-version", type=int, choices=(1, 2, 3, 4), default=1)
     parser.add_argument("--warm-start-profile", type=Path)
+    parser.add_argument("--warm-start-model", type=Path)
     parser.add_argument("--freeze-profile-epochs", type=int, default=0)
     parser.add_argument("--attack-extra-weight", type=float, default=0.0)
     parser.add_argument("--crest-weight", type=float, default=0.0)
+    parser.add_argument("--preamp-stage-weight", type=float, default=0.0)
     parser.add_argument("--epochs", type=int, default=12)
     parser.add_argument("--train-samples", type=int, default=600)
     parser.add_argument("--calibration-samples", type=int, default=125)
@@ -398,6 +432,10 @@ def main() -> None:
     parser.add_argument("--learning-rate", type=float, default=3.0e-4)
     parser.add_argument("--quick", action="store_true")
     args = parser.parse_args()
+    if args.warm_start_profile is not None and args.warm_start_model is not None:
+        parser.error("--warm-start-profile and --warm-start-model are mutually exclusive")
+    if args.preamp_stage_weight and args.model_version != 4:
+        parser.error("--preamp-stage-weight is supported only by model version 4")
     if args.quick:
         args.epochs = 2
         args.train_samples = 75
