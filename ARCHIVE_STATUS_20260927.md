@@ -49,6 +49,15 @@ silently promoted. If the local dataset and run outputs are removed, historical
 models and listening packages will not be reproducible from this repository
 alone. No checkpoint hash by itself reconstructs a missing checkpoint.
 
+At the archive inventory, the client checkout also had ignored `train/runs/`
+(about 665 MiB) and `train/cache/` (about 5.5 GiB). This model checkout had
+ignored `runs/` (about 135 MiB), `remix/runs/` (about 36 MiB) and demo audio
+(about 73 MiB). The linked dataset in the client checkout was about 94 GiB.
+These local-only items are **not** covered by the GitHub pushes; the three
+explicit checkpoints above are the limited exception. The four zero-byte
+scratch files `input`, `power`, `preamp`, and `tone-stack` are not results and
+were not committed.
+
 The application repository contains a development graybox preview and an
 attributed GFX classifier, but it does not ship a validated general restoration
 model. Keep that distinction when reading old UI or training claims.
